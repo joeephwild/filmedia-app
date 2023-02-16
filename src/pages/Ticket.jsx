@@ -1,16 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  bell,
-  drake,
   edsheran,
-  image10,
-  image12,
-  image13,
-  justin,
-  selena,
-  stromzy,
-  upload,
 } from "../assets";
 import { HiLocationMarker } from "react-icons/hi";
 import { BsChevronRight } from "react-icons/bs";

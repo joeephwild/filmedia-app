@@ -9,8 +9,7 @@ import {
   AlbumDetails,
   Ticket,
   Livestream,
-  CreateAccount,
-  Dashboard,
+  Playlist,
 } from "../pages";
 import Concert from "../pages/Concert";
 
@@ -27,6 +26,7 @@ const MainBody = () => {
         <Route path="/dashboard/ticket" element={<Ticket />} />
         <Route path="/dashboard/stream" element={<Livestream />} />
         <Route path="/dashboard/ticket/:id" element={<Concert />} />
+        <Route path="/dashboard/playlist" element={<Playlist />} />
       </Routes>
     </section>
   );

@@ -3,9 +3,6 @@ import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logo } from "../assets";
 import { FormField, Loader } from "../components";
-import { useStateContext } from "../context";
-import { ethers } from "ethers";
-import { profileNft } from "../constant";
 import { useAddress } from "@thirdweb-dev/react";
 
 const CreateAccount = () => {

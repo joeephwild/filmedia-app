@@ -10,4 +10,5 @@ export { default as CreateAccount} from './CreateAccount'
 export {default as HomePage} from './HomePage'
 export {default as Dashboard} from './Dashboard'
 export {default as LoginScreen} from './LoginScreen'
+export {default as Playlist} from './Playlist'
 

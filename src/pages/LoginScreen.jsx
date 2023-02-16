@@ -22,7 +22,7 @@ const LoginScreen = () => {
   const [signUpPassword, setSignUpPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { signUp, logIn, setRegisteredUser } = useStateContext();
+  const { setRegisteredUser } = useStateContext();
   const [isSubmittng, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 

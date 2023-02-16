@@ -6,7 +6,7 @@ import { Links } from "../utils/Links";
 
 const Icon = ({ styles, name, imgurl, isActive, item, handleClick }) => (
   <div className="cursor-pointer " onClick={handleClick}>
-    {isActive == item.name && (
+    {isActive === item.name && (
       <div className="flex space-x-[24px]  items-center">
         <img
           src={item.active}
