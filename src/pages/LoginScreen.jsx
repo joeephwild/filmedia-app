@@ -39,7 +39,7 @@ const LoginScreen = () => {
         console.log(response);
         alert("done");
         setIsSubmitting(false);
-        navigate('/');
+        navigate('/account');
       })
       .catch((error) => {
         console.log(error);

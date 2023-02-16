@@ -1,13 +1,16 @@
 import { sendFileToIPFS, sendJSONToIPFS } from "../pinata";
-import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, {  useState } from "react";
+import { Link } from "react-router-dom";
 import { logo } from "../assets";
 import { FormField, Loader } from "../components";
-import { useAddress } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress, useChainId, useMetamask } from "@thirdweb-dev/react";
+import { ethers } from "ethers";
+import { profileNft } from "../constant";
+import { useStateContext } from "../context";
 
 const CreateAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const address = useAddress()
+  const { handleMintCCProfile, connect } = useStateContext()
 
   //form state for handling changes in input
   const [category, setCategory] = useState("");
@@ -17,32 +20,25 @@ const CreateAccount = () => {
   const [handle, setHandle] = useState("");
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
- 
-  const ipfsgateway = "gateway.pinata.cloud"
 
- const onChange = async(e) => {
-  const file = e.target.files[0];
-  const getCid = await sendFileToIPFS(file)
-  setCoverImage(getCid)
-  const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid 
-  console.log(ipfsPath)
- }
+  const ipfsgateway = "gateway.pinata.cloud";
 
- const handleUpload = async(e) => {
-  const file = e.target.files[0];
-  const getCid = await sendFileToIPFS(file)
-  setAvatar(getCid)
-  const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid 
-  console.log(ipfsPath)
- }
-  
-  //handling form submittion and cmaking transaction to store data in the blockchain
-  const handleSubmit = async () => {
-    if(!category || !coverImage || !avatar || !handle || !description || !name)return null
-    const receipt = await sendJSONToIPFS(category, description, name, coverImage);
-    console.log(receipt);
-   
+  const onChange = async (e) => {
+    const file = e.target.files[0];
+    const getCid = await sendFileToIPFS(file);
+    setCoverImage(getCid);
+    const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid;
+    console.log(ipfsPath);
   };
+
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    const getCid = await sendFileToIPFS(file);
+    setAvatar(getCid);
+    const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid;
+    console.log(ipfsPath);
+  };
+
 
 
   return (
@@ -78,20 +74,15 @@ const CreateAccount = () => {
             By connecting your wallet, you can enjoy the benefits of true
             decentralization and secure transactions.
           </p>
-          <Link
-            to="/createaccount"
-            className="flex justify-center mx-auto items-center"
-          >
-            <button className=" mt-[80px] bg-[#f0f0f0] py-4 px-2.5  text-[#000080] text-[20px] font-bold text-center rounded-[8px] ">
-              Connect Wallet
+            <button  className=" mt-[80px] py-4 px-2.5  text-[#000080] text-[20px] font-bold text-center rounded-[8px] ">
+              <ConnectWallet accentColor="white" />
             </button>
-          </Link>
         </div>
         <div>
           {/** form */}
           <div className=" mx-3 lg:w-[85%] my-9 items-center">
             <form
-              onSubmit={(e) =>  e.preventDefault()}
+              onSubmit={(e) => e.preventDefault()}
               action=""
               className="border-2 px-6 py-3.5 rounded-[8px] broder-[#f0f0f0]"
             >
@@ -112,7 +103,9 @@ const CreateAccount = () => {
                     handleChange={onChange}
                   />
                   <div className="flex flex-col items-start">
-                    <label className="text-lg font-OpenSans-Bold">Category</label>
+                    <label className="text-lg font-OpenSans-Bold">
+                      Category
+                    </label>
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
@@ -164,7 +157,7 @@ const CreateAccount = () => {
               </div>
               <button
                 type="submit"
-                onClick={() => handleSubmit()}
+                onClick={() => handleMintCCProfile(category, coverImage, handle, avatar, description, name)}
                 className="bg-[#f0f0f0] rounded-[8px] my-9 px-9 py-3.5 text-[#000000] text-lg font-OpenSans-Bold font-bold"
               >
                 Mint Account
