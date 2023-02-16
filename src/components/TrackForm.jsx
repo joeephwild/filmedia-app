@@ -43,70 +43,68 @@ const TrackForm = () => {
     <div className="w-full items-center justify-center">
       {isLoading && <Loader />}
       <section className="flex flex-col items-center w-full">
-        <div className="flex justify-center space-y-[20px] w-3/4 overflow-auto">
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="p-5 w-full   m-5 mt-0 border rounded-lg"
-          >
-            <FormField
-              isImageFile
-              labelName="Image *"
-              placeholder="Enter a valid image url"
-              inputType="file"
-              value={form.image}
-              handleChange={(e) => handleFormFieldChange("image", e)}
-            />
-            <FormField
-              isImageFile
-              labelName="Video file *"
-              placeholder="Enter avalid video file url"
-              inputType="file"
-              value={form.video}
-              handleChange={(e) => handleFormFieldChange("video", e)}
-            />
-            <FormField
-              isImageFile
-              labelName="Music File *"
-              placeholder="John Doe"
-              inputType="file"
-              value={form.musicFile}
-              handleChange={(e) => handleFormFieldChange("musicFile", e)}
-            />
-            <FormField
-              isInput
-              labelName="Name *"
-              placeholder="John Doe"
-              inputType="text"
-              value={form.name}
-              handleChange={(e) => handleFormFieldChange("name", e)}
-            />
-
-            <FormField
-              isInput
-              labelName="Title *"
-              placeholder="John Doe"
-              inputType="text"
-              value={form.title}
-              handleChange={(e) => handleFormFieldChange("title", e)}
-            />
-            <FormField
-              isTextArea
-              labelName="Description *"
-              placeholder="John Doe"
-              inputType="text"
-              value={form.description}
-              handleChange={(e) => handleFormFieldChange("description", e)}
-            />
-          <div className="flex space-x-9 w-full items-center">
-          <div className="w-full">
-            <FormField isInput inputType="text"  />
-            </div>
-            <div className="w-full">
-            <FormField isInput inputType="number" />
-            </div>
+      <div className=" mx-3 lg:w-[85%] my-9 items-center">
+            <form
+              onSubmit={(e) =>  e.preventDefault()}
+              action=""
+              className="border-2 px-6 py-3.5 rounded-[8px] broder-[#f0f0f0]"
+            >
+              <div className="flex-col items-center mx-auto">
+                <FormField
+                  isImageFile
+                  labelName="Avatar"
+                  placeholder="enter a vailid url"
+                  inputType="file"
+                />
+                <div className="">
+                  <FormField
+                    isImageFile
+                    labelName="CoverImage"
+                    inputType="file"
+                    placeholder="Enter a valid url"
+                  />
+                  <div className="flex flex-col items-start">
+                    <label className="text-lg font-OpenSans-Bold">Category</label>
+                    <select
+                      class="w-full bg-[#f0f0f0] rounded-[8px] h-16 text-[#000000]"
+                    >
+                      <option>Select Category</option>
+                      <option>Singer</option>
+                      <option>singer/Song-Writer</option>
+                      <option>Rapper</option>
+                      <option>Content Creator</option>
+                      <option>Comedian</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <FormField
+                    isInput
+                    placeholder="Enter Handle e.g vitalikEth"
+                    labelName="Handle *"
+                    inputType="text"
+                  />
+                  <FormField
+                    isInput
+                    placeholder="Enter Name"
+                    labelName="Name *"
+                    inputType="text"
+                  />
+                  <FormField
+                    isTextArea
+                    placeholder="Enter valid description"
+                    labelName="Description"
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                onClick={() => handleSubmit()}
+                className="bg-[#f0f0f0] rounded-[8px] my-9 px-9 py-3.5 text-[#000000] text-lg font-OpenSans-Bold font-bold"
+              >
+                Mint Account
+              </button>
+            </form>
           </div>
-          </form>
-        </div>
 
         <div className="flex m-5 justify-center w-3/4 overflow-auto">
           <label
@@ -115,19 +113,19 @@ const TrackForm = () => {
           >
             By Uploading this file, you acknowledge that the transaction is
             final and cannot be reversed. Includes{" "}
-            <a href="#" className="text-white">
+            <div className="text-white">
               royalty split agreement
-            </a>
+            </div>
             . Read and understand
-            <a href="#" className="text-white">
+            <div className="text-white">
               {" "}
               contract terms{" "}
-            </a>
+            </div>
             and
-            <a href="#" className="text-white">
+            <div className="text-white">
               {" "}
               potential risks.
-            </a>
+            </div>
           </label>
         </div>
         <div className="flex m-5 justify-center w-3/4 overflow-auto">

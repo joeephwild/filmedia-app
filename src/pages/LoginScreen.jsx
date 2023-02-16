@@ -39,6 +39,7 @@ const LoginScreen = () => {
         console.log(response);
         alert("done");
         setIsSubmitting(false);
+        navigate('/');
       })
       .catch((error) => {
         console.log(error);
@@ -51,13 +52,12 @@ const LoginScreen = () => {
 
   const handleSignin = async () => {
     setIsSubmitting(true);
-  const user =  await signInWithEmailAndPassword(auth, email, password)
+   await signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
         console.log(response);
         alert("done");
-        setRegisteredUser(user);
         setIsSubmitting(false);
-        navigate('/dashboard/music');
+        navigate('/');
       })
       .catch((error) => {
         console.log(error);

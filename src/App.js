@@ -13,18 +13,9 @@ import PlayerSection from "./components/PlayerSection";
 import { useStateContext } from "./context";
 import { PlayerState } from "./context/PlayerState";
 import {
-  AlbumDetails,
   CreateAccount,
-  Dashboard,
-  Home,
   HomePage,
-  Library,
-  Livestream,
   LoginScreen,
-  Profile,
-  Search,
-  Ticket,
-  Upload,
 } from "./pages";
 
 function App() {

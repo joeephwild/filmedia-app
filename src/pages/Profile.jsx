@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Albums, Music } from "../components";
 import { song_list } from "../context/songs";
 import { useStateContext } from '../context'
@@ -6,11 +6,10 @@ import { BsFillPatchCheckFill } from 'react-icons/bs'
 
 
 const Profile = ({i}) => {
-  const navigate = useNavigate();
   
   const { state } = useLocation();
 
-  const {openNotification, setNotification, follow, followed} = useStateContext();
+  const {openNotification, setNotification, followed} = useStateContext();
   const handleClick = () => {
     console.log("HSHS");
     if (!openNotification) {
@@ -31,13 +30,13 @@ const Profile = ({i}) => {
           <img
             className="w-full h-[600px]fixed object-cover rounded-t "
             src={state.coverImage}
-            alt="Photo by aldi sigun on Unsplash"
+            alt="cover"
           />
         </div>
         <div className="relative flex justify-start px-5 -mt-24 mb-5 w-full">
           <span clspanss="block relative h-[40px] w-[40px]">
             <img
-              alt="Photo by aldi sigun on Unsplash"
+              alt="profile"
               src={state.image}
               className="mx-auto object-cover rounded-xl h-52 w-52 bg-white p-1"
             />

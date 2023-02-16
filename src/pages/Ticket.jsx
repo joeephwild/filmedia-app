@@ -8,7 +8,6 @@ import { BsChevronRight } from "react-icons/bs";
 
 const Ticket = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
 
   const artists = [
     {

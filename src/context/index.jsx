@@ -28,6 +28,7 @@ export const StateProvider = ({ children }) => {
   const [registeredUser, setRegisteredUser] = useState({})
   const [openModal, setOpenModal] = useState(false);
   const [user, setUser] = useState({});
+  console.log(registeredUser);
   const [openNotification, setOpenNotification] = useState(false);
 
   const logOut = ()  => {
@@ -36,7 +37,7 @@ export const StateProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      setRegisteredUser(currentUser);
     });
     return () => {
       unsubscribe();

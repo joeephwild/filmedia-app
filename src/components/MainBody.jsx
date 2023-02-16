@@ -10,6 +10,7 @@ import {
   Ticket,
   Livestream,
   Playlist,
+  HomePage,
 } from "../pages";
 import Concert from "../pages/Concert";
 
@@ -17,7 +18,7 @@ const MainBody = () => {
   return (
     <section className="">
       <Routes>
-        <Route path="/dashboard/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/dashboard/search" element={<Search />} />
         <Route path="/dashboard/library" element={<Library />} />
         <Route path="/dashboard/upload" element={<Upload />} />

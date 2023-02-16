@@ -23,7 +23,7 @@ const Navbar = () => {
           className="w-6 h-6 object-contain"
         ></img>
         <img
-          onClick={() => navigate("/upload")}
+          onClick={() => navigate("/dashboard/upload")}
           src={upload}
           alt="upload"
           className="w-6 h-6 object-contain"

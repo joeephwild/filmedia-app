@@ -4,7 +4,7 @@ export const Links = [
     {
         name: 'Home',
         active: activehome,
-        route: '/dashboard/home',
+        route: '/',
         imgUrl: home,
       },
       {
