@@ -6,7 +6,7 @@ import { useStateContext } from "../context";
 const Navbar = () => {
   const { openModal, setOpenModal,setOpenNotification } = useStateContext();
   const handleModal = () => {
-    setOpenModal(!openModal);
+   
     setOpenNotification(false)
   };
   const navigate = useNavigate();
@@ -28,19 +28,12 @@ const Navbar = () => {
           alt="upload"
           className="w-6 h-6 object-contain"
         />
-        <button
-          onClick={() => handleModal()}
-          data-collapse-toggle="navbar-default"
-          type="button"
-          class="m-2 ml-6"
-          aria-controls="navbar-default"
-          aria-expanded="false"
-        >
           <img
+          onClick={() =>  setOpenModal(!openModal)}
             src="https://media.gq-magazine.co.uk/photos/5df24f43271d0f00080cabf9/3:2/w_1000,h_666,c_limit/20191212-stormzy-02.jpg"
             class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
+            alt="PROFILE"
           />
-        </button>
       </div>
     </nav>
   );

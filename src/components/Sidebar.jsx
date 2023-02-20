@@ -39,7 +39,7 @@ const { setActive, active} = useStateContext()
   const navigate = useNavigate();
 
   return (
-    <section className="lg:w-2/12 bg-[#000100] w-full h-screen hidden  mx-auto lg:flex  flex-col p-6">
+    <section className="lg:w-2/12 md:w-2/5 bg-[#000100] w-full h-screen hidden  mx-auto lg:flex  flex-col p-6">
       <Link
         onClick={() => setActive("Home")}
         to="/"
@@ -74,6 +74,7 @@ const { setActive, active} = useStateContext()
         <img
           src="https://media.gq-magazine.co.uk/photos/5df24f43271d0f00080cabf9/3:2/w_1000,h_666,c_limit/20191212-stormzy-02.jpg"
           class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
+          alt=""
         />
         <span className="font-bold hidden xl:block text-sm">Profile</span>
         <img src={cheveron} className="hidden lg:block" alt="" />

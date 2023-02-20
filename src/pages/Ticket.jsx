@@ -28,13 +28,11 @@ const Ticket = () => {
           <div className="flex flex-wrap -mx-1 lg:-mx-4">
             <div className="my-1 px-1 w-full max-w-[477px] max-h-[400px] lg:my-4 lg:px-4 ">
               <article className="overflow-hidden bg-white  rounded-lg shadow-lg">
-                <a href="#">
                   <img
                     alt="Placeholder"
                     className="block h-auto w-full"
                     src="https://www.mcg.org.au/_/media/images/shared/placeholders/1800x800/es23-1800x1000.jpg"
                   />
-                </a>
                 <div className="bg-black">
                   <header className="items-center relative justify-between leading-tight p-2 md:p-4">
                     <h1 className="text-2xl font-semibold font-OpenSans-ExtraBold">

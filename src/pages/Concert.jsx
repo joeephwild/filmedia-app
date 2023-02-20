@@ -1,17 +1,5 @@
 import React from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-    bell,
-    drake,
-    edsheran,
-    image10,
-    image12,
-    image13,
-    justin,
-    selena,
-    stromzy,
-    upload,
-} from "../assets";
 
 const Concert = () => {
     const navigate = useNavigate();
@@ -25,7 +13,7 @@ const Concert = () => {
                             <div>
                                 <div className="">
                                     <span clspanss="h-full w-48">
-                                        <img alt="Photo by aldi sigun on Unsplash"
+                                        <img alt="by aldi sigun on Unsplash"
                                             src={state.imgSrc}
                                             className="mx-auto object-cover rounded-xl h-full w-full" />
                                     </span>

@@ -1,15 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
 const Modal = () => {
+  const navigate = useNavigate()
   const handleSignOut = async() => {
    await signOut(auth)
       .then((response) => {
         console.log(response);
+        navigate("/")
       })
-      .then((error) => {
+      .catch((error) => {
         console.log(error);
       });
   };

@@ -1,58 +1,41 @@
-import { useAddress } from "@thirdweb-dev/react";
 import { Route, Routes } from "react-router-dom";
+import { MainBody } from "./components";
 import {
-  FullScreen,
-  MainBody,
-  Notifications,
-  PictureInPicture,
-  Sidebar,
-} from "./components";
-import Modal from "./components/Modal";
-import Navbar from "./components/Navbar";
-import PlayerSection from "./components/PlayerSection";
-import { useStateContext } from "./context";
-import { PlayerState } from "./context/PlayerState";
-import {
+  Home,
+  Search,
+  Library,
+  Upload,
+  Profile,
+  AlbumDetails,
+  Ticket,
+  Livestream,
+  Playlist,
   CreateAccount,
   HomePage,
   LoginScreen,
+  Concert,
 } from "./pages";
 
 function App() {
-  const {
-    registeredUser,
-    openBigScreen,
-    openNotification,
-    openModal,
-    openPip,
-    openPlayer,
-  } = useStateContext();
-  const address = useAddress();
   return (
-    <div className="bg-gradient-to-r from-[#000100] to-[#000080]">
-      {!registeredUser && (
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginScreen />} />
-          <Route path="/account" element={<CreateAccount />} />
-        </Routes>
-      )}
-      {registeredUser && (
-        <PlayerState>
-          <div className="flex relative items-center overflow-hidden flex-row">
-            <Sidebar />
-            <div className="flex-1 mx-auto  overflow-y-scroll flex-col text-white w-full  md:">
-              <Navbar />
-              {openBigScreen && <FullScreen />}
-              {openNotification && <Notifications />}
-              {openModal && <Modal />}
-              <MainBody />
-            </div>
-            {openPip && <PictureInPicture />}
-            {openPlayer && <PlayerSection />}
-          </div>
-        </PlayerState>
-      )}
+    <div className="bg-gradient-to-br from-[#111111] to-[#000080]">
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/account" element={<CreateAccount />} />
+        <Route element={<MainBody />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/dashboard/search" element={<Search />} />
+          <Route path="/dashboard/library" element={<Library />} />
+          <Route path="/dashboard/upload" element={<Upload />} />
+          <Route path="/dashboard/profile/:id" element={<Profile />} />
+          <Route path="/dashboard/Album/:id" element={<AlbumDetails />} />
+          <Route path="/dashboard/ticket" element={<Ticket />} />
+          <Route path="/dashboard/stream" element={<Livestream />} />
+          <Route path="/dashboard/ticket/:id" element={<Concert />} />
+          <Route path="/dashboard/playlist" element={<Playlist />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

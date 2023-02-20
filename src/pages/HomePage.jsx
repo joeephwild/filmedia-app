@@ -30,7 +30,7 @@ const HomePage = () => {
             being a part of a true decentralized platform. Join Fil Media now
             where Music meets decentralization!
           </p>
-          <Link to="/createaccount" className="flex justify-center mx-auto items-center">
+          <Link to="/login" className="flex justify-center mx-auto items-center">
             <button className=" mt-[80px] bg-[#f0f0f0] py-5 px-3.5  text-[#000080] text-[20px] font-bold text-center rounded-[8px] ">
               Get Started with FilMedia
             </button>
@@ -49,13 +49,3 @@ const HomePage = () => {
 
 export default HomePage;
 
-/** 
- * div className="grid my-9 lg:grid-cols-2 justify-center grid-cols-1 gap-7 items-center w-full">
-        <div className="flex flex-col w-[714px] h-[492px] mx-auto items-center">
-         
-
-          
-        </div>
-
-      </div>
- */

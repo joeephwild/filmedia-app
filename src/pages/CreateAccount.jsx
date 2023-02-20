@@ -1,45 +1,109 @@
 import { sendFileToIPFS, sendJSONToIPFS } from "../pinata";
-import React, {  useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { logo } from "../assets";
 import { FormField, Loader } from "../components";
-import { ConnectWallet, useAddress, useChainId, useMetamask } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress, useChainId } from "@thirdweb-dev/react";
+import { useStateContext } from "../context";
 import { ethers } from "ethers";
 import { profileNft } from "../constant";
-import { useStateContext } from "../context";
+import { db } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const CreateAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { handleMintCCProfile, connect } = useStateContext()
+  const { connect, profile, setProfile, data } = useStateContext();
 
   //form state for handling changes in input
   const [category, setCategory] = useState("");
   const [other, setOther] = useState("");
   const [coverImage, setCoverImage] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [handle, setHandle] = useState("");
+  const [avatars, setAvatars] = useState("");
+  const [handles, setHandles] = useState("");
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
+  const address = useAddress();
+  const chainId = useChainId();
+  console.log(chainId);
 
   const ipfsgateway = "gateway.pinata.cloud";
 
   const onChange = async (e) => {
     const file = e.target.files[0];
     const getCid = await sendFileToIPFS(file);
-    setCoverImage(getCid);
     const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid;
     console.log(ipfsPath);
+    setCoverImage(ipfsPath);
   };
 
   const handleUpload = async (e) => {
     const file = e.target.files[0];
     const getCid = await sendFileToIPFS(file);
-    setAvatar(getCid);
     const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid;
-    console.log(ipfsPath);
+    setAvatars(ipfsPath);
   };
 
+  const connectContract = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      "0x57e12b7a5f38a7f9c23ebd0400e6e53f2a45f271",
+      profileNft,
+      signer
+    );
+    return contract;
+  };
 
+  const contractOperator = "0xb35d0ad43A320f7c9F398d040BaE6B7e163e5b8c"
+
+  //handling form submittion and making transaction to store data in the blockchain
+  const handleMintCCProfile = async () => {
+    if (
+      !category ||
+      !coverImage ||
+      !avatars ||
+      !handles ||
+      !description ||
+      !name
+    )
+      return alert("wrong")
+    try {
+      setIsLoading(true);
+      const receipt = await sendJSONToIPFS(
+        category,
+        description,
+        name,
+        coverImage
+      );
+      //sending transaction for creating profile
+      const contract = await connectContract();
+      const tx = await contract.createProfile(
+        {
+          to: address,
+          handle: handles,
+          metadata: receipt,
+          avatar: avatars,
+          operator: contractOperator,
+        },
+       /* preData */
+				0x0,
+				/* postData */
+				0x0
+      );
+      console.log(tx);
+      const docRef = await addDoc(collection(db, "accounts"), {
+        avatar: avatars,
+        to: address,
+        metadata: receipt,
+        handle: handles,
+        operator: contractOperator,
+      });
+      console.log((await docRef).id);
+      setIsLoading(false);
+    } catch (error) {
+      console.log("Error creating profile", error);
+    }
+  };
 
   return (
     <div className="w-screen h-screen overflow-y-scroll">
@@ -74,9 +138,9 @@ const CreateAccount = () => {
             By connecting your wallet, you can enjoy the benefits of true
             decentralization and secure transactions.
           </p>
-            <button  className=" mt-[80px] py-4 px-2.5  text-[#000080] text-[20px] font-bold text-center rounded-[8px] ">
-              <ConnectWallet accentColor="white" />
-            </button>
+          <button className=" mt-[80px] py-4 px-2.5  text-[#000080] text-[20px] font-bold text-center rounded-[8px] ">
+            <ConnectWallet accentColor="white" />
+          </button>
         </div>
         <div>
           {/** form */}
@@ -94,6 +158,13 @@ const CreateAccount = () => {
                   inputType="file"
                   handleChange={handleUpload}
                 />
+                {avatars && (
+                  <img
+                    src={avatars}
+                    alt="avatar"
+                    className="h-[200px] w-[200px] object-cover"
+                  />
+                )}
                 <div className="">
                   <FormField
                     isImageFile
@@ -102,6 +173,13 @@ const CreateAccount = () => {
                     placeholder="Enter a valid url"
                     handleChange={onChange}
                   />
+                  {coverImage && (
+                    <img
+                      src={coverImage}
+                      alt="avatar"
+                      className="h-[200px] w-[200px] object-cover"
+                    />
+                  )}
                   <div className="flex flex-col items-start">
                     <label className="text-lg font-OpenSans-Bold">
                       Category
@@ -120,7 +198,7 @@ const CreateAccount = () => {
                       <option>Other</option>
                     </select>
                   </div>
-                  {category == "Other" && (
+                  {category === "Other" && (
                     <FormField
                       isInput
                       placeholder="Enter your specific category"
@@ -135,8 +213,8 @@ const CreateAccount = () => {
                     placeholder="Enter Handle e.g vitalikEth"
                     labelName="Handle *"
                     inputType="text"
-                    value={handle}
-                    handleChange={(e) => setHandle(e.target.value)}
+                    value={handles}
+                    handleChange={(e) => setHandles(e.target.value)}
                   />
                   <FormField
                     isInput
@@ -157,7 +235,7 @@ const CreateAccount = () => {
               </div>
               <button
                 type="submit"
-                onClick={() => handleMintCCProfile(category, coverImage, handle, avatar, description, name)}
+                onClick={() => handleMintCCProfile()}
                 className="bg-[#f0f0f0] rounded-[8px] my-9 px-9 py-3.5 text-[#000000] text-lg font-OpenSans-Bold font-bold"
               >
                 Mint Account

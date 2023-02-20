@@ -12,31 +12,26 @@ import CyberConnect, {
   Env
 } from '@cyberlab/cyberconnect-v2';
 import {auth} from '../firebase'
-import { sendJSONToIPFS } from "../pinata";
 import { ethers } from "ethers";
-import { profileNft } from "../constant";
-import { useAddress, useChainId, useMetamask } from "@thirdweb-dev/react";
+import { useMetamask } from "@thirdweb-dev/react";
 
 const StateContext = createContext();
 
 export const StateProvider = ({ children }) => {
   const [success, setSuccess] = useState(false);
-  const [followed, setFollowed] = useState(false);
-  const [usersAccount, setUsersAccount] = useState({});
   const [errors, setErrors] = useState("");
   const [openPlayer, setOpenPlayer] = useState(false);
   const [openPip, setPip] = useState(false);
   const [openBigScreen, setBigScreen] = useState(false);
-  const [accounts, setAccounts] = useState([]);
+  const [profile, setProfile] = useState([]);
   const [registeredUser, setRegisteredUser] = useState({})
   const [openModal, setOpenModal] = useState(false);
   const [currentProfile, setCurrentProfile] = useState({});
-  const address = useAddress();
+  const [accounts, setAcounts] = useState([])
   const connect = useMetamask()
-  const chainId = useChainId()
-  console.log(chainId);
+  console.log("hell owrld")
   const [openNotification, setOpenNotification] = useState(false);
-
+ const data = "helo"
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setRegisteredUser(currentUser);
@@ -52,7 +47,7 @@ export const StateProvider = ({ children }) => {
     namespace: 'Filmedia',
     env: Env.PRODUCTION,
     provider: provider,
-    signingMessageEntity: 'CyberConnect' ,
+    signingMessageEntity: 'Filmedia' ,
   });
 
   //follow an handle
@@ -68,41 +63,7 @@ export const StateProvider = ({ children }) => {
     return followed;
   }
 
-    //handling form submittion and making transaction to store data in the blockchain
-    const handleMintCCProfile = async (category, coverImage, handle, avatar, description, name) => {
-      if (!category || !coverImage || !avatar || !handle || !description || !name || chainId === "97")
-        return alert("come on");
-      const receipt = await sendJSONToIPFS(
-        category,
-        description,
-        name,
-        coverImage
-      );
-      console.log(receipt);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        "0x57e12b7a5f38a7f9c23ebd0400e6e53f2a45f271",
-        profileNft,
-        signer
-      );
-      const tx = await contract.createProfile({
-        to: address,
-        handle: handle,
-        metadata: receipt,
-        avatar: avatar,
-        operator: "0x4946a945aB5d49fa59E81A00Bb9d6677E0fcB8B4",
-      },
-      "0x",
-      "0x"
-      ).then((response) => {
-        console.log(response)
-      }).catch((error) => {
-        console.log(error)
-      })
-      console.log(`transaction: ${tx}`)
-      
-    };
+    
 
   let currentWin = window.location.href.substring(22);
   let currentTab;
@@ -135,7 +96,6 @@ export const StateProvider = ({ children }) => {
         setOpenNotification,
         openNotification,
         errors,
-        accounts,
         setSuccess,
         success,
         active,
@@ -146,10 +106,14 @@ export const StateProvider = ({ children }) => {
         setRegisteredUser,
         setCurrentProfile,
         currentProfile,
-        handleMintCCProfile, 
         connect,
         follow,
-        unFollow
+        unFollow,
+        accounts,
+        setAcounts,
+        profile,
+        setProfile,
+        data
       }}
     >
       {children}
