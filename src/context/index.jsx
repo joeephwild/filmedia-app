@@ -3,9 +3,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import CyberConnect, { Env } from "@cyberlab/cyberconnect-v2";
 import { auth, db } from "../firebase";
 import { ethers } from "ethers";
-import { useMetamask } from "@thirdweb-dev/react";
+import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import { useQuery, gql } from "@apollo/client";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 const StateContext = createContext();
 
@@ -22,7 +22,7 @@ export const StateProvider = ({ children }) => {
   const [accounts, setAcounts] = useState([]);
   console.log(accounts)
   const connect = useMetamask();
-  console.log("hell owrld");
+  const address = useAddress()
   const [openNotification, setOpenNotification] = useState(false);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -33,7 +33,7 @@ export const StateProvider = ({ children }) => {
     };
   });
 
-  useEffect(() => {
+  const getAllData = () => {
     const q = query(collection(db, 'accounts'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let messages = [];
@@ -43,7 +43,16 @@ export const StateProvider = ({ children }) => {
       setAcounts(messages);
     });
     return () => unsubscribe();
-  }, [])
+  }
+
+ 
+
+  
+ 
+
+  useEffect(() => {
+    getAllData()
+  }, [address])
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 

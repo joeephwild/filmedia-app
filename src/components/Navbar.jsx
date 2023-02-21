@@ -1,3 +1,4 @@
+import { useAddress } from "@thirdweb-dev/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { bell, upload } from "../assets";
@@ -6,6 +7,7 @@ import { useStateContext } from "../context";
 const Navbar = () => {
   const { openModal, setOpenModal, setOpenNotification, accounts } =
     useStateContext();
+    const address = useAddress()
   const handleModal = () => {
     setOpenNotification(false);
   };
@@ -28,16 +30,15 @@ const Navbar = () => {
           alt="upload"
           className="w-6 h-6 object-contain"
         />
-        {accounts.map((item) => {
-          return (
-            <img
-              onClick={() => setOpenModal(!openModal)}
-              src={item.avatar}
-              class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
-              alt="PROFILE"
-            />
-          );
-        })}
+         {accounts.filter(person => person.to === address).map(filteredPerson => (
+          <img
+          onClick={() => setOpenModal(!openModal)}
+          src={filteredPerson.avatar}
+          class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
+          alt="PROFILE"
+        />
+  ))}
+
       </div>
     </nav>
   );
