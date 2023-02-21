@@ -4,10 +4,10 @@ import { bell, upload } from "../assets";
 import { useStateContext } from "../context";
 
 const Navbar = () => {
-  const { openModal, setOpenModal,setOpenNotification } = useStateContext();
+  const { openModal, setOpenModal, setOpenNotification, accounts } =
+    useStateContext();
   const handleModal = () => {
-   
-    setOpenNotification(false)
+    setOpenNotification(false);
   };
   const navigate = useNavigate();
   return (
@@ -28,12 +28,16 @@ const Navbar = () => {
           alt="upload"
           className="w-6 h-6 object-contain"
         />
-          <img
-          onClick={() =>  setOpenModal(!openModal)}
-            src="https://media.gq-magazine.co.uk/photos/5df24f43271d0f00080cabf9/3:2/w_1000,h_666,c_limit/20191212-stormzy-02.jpg"
-            class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
-            alt="PROFILE"
-          />
+        {accounts.map((item) => {
+          return (
+            <img
+              onClick={() => setOpenModal(!openModal)}
+              src={item.avatar}
+              class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
+              alt="PROFILE"
+            />
+          );
+        })}
       </div>
     </nav>
   );

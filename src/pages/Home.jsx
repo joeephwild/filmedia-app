@@ -14,7 +14,6 @@ const Home = () => {
     <section className="h-screen">
       <div className="mx-[40px] my-[40px] space-y-9">
         {/** artist */}
-
         <div className="flex flex-col">
           <div className="flex font-bold font-OpenSans-Bold items-center space-x-3">
             <span className="text-xl font-bold">Artist</span>
@@ -23,12 +22,10 @@ const Home = () => {
           <div className="lg:grid-cols-4 xl:grid-cols-5 grid-cols-2 md:grid-cols-3 items-center  gap-5 grid">
             {accounts.map((item, i) => (
               <div key={i} className="flex flex-col items-center">
-                {item.category === "Artist" && (
                   <Card
                     content={item}
                     handleClick={() => handleNavigate(item)}
                   />
-                )}
               </div>
             ))}
           </div>

@@ -37,7 +37,7 @@ const Profile = ({i}) => {
           <span clspanss="block relative h-[40px] w-[40px]">
             <img
               alt="profile"
-              src={state.image}
+              src={state.avatar}
               className="mx-auto object-cover rounded-xl h-52 w-52 bg-white p-1"
             />
           </span>

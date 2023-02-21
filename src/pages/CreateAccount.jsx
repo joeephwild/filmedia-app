@@ -55,7 +55,15 @@ const CreateAccount = () => {
     return contract;
   };
 
-  const contractOperator = "0xb35d0ad43A320f7c9F398d040BaE6B7e163e5b8c"
+  const metadata = {
+    profileTitle: title,
+    category: category,
+    displayName: name,
+    cover: coverImage,
+    desc: description
+  }
+
+  const contractOperator = "0xf39a8f31e33fdEB8a13e55777623581d8cE93724"
 
   //handling form submittion and making transaction to store data in the blockchain
   const handleMintCCProfile = async () => {
@@ -71,11 +79,9 @@ const CreateAccount = () => {
     try {
       setIsLoading(true);
       const receipt = await sendJSONToIPFS(
-        category,
-        description,
-        name,
-        coverImage
+       metadata
       );
+     console.log(receipt)
       //sending transaction for creating profile
       const contract = await connectContract();
       const tx = await contract.createProfile(
@@ -184,12 +190,12 @@ const CreateAccount = () => {
                   <div className="flex space-x-8 items-center w-full">
                   <div className="flex w-full  flex-col items-start">
                     <label className="text-lg font-OpenSans-Bold">
-                      Title
+                      Category
                     </label>
                     <select
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
-                      class="w-full bg-[#f0f0f0] rounded-[8px] h-16 text-[#000000]"
+                      class="w-full font-bold font-OpenSans-Bold bg-[#f0f0f0] rounded-[8px] h-16 text-[#000000]"
                     >
                       <option>Select Category</option>
                       <option>Artist</option>
@@ -202,14 +208,14 @@ const CreateAccount = () => {
 
                   <div className="flex w-full flex-col items-start">
                     <label className="text-lg font-OpenSans-Bold">
-                      Category
+                      Title
                     </label>
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      class="w-full bg-[#f0f0f0] rounded-[8px] h-16 text-[#000000]"
+                      class="w-full font-bold font-OpenSans-Bold bg-[#f0f0f0] rounded-[8px] h-16 text-[#000000]"
                     >
-                      <option>Select Category</option>
+                      <option>Select</option>
                       <option>Singer</option>
                       <option>singer/Song-Writer</option>
                       <option>Rapper</option>

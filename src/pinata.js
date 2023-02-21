@@ -7,7 +7,7 @@ import {
   sendJsonHeader,
 } from "./confg";
 
-export async function sendJSONToIPFS (category, description, name, coverImage) {
+export async function sendJSONToIPFS (metadata) {
   const url = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
   const data = JSON.stringify({
     pinataMetadata: {
@@ -18,10 +18,7 @@ export async function sendJSONToIPFS (category, description, name, coverImage) {
     },
     pinataContent: {
       profileInfo: {
-        category: category,
-        description: description,
-        name: name,
-        coverImage: coverImage
+      metadataDetails: metadata
       },
     },
   });
