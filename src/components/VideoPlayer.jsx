@@ -25,8 +25,8 @@ const VideoPlayer = () => {
     showPipButton
     showTitle={false}
     aspectRatio="16to9"
-    poster={<PosterImage />}
-    controls={{ autohide: 0, hotkeys: false }}
+   controls={{autohide: true}}
+    autoPlay
     theme={{
       borderStyles: { containerBorderStyle: 'hidden' },
       radii: { containerBorderRadius: '10px' },

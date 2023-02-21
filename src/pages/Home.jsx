@@ -1,5 +1,5 @@
 import { Card } from "../components";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context";
 import { BsChevronRight } from "react-icons/bs";
@@ -7,8 +7,8 @@ import { BsChevronRight } from "react-icons/bs";
 const Home = () => {
   const { accounts, unFollow } = useStateContext();
   const navigate = useNavigate();
-  const handleNavigate = (item, i) => {
-    navigate(`/dashboard/profile/${item.name}`, { state: item, i });
+  const handleNavigate = (item) => {
+    navigate(`/dashboard/profile/${item.handle}`, { state: item});
   };
   return (
     <section className="h-screen">

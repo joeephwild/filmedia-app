@@ -10,7 +10,7 @@ const Card = ({ content, handleClick }) => {
         className="w-48 h-48 mx-auto rounded-full object-cover"
       />
       <div className="flex-col flex items-start mt-8 justify-center">
-        <h2 className="font-OpenSans-Bold text-sm lg:text-2xl font-bold items-start">{content.handle}.bnb</h2>
+        <h2 className="font-OpenSans-Bold text-xs font-bold items-start">{content.handle}.bnb</h2>
         <h2 className="font-OpenSans-Bold text-xs font-bold items-start text-[#808080]">{content.title}</h2>
       </div>
     </div>

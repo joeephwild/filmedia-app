@@ -1,6 +1,6 @@
 import React from 'react'
-//import { Draggable } from 'react-draggable';
 import { useStateContext } from "../context";
+import Draggable from 'react-draggable';
 import VideoPlayer from './VideoPlayer'
 
 import { createReactClient, LivepeerConfig, studioProvider, } from '@livepeer/react';
@@ -43,12 +43,13 @@ const PictureInPicture = () => {
   };
 
   return (
+    <>
     <div>
-        <div class="left-1/2 top-1/3 absolute ">
-            <>
+        <div className="left-1/2 top-1/3 absolute ">
+            <Draggable>
                 <div style={{ display: 'block', backgroundColor:'black', borderRadius:'15px', height:'auto', width: 500, padding: 10 }}>
-                    <div class="select-none">
-                        <span clspanss="h-full w-10 select-none">
+                    <div className="select-none">
+                        <span className="h-full w-10 select-none">
                             {/* <img alt="Photo by aldi sigun on Unsplash" style={{pointerEvents: 'none'}}
                             src="https://i.ytimg.com/vi/BXd62mMu1UY/maxresdefault.jpg"
                             class="mx-auto object-cover rounded-t-lg select-none" /> */}
@@ -92,9 +93,10 @@ const PictureInPicture = () => {
                         </div>
                     </div>
                 </div>
-            </>
+            </Draggable>
         </div>
 </div>
+</>
   )
 }
 

@@ -17,12 +17,12 @@ export const StateProvider = ({ children }) => {
   const [openBigScreen, setBigScreen] = useState(false);
   const [profile, setProfile] = useState([]);
   const [registeredUser, setRegisteredUser] = useState({});
-  const [openModal, setOpenModal] = useState(false);
-  const [currentProfile, setCurrentProfile] = useState({});
-  const [accounts, setAcounts] = useState([]);
-  console.log(accounts)
+  const [modal, setModal] = useState(false);
+  const [followed, setFollowed] = useState(false);
+  const [currentProfile, setCurrentProfile] = useState([]);
+  const [accounts, setAccounts] = useState([]);
   const connect = useMetamask();
-  const address = useAddress()
+  const address = useAddress();
   const [openNotification, setOpenNotification] = useState(false);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -34,25 +34,28 @@ export const StateProvider = ({ children }) => {
   });
 
   const getAllData = () => {
-    const q = query(collection(db, 'accounts'));
+    const q = query(collection(db, "accounts"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let messages = [];
       querySnapshot.forEach((doc) => {
         messages.push({ ...doc.data(), id: doc.id });
       });
-      setAcounts(messages);
+      setAccounts(messages);
     });
     return () => unsubscribe();
-  }
-
- 
-
-  
- 
+  };
 
   useEffect(() => {
-    getAllData()
-  }, [address])
+    const getCurrentProfile = accounts.filter(
+      (person) => person.to === address
+    );
+    setCurrentProfile(getCurrentProfile);
+  }, [accounts, address]);
+
+  useEffect(() => {
+    connect();
+    getAllData();
+  }, []);
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -62,18 +65,6 @@ export const StateProvider = ({ children }) => {
     provider: provider,
     signingMessageEntity: "Filmedia",
   });
-
-  //follow an handle
-  const follow = async (address, handle) => {
-    const followed = await cyberConnect.follow(address, handle);
-    return followed;
-  };
-
-  //follow an handle
-  const unFollow = async (address, handle) => {
-    const followed = await cyberConnect.unfollow(address, handle);
-    return followed;
-  };
 
   let currentWin = window.location.href.substring(22);
   let currentTab;
@@ -111,20 +102,21 @@ export const StateProvider = ({ children }) => {
         success,
         active,
         setActive,
-        setOpenModal,
-        openModal,
+        setModal,
+        modal,
         registeredUser,
         setRegisteredUser,
         setCurrentProfile,
         currentProfile,
         connect,
-        follow,
-        unFollow,
         accounts,
-        setAcounts,
+        setAccounts,
         profile,
         setProfile,
         setErrors,
+        cyberConnect,
+        setFollowed,
+        followed
       }}
     >
       {children}

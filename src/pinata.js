@@ -7,6 +7,7 @@ import {
   sendJsonHeader,
 } from "./confg";
 
+
 export async function sendJSONToIPFS (metadata) {
   const url = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
   const data = JSON.stringify({

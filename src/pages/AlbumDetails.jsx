@@ -18,34 +18,8 @@ const AlbumDetails = () => {
   }
   
   return (
-    <div className=''>
-        <div className="flex items-center h-16 px-9 py-4 justify-between bg-black/hover:bg-black/40 w-full">
-          <h2 className="font-OpenSans-ExtraBold text-3xl font-extrabold">
-            Welcome
-          </h2>
-          <div className="flex items-center cursor-pointer space-x-4">
-            <img src={bell} alt="upload" className="w-6 h-6 object-contain" />
-            <img
-              onClick={() => navigate("/upload")}
-              src={upload}
-              alt="upload"
-              className="w-6 h-6 object-contain"
-            />
-            <button
-              onClick={() => navigate("/profile")}
-              data-collapse-toggle="navbar-default"
-              type="button"
-              className="m-2 ml-6"
-              aria-controls="navbar-default"
-              aria-expanded="false"
-            >
-              <img
-                src="https://media.gq-magazine.co.uk/photos/5df24f43271d0f00080cabf9/3:2/w_1000,h_666,c_limit/20191212-stormzy-02.jpg"
-                className="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
-              />
-            </button>
-          </div>
-        </div>
+    <div className='h-screen'>
+        
         <div className="w-[100%] h-screen">
           <div className="flex bg-gradient-to-b from-gray-500 via-purple-500 to-indigo-900 mt-20 h-full flex-col col-span-5 md:col-span-12 lg:col-span-9 xl:col-span-9 text-white row-span-6">
             <div className="grid grid-cols-3 px-5 h-1/2 m-5 -mt-10 w-auto relative">

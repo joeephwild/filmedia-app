@@ -8,7 +8,7 @@ import { ethers } from "ethers";
 import { profileNft } from "../constant";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ const CreateAccount = () => {
   const [name, setName] = useState("");
   const address = useAddress();
   const chainId = useChainId();
-  console.log(chainId);
+  const navigate = useNavigate()
 
   const ipfsgateway = "gateway.pinata.cloud";
 
@@ -107,6 +107,7 @@ const CreateAccount = () => {
       });
       console.log((await docRef).id);
       setIsLoading(false);
+      navigate("/profile")
     } catch (error) {
       console.log("Error creating profile", error);
     }
@@ -199,7 +200,7 @@ const CreateAccount = () => {
                     >
                       <option>Select Category</option>
                       <option>Artist</option>
-                      <option>Content Creator</option>
+                      <option>Podcast</option>
                       <option>Supporter</option>
                     </select>
                   </div>

@@ -48,7 +48,7 @@ const Albums = () => {
   ];
 
   const handleNavigate = (item) => {
-    navigate(`/Album/${item.name}`, { state: item })
+    navigate(`/dashboard/Album/${item.name}`, { state: item })
   }
   return (
     <div>
