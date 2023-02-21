@@ -13,3 +13,58 @@ export const FilMediaAbi = filmediaAbi.abi
 export const filprofileAbi = profile.abi
 export const filTicketAbi = ticket.abi
 export const profileNft = profileNFT
+
+
+/**
+ * query
+{
+  profilesByHandles(handles: ["peng"]) {
+    id
+    profileID
+    handle
+    metadataInfo {
+      handle
+      displayName
+      bio
+      avatar
+      coverImage
+      attributes {
+        display_type
+        trait_type
+        value
+      } 
+      version
+    }
+    followers {
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      } 
+      edges {
+        node {
+          address
+          handle
+          proof {
+            content
+            digest
+            signature
+            signingKey
+            signingKeyAuth {
+              address
+              message
+              signature
+            } 
+            arweaveTxHash
+          }
+        }
+        cursor
+      } 
+    }
+    followerCount
+  }
+}
+
+ */

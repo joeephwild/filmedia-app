@@ -1,19 +1,11 @@
-
-import React, {
-  useContext,
-  createContext,
-  useState,
-  useEffect,
-} from "react";
-import {
-  onAuthStateChanged,
-} from 'firebase/auth';
-import CyberConnect, {
-  Env
-} from '@cyberlab/cyberconnect-v2';
-import {auth} from '../firebase'
+import React, { useContext, createContext, useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import CyberConnect, { Env } from "@cyberlab/cyberconnect-v2";
+import { auth, db } from "../firebase";
 import { ethers } from "ethers";
 import { useMetamask } from "@thirdweb-dev/react";
+import { useQuery, gql } from "@apollo/client";
+import { collection, onSnapshot, query } from "firebase/firestore";
 
 const StateContext = createContext();
 
@@ -24,14 +16,14 @@ export const StateProvider = ({ children }) => {
   const [openPip, setPip] = useState(false);
   const [openBigScreen, setBigScreen] = useState(false);
   const [profile, setProfile] = useState([]);
-  const [registeredUser, setRegisteredUser] = useState({})
+  const [registeredUser, setRegisteredUser] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [currentProfile, setCurrentProfile] = useState({});
-  const [accounts, setAcounts] = useState([])
-  const connect = useMetamask()
-  console.log("hell owrld")
+  const [accounts, setAcounts] = useState([]);
+  console.log(accounts)
+  const connect = useMetamask();
+  console.log("hell owrld");
   const [openNotification, setOpenNotification] = useState(false);
- const data = "helo"
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setRegisteredUser(currentUser);
@@ -41,29 +33,38 @@ export const StateProvider = ({ children }) => {
     };
   });
 
+  useEffect(() => {
+    const q = query(collection(db, 'accounts'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let messages = [];
+      querySnapshot.forEach((doc) => {
+        messages.push({ ...doc.data(), id: doc.id });
+      });
+      setAcounts(messages);
+    });
+    return () => unsubscribe();
+  }, [])
+
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
   const cyberConnect = new CyberConnect({
-    namespace: 'Filmedia',
+    namespace: "Filmedia",
     env: Env.PRODUCTION,
     provider: provider,
-    signingMessageEntity: 'Filmedia' ,
+    signingMessageEntity: "Filmedia",
   });
 
   //follow an handle
-  const follow = async(address, handle) => {
+  const follow = async (address, handle) => {
     const followed = await cyberConnect.follow(address, handle);
     return followed;
-  }
+  };
 
-  
   //follow an handle
-  const unFollow = async(address, handle) => {
+  const unFollow = async (address, handle) => {
     const followed = await cyberConnect.unfollow(address, handle);
     return followed;
-  }
-
-    
+  };
 
   let currentWin = window.location.href.substring(22);
   let currentTab;
@@ -83,6 +84,7 @@ export const StateProvider = ({ children }) => {
 
   const [active, setActive] = useState(currentTab);
 
+  useEffect(() => {}, []);
 
   return (
     <StateContext.Provider
@@ -113,7 +115,7 @@ export const StateProvider = ({ children }) => {
         setAcounts,
         profile,
         setProfile,
-        data
+        setErrors,
       }}
     >
       {children}

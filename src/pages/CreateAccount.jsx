@@ -16,6 +16,7 @@ const CreateAccount = () => {
 
   //form state for handling changes in input
   const [category, setCategory] = useState("");
+  const [title, setTitle] = useState("");
   const [other, setOther] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [avatars, setAvatars] = useState("");
@@ -180,7 +181,26 @@ const CreateAccount = () => {
                       className="h-[200px] w-[200px] object-cover"
                     />
                   )}
-                  <div className="flex flex-col items-start">
+                  <div className="flex space-x-8 items-center w-full">
+                  <div className="flex w-full  flex-col items-start">
+                    <label className="text-lg font-OpenSans-Bold">
+                      Title
+                    </label>
+                    <select
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      class="w-full bg-[#f0f0f0] rounded-[8px] h-16 text-[#000000]"
+                    >
+                      <option>Select Category</option>
+                      <option>Artist</option>
+                      <option>Content Creator</option>
+                      <option>Supporter</option>
+                    </select>
+                  </div>
+
+                  {/**category */}
+
+                  <div className="flex w-full flex-col items-start">
                     <label className="text-lg font-OpenSans-Bold">
                       Category
                     </label>
@@ -198,6 +218,10 @@ const CreateAccount = () => {
                       <option>Other</option>
                     </select>
                   </div>
+                   {/**category ends */}
+                  </div>
+                 
+
                   {category === "Other" && (
                     <FormField
                       isInput
