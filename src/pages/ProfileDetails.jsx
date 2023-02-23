@@ -1,27 +1,35 @@
 import { useLocation } from "react-router-dom";
 import { Albums, Music } from "../components";
 import { song_list } from "../context/songs";
-import { useStateContext } from '../context'
-import { BsFillPatchCheckFill } from 'react-icons/bs'
+import { useStateContext } from "../context";
+import { BsFillPatchCheckFill } from "react-icons/bs";
 import { useAddress } from "@thirdweb-dev/react";
 import { useState } from "react";
+import CyberConnect, { Env } from "@cyberlab/cyberconnect-v2";
+import { ethers } from "ethers";
 
-
-const ProfileDetails = ({i}) => {
-  const [following, setFollowing] = useState(false)
-  console.log(following)
+const ProfileDetails = ({ i }) => {
+  const [following, setFollowing] = useState(false);
+  console.log(following);
   const { state } = useLocation();
-  console.log(state.handle)
-  const address = useAddress()
+  console.log(state.handle);
+  const address = useAddress();
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-  const { cyberConnect} = useStateContext();
+  const cyberConnect = new CyberConnect({
+    namespace: "Filmedia Network",
+    env: Env.PRODUCTION,
+    provider: provider,
+    signingMessageEntity: "Filmedia Network",
+  });
 
-  const handleFollow = async() => {
-    if(state.to === address) return alert("hey come on")
+  const handleFollow = async () => {
+    if (state.to === address) return alert("hey come on");
+
+    setFollowing(true);
     const follow = await cyberConnect.follow(address, state.handle);
-    setFollowing(!following);
     return follow;
-  }
+  };
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -105,30 +113,43 @@ const ProfileDetails = ({i}) => {
             <h2 className="text-3xl font-bold text-white-800 dark:text-gray-300">
               {state.name}
               <span className="inline-flex text-xl text-blue-600  items-center m-2">
-               <BsFillPatchCheckFill />
+                <BsFillPatchCheckFill />
               </span>
             </h2>
-            <p className="text-gray-400 mt-2 dark:text-gray-400">{state.title}</p>
+            <p className="text-gray-400 mt-2 dark:text-gray-400">
+              {state.title}
+            </p>
             <p className="mt-2 text-lg font-bold font-OpenSans-Bold text-[#ffffff] max-w-[50rem]">
-             {truncate(state.desc, 170)}
+              {truncate(state.desc, 170)}
             </p>
           </div>
           <div className="flex mx-5 space-x-4 my-9">
             <button className="bg-white text-[#000080] rounded-lg text-lg font-bold px-5 py-3">
               View NFT Profile
             </button>
-            
-            <button onClick={handleFollow}  className="border-2 border-white px-4 py-2 rounded-lg text-lg font-bold text-gray-500">
-            {following ? "Following" : "Follow"}
-            </button>
+            {following ? (
+              <button
+                onClick={handleFollow}
+                className="border-2 border-white px-4 py-2 rounded-lg text-lg font-bold text-gray-500"
+              >
+                Following
+              </button>
+            ) : (
+              <button
+                onClick={handleFollow}
+                className="border-2 border-white px-4 py-2 rounded-lg text-lg font-bold text-gray-500"
+              >
+                Follow
+              </button>
+            )}
+
             {/** right buttons */}
             <div></div>
           </div>
         </div>
-        <div className="grid lg:grid-cols-2 grid-cols-1 mx-5 gap-5">
-          <Albums />
-          <div className="mx-aut mx-9">
-            <div className="flex mx-auto cursor-pointer flex-col my-[25%] lg:mt-0">
+        <div className="flex flex-col items-center mx-5">
+        <div className="mx-auto w-full ">
+          <div className="flex mx-auto cursor-pointer flex-col lg:mt-0">
               <h2 className="text-2xl font-bold text-[#fafafa">Songs</h2>
               <div className="flex items-center justify-between">
                 <span>#</span>
@@ -141,6 +162,8 @@ const ProfileDetails = ({i}) => {
               ))}
             </div>
           </div>
+          <Albums />
+       
         </div>
       </div>
     </section>

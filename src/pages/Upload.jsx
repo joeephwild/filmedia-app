@@ -9,19 +9,19 @@ const Upload = () => {
         <div class="items-start">
           <button
             onClick={() => setPage(1)}
-            class="bg-transparent mr-5 hover:bg-white text-white-700 font-semibold hover:text-black py-2 px-4 border border-white-500 hover:border-transparent rounded"
+            className={page ? `bg-transparent mr-5 hover:bg-white text-white-700 font-semibold hover:text-black py-2 px-4 border border-white-500 hover:border-transparent rounded` : `bg-white text-black`}
           >
             Track
           </button>
           <button
             onClick={() => setPage(2)}
-            class="bg-transparent mr-5 hover:bg-white text-white-700 font-semibold hover:text-black py-2 px-4 border border-white-500 hover:border-transparent rounded"
+            className={page? `bg-transparent mr-5 hover:bg-white text-white-700 font-semibold hover:text-black py-2 px-4 border border-white-500 hover:border-transparent rounded` : `bg-white text-black`}
           >
             Ticket
           </button>
         </div>
       </div>
-      {page === 1 && (
+      {page === 1 && ( 
          <TrackForm />
       )}
       {page === 2 && (

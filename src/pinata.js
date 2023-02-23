@@ -28,6 +28,26 @@ export async function sendJSONToIPFS (metadata) {
   return hash;
 };
 
+export async function sendDataToIPFS (metadata) {
+  const url = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
+  const data = JSON.stringify({
+    pinataMetadata: {
+      name: "listdata",
+    },
+    pinataOptions: {
+      cidVersion: 1,
+    },
+    pinataContent: {
+      profileInfo: {
+      metadataDetails: metadata
+      },
+    },
+  });
+  const sendJson = await axios.post(url, data, sendJsonHeader);
+  const hash = `ipfs://${sendJson.data.IpfsHash}`;
+  return hash;
+};
+
 export async function sendFileToIPFS (file) {
   const formData = new FormData();
   const url = "https://api.pinata.cloud/pinning/pinFileToIPFS"

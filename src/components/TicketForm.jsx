@@ -1,100 +1,149 @@
 import { Web3Button } from "@thirdweb-dev/react";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { sendFileToIPFS } from "../pinata";
 import FormField from "./FormField";
+import Loader from "./Loader";
 
 const TicketForm = () => {
-  const [form, setForm] = useState({
-    title: "",
-    image: "",
-    location: "",
-    target: "",
-    deadline: "",
-  });
+  const [loading, setLoading] = useState()
+  const [image, setImage] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const navigate = useNavigate()
+  const ipfsgateway = "gateway.pinata.cloud";
 
-  const handleFormFieldChange = (fieldName, e) => {
-    setForm({ ...form, [fieldName]: e.target.value });
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    const getCid = await sendFileToIPFS(file);
+    const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid;
+    setImage(ipfsPath);
   };
+
+  const metadata = {}
+
+  const handleSubmit = async(contract) => {
+    setLoading(true);
+    const data = await contract.call("createToken",price, startDate, endDate, quantity);
+    console.log(data);
+    setLoading(false)
+    navigate('/dashboard/ticket')
+  }
+
   return (
-    <section className="flex flex-col mx-auto items-center max-w-[870px]">
-      <section className="flex flex-col items-center w-full">
+    <section className="flex flex-col space-y-11 mx-auto items-center max-w-full">
+      {loading && (<Loader />)}
+      <section className="flex flex-col  items-center w-full">
         <div className=" mx-3 lg:w-[85%] my-9 items-center">
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            action=""
-            className="border-2 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]"
-          >
+          <div className="border-2 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
             <div className="flex-col items-center mx-auto">
               <FormField
                 isImageFile
-                labelName="CoverImage"
+                labelName="Ticket Image"
                 inputType="file"
+                handleChange={handleUpload}
                 placeholder="Enter a valid url"
               />
+            </div>
+          </div>
 
-              <div className="">
-                <FormField
-                  isFile
-                  labelName="Image"
-                  placeholder="enter a vailid url"
-                  inputType="file"
+          <form
+            action=""
+            className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]"
+          >
+            <div className="flex-col items-center mx-auto">
+              <FormField
+                isInput
+                labelName="Title"
+                inputType="text"
+                value={title}
+                handleChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter a valid url"
+              />
+            </div>
+            <div className="flex-col text-black font-OpenSans-Bold text-lg items-center mx-auto">
+              <FormField
+                className="w-full items-center"
+                isTextArea
+                labelName="Description"
+                inputType="text"
+                value={description}
+                handleChange={(e) => setDescription(e.target.value)}
+                placeholder="Enter a valid url"
+              />
+            </div>
+            <div className="flex items-center w-full space-x-6">
+            <div className="w-full ">
+                <label htmlFor="date">Start Date</label>
+                <input
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
                 />
-                <div className="flex flex-col items-start">
-                  <label className="text-lg font-OpenSans-Bold">Category</label>
-                  <select class="w-full bg-[#f0f0f0] rounded-[8px] h-16 text-[#000000]">
-                    <option>Select Category</option>
-                    <option>Singer</option>
-                    <option>singer/Song-Writer</option>
-                    <option>Rapper</option>
-                    <option>Content Creator</option>
-                    <option>Comedian</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <FormField
-                  isInput
-                  placeholder="Enter Handle e.g vitalikEth"
-                  labelName="Handle *"
-                  inputType="text"
-                />
-                <FormField
-                  isInput
-                  placeholder="Enter Name"
-                  labelName="Name *"
-                  inputType="text"
-                />
-                <FormField
-                  isTextArea
-                  placeholder="Enter valid description"
-                  labelName="Description"
+              </div>
+
+              <div className="w-full ">
+                <label htmlFor="date">End Date</label>
+                <input
+                  type="date"
+                  name=""
+                  id=""
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
                 />
               </div>
             </div>
-            <button
-              type="submit"
-              className="bg-[#f0f0f0] rounded-[8px] my-9 px-9 py-3.5 text-[#000000] text-lg font-OpenSans-Bold font-bold"
-            >
-              Mint Account
-            </button>
+            <div className="flex-col items-center mx-auto">
+              <FormField
+                isInput
+                labelName="Location"
+                inputType="text"
+                value={location}
+                handleChange={(e) => setLocation(e.target.value)}
+                placeholder="Enter a valid url"
+              />
+            </div>
           </form>
-        </div>
-
-        <div className="flex m-5 justify-center w-3/4 overflow-auto">
-          <label
-            for="checked-checkbox"
-            className="ml-5 text-xs w-1/2 text-gray-500 dark:text-gray-300"
+     
+       {/** price section */}
+          <div
+            action=""
+            className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]"
           >
-            By Uploading this file, you acknowledge that the transaction is
-            final and cannot be reversed. Includes{" "}
-            <div className="text-white">royalty split agreement</div>. Read and
-            understand
-            <div className="text-white"> contract terms </div>
-            and
-            <div className="text-white"> potential risks.</div>
-          </label>
+            <div className="flex text-black font-OpenSans-Bold text-lg items-center w-full space-x-6">
+            <div className="w-full ">
+                <label htmlFor="date">Price</label>
+                <input
+                  type="number"
+                  step="0.05"
+                  value={price}
+                  placeholder="enter price in 0.8"
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
+                />
+              </div>
+       
+
+              <div className="w-full text-black font-OpenSans-Bold text-lg ">
+                <label htmlFor="date">Quantity</label>
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
+                />
+              </div>
+            </div>
+          </div>
+            {/** price section */}
         </div>
-        <div className="flex m-5 justify-center w-3/4 overflow-auto"></div>
-        <div className="flex m-5 justify-center w-3/4 overflow-auto"></div>
       </section>
 
       <div className="flex m-5 justify-center">
@@ -123,9 +172,7 @@ const TicketForm = () => {
         <Web3Button
           accentColor="white"
           contractAddress="0x1Aae1e6ce578CB965b1bd724c80799806AFE7C70"
-          action={(contract) => {
-            contract.call("createToken");
-          }}
+          action={handleSubmit}
         >
           createTicket
         </Web3Button>

@@ -51,13 +51,13 @@ const Albums = () => {
     navigate(`/dashboard/Album/${item.name}`, { state: item })
   }
   return (
-    <div>
-      <h2 className="text-2xl font-bold text-[#fafafa">Albums</h2>
+    <div className="w-full mt-9">
+      <h2 className="text-2xl w-full font-bold text-[#fafafa">Albums</h2>
       <div className='grid grid-cols-3 items-center gap-5'>
          {artists.slice(0, 3).map((item, i) => (
           <div onClick={()=> handleNavigate(item)} key={i} className=' lg:w-[250px] w-[150px] h-[200px]  lg:h-[240px]'>
-            <img src={item.imgSrc} alt="" className='min-w-[150px] h-[240px] object-cover' />
-            <div className="bg-[#000000] px-4 py-2 max-h-[100px] w-full">
+            <img src={item.imgSrc} alt="" className='min-w-[350px] h-[240px] object-cover' />
+            <div className="bg-[#000000] px-4 py-2 max-h-[100px] w-[350px]">
               <h3 className="font-bold text-lg text-[#fafafa]">{item.name}</h3>
               <p className="text-[#fafafa] text-sm">{item.type}</p>
             </div>

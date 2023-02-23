@@ -98,7 +98,7 @@ const FormField = ({
       )}
 
       {isInput && (
-        <div className="flex items-start flex-col space-y-3">
+        <div className="flex items-start w-full flex-col space-y-3">
           <input
             required
             type={inputType}

@@ -109,7 +109,7 @@ const Profile = () => {
                    <div></div>
                  </div>
                </div>
-               <div className="grid lg:grid-cols-2 grid-cols-1 mx-5 gap-5">
+               <div className="grid space-y-16 grid-cols-1 mx-5 gap-5">
                  <Albums />
                  <div className="mx-aut mx-9">
                    <div className="flex mx-auto cursor-pointer flex-col my-[25%] lg:mt-0">
