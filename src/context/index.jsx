@@ -4,10 +4,11 @@ import CyberConnect, { Env } from "@cyberlab/cyberconnect-v2";
 import { auth, db } from "../firebase";
 import { ethers } from "ethers";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
-import { useQuery, gql } from "@apollo/client";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, onSnapshot, query,} from "firebase/firestore";
 
 const StateContext = createContext();
+
+
 
 export const StateProvider = ({ children }) => {
   const [success, setSuccess] = useState(false);
@@ -21,9 +22,12 @@ export const StateProvider = ({ children }) => {
   const [followed, setFollowed] = useState(false);
   const [currentProfile, setCurrentProfile] = useState([]);
   const [accounts, setAccounts] = useState([]);
+  const [openNotification, setOpenNotification] = useState(false);
+  
   const connect = useMetamask();
   const address = useAddress();
-  const [openNotification, setOpenNotification] = useState(false);
+
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setRegisteredUser(currentUser);

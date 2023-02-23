@@ -6,7 +6,6 @@ import { useStateContext } from "../context";
 
 const Navbar = () => {
   const { modal, setModal, setOpenNotification, currentProfile } = useStateContext();
-  console.log(currentProfile);
   const handleModal = () => {
     
     setOpenNotification(false);

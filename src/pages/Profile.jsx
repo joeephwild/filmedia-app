@@ -17,8 +17,8 @@ const Profile = () => {
              <div className="w-[100%] h-screen">
                <div className="h-2/4 md:h-[500px] overflow-hidden border-b-4 border-white-200">
                  <img
-                   className="w-full h-[600px]fixed object-cover rounded-t "
-                   src=""
+                   className="w-full h-full object-cover rounded-t "
+                   src={item.cover}
                    alt="cover"
                  />
                </div>
@@ -88,13 +88,14 @@ const Profile = () => {
                <div className="">
                  <div className="px-7 mb-8">
                    <h2 className="text-3xl font-bold text-white-800 dark:text-gray-300">
-                     {item.handle}
+                     {item.name}
                      <span className="inline-flex text-xl text-blue-600  items-center m-2">
                       <BsFillPatchCheckFill />
                      </span>
                    </h2>
-                   <p className="text-gray-400 mt-2 dark:text-gray-400"></p>
+                   <p className="text-gray-400 mt-2 dark:text-gray-400">{item.categories}</p>
                    <p className="mt-2 text-lg font-bold font-OpenSans-Bold text-[#ffffff] max-w-[50rem]">
+                   {truncate(item.desc, 170)}
                    </p>
                  </div>
                  <div className="flex mx-5 space-x-4 my-9">

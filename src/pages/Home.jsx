@@ -8,7 +8,7 @@ const Home = () => {
   const { accounts, unFollow } = useStateContext();
   const navigate = useNavigate();
   const handleNavigate = (item) => {
-    navigate(`/dashboard/profile/${item.handle}`, { state: item});
+    navigate(`/dashboard/profile/${item.handle}`, { state: item });
   };
   return (
     <section className="h-screen">
@@ -22,10 +22,12 @@ const Home = () => {
           <div className="lg:grid-cols-4 xl:grid-cols-5 grid-cols-2 md:grid-cols-3 items-center  gap-5 grid">
             {accounts.map((item, i) => (
               <div key={i} className="flex flex-col items-center">
+                {item.titles === "Artist" && (
                   <Card
                     content={item}
                     handleClick={() => handleNavigate(item)}
                   />
+                )}
               </div>
             ))}
           </div>
@@ -40,7 +42,7 @@ const Home = () => {
           <div className="lg:grid-cols-4 xl:grid-cols-5 grid-cols-2 md:grid-cols-3 items-start  gap-5 grid">
             {accounts.map((item, i) => (
               <div key={i} className="flex flex-col items-start">
-                {item.category === "Podcast" && (
+                {item.titles === "Content Creator" && (
                   <Card
                     content={item}
                     handleClick={() => handleNavigate(item)}

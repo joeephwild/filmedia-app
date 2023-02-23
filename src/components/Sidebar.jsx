@@ -35,7 +35,7 @@ const Icon = ({ styles, name, imgurl, isActive, item, handleClick }) => (
 );
 
 const Sidebar = () => {
-const { setActive, active} = useStateContext()
+const { setActive, active, currentProfile} = useStateContext()
   const navigate = useNavigate();
 
   return (
@@ -71,11 +71,17 @@ const { setActive, active} = useStateContext()
         onClick={() => navigate("/profile")}
         className="w-full cursor-pointer flex space-x-[24px] items-center mx-auto mt-[30%] "
       >
-        <img
-          src="https://media.gq-magazine.co.uk/photos/5df24f43271d0f00080cabf9/3:2/w_1000,h_666,c_limit/20191212-stormzy-02.jpg"
-          class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
-          alt=""
-        />
+      <div>
+         {currentProfile.map((item, i) => (
+          <div key={i}>
+           <img
+           src={item.avatar}
+           class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
+           alt="PROFILE"
+         />
+         </div>
+         ))}
+        </div>
         <span className="font-bold hidden xl:block text-sm">Profile</span>
         <img src={cheveron} className="hidden lg:block" alt="" />
       </div>

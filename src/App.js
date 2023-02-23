@@ -26,9 +26,9 @@ function App() {
         <Route path="/account" element={<CreateAccount />} />
         <Route element={<MainBody />}>
           <Route path="/home" element={<Home />} />
+        <Route path="/dashboard/upload" element={<Upload />} />
           <Route path="/dashboard/search" element={<Search />} />
           <Route path="/dashboard/library" element={<Library />} />
-          <Route path="/dashboard/upload" element={<Upload />} />
           <Route path="/dashboard/profile/:id" element={<ProfileDetails />} />
           <Route path="/dashboard/Album/:id" element={<AlbumDetails />} />
           <Route path="/dashboard/ticket" element={<Ticket />} />

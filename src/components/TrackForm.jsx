@@ -1,3 +1,4 @@
+import { Web3Button } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,34 +8,8 @@ import Loader from "./Loader";
 
 const TrackForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { uploadContents } = useStateContext();
-  const [form, setForm] = useState({
-    image: "",
-    video: "",
-    musicFile: "",
-    title: "",
-    category: "",
-    description: "",
-    name: "",
-    price: "",
-  });
-  const navigate = useNavigate()
-
-  const handleSubmit = async () => {
-    setIsLoading(true);
-    alert("whats up");
-    await uploadContents({
-    title:  form.title,
-     name: form.name,
-     musicFile: form.musicFile,
-     video: form.video,
-    image:  form.image,
-     category: form.category,
-     description: form.description,
-    price: ethers.utils.parseUnits(form.price, 18),
-    });
-    setIsLoading(false);
-  };
+  const [form, setForm] = useState("");
+ 
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value });
@@ -42,7 +17,7 @@ const TrackForm = () => {
   return (
     <div className="w-full items-center justify-center">
       {isLoading && <Loader />}
-      <section className="flex flex-col items-center w-full">
+      <section className="flex flex-col mx-auto items-center max-w-[870px]">
       <div className=" mx-3 lg:w-[85%] my-9 items-center">
             <form
               onSubmit={(e) =>  e.preventDefault()}
@@ -96,46 +71,21 @@ const TrackForm = () => {
                   />
                 </div>
               </div>
-              <button
-                type="submit"
-                onClick={() => handleSubmit()}
-                className="bg-[#f0f0f0] rounded-[8px] my-9 px-9 py-3.5 text-[#000000] text-lg font-OpenSans-Bold font-bold"
-              >
-                Mint Account
-              </button>
             </form>
           </div>
 
-        <div className="flex m-5 justify-center w-3/4 overflow-auto">
-          <label
-            for="checked-checkbox"
-            className="ml-5 text-xs w-1/2 text-gray-500 dark:text-gray-300"
-          >
-            By Uploading this file, you acknowledge that the transaction is
-            final and cannot be reversed. Includes{" "}
-            <div className="text-white">
-              royalty split agreement
-            </div>
-            . Read and understand
-            <div className="text-white">
-              {" "}
-              contract terms{" "}
-            </div>
-            and
-            <div className="text-white">
-              {" "}
-              potential risks.
-            </div>
-          </label>
+        <div className="flex m-5 justify-center w-full text-center">
+     
         </div>
-        <div className="flex m-5 justify-center w-3/4 overflow-auto">
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="bg-white px-9 py-3 text-lg mr-5 hover:bg-transparent text-black font-semibold hover:text-white border border-white-500 hover:border-white rounded"
-          >
-            Upload
-          </button>
+        <div className="flex m-5 justify-center overflow-auto">
+        <Web3Button
+      contractAddress="0x7b16c2a20D13eE84023bDd6dc4543e1e043b2C6F"
+      action={(contract) => {
+        contract.call("uploadMusic",)
+      }}
+    >
+      uploadMusic
+    </Web3Button>
         </div>
         <div className="flex m-5 justify-center w-3/4 overflow-auto"></div>
       </section>

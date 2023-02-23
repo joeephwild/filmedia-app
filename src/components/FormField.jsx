@@ -58,7 +58,7 @@ const FormField = ({
 
       {isImageFile && (
         <label className="flex flex-col items-start space-y-4">
-          <div className="bg-white flex-col items-center mt-0 w-full h-[200px] rounded-[8px] mx-auto">
+          <div className="bg-white flex-col py-16 items-center  mt-0 w-full h-full rounded-[8px] mx-auto">
             <div className="flex flex-col items-center justify-center mt-[10%] space-y-3">
               <img src={upload1} className="h-9 w-9 object-contain" alt="" />
               <span className="font-medium text-sm md:text-xl cursor-pointer  text-gray-600">

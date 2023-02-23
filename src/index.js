@@ -6,6 +6,7 @@ import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { StateProvider } from "./context";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { apolloClient } from "./apollo";
 
 const client = new ApolloClient({
   uri: "https://api.cyberconnect.dev/testnet/",
@@ -16,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ThirdwebProvider desiredChainId={ChainId.BinanceSmartChainTestnet}>
     <Router>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apolloClient}>
         <StateProvider>
           <App />
         </StateProvider>

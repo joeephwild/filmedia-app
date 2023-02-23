@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { connect, profile, setProfile, data } = useStateContext();
 
   //form state for handling changes in input
   const [category, setCategory] = useState("");
@@ -24,7 +23,6 @@ const CreateAccount = () => {
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const address = useAddress();
-  const chainId = useChainId();
   const navigate = useNavigate()
 
   const ipfsgateway = "gateway.pinata.cloud";
@@ -104,6 +102,11 @@ const CreateAccount = () => {
         metadata: receipt,
         handle: handles,
         operator: contractOperator,
+        desc: description,
+        name: name,
+        titles: title,
+        cover: coverImage,
+        categories: category
       });
       console.log((await docRef).id);
       setIsLoading(false);
@@ -188,7 +191,7 @@ const CreateAccount = () => {
                       className="h-[200px] w-[200px] object-cover"
                     />
                   )}
-                  <div className="flex space-x-8 items-center w-full">
+                  <div className="grid-cols-1 space-x-8 items-center w-full">
                   <div className="flex w-full  flex-col items-start">
                     <label className="text-lg font-OpenSans-Bold">
                       Category
@@ -200,45 +203,20 @@ const CreateAccount = () => {
                     >
                       <option>Select Category</option>
                       <option>Artist</option>
-                      <option>Podcast</option>
+                      <option>Content Creator</option>
                       <option>Supporter</option>
                     </select>
                   </div>
-
-                  {/**category */}
-
-                  <div className="flex w-full flex-col items-start">
-                    <label className="text-lg font-OpenSans-Bold">
-                      Title
-                    </label>
-                    <select
-                      value={category}
-                      onChange={(e) => setCategory(e.target.value)}
-                      class="w-full font-bold font-OpenSans-Bold bg-[#f0f0f0] rounded-[8px] h-16 text-[#000000]"
-                    >
-                      <option>Select</option>
-                      <option>Singer</option>
-                      <option>singer/Song-Writer</option>
-                      <option>Rapper</option>
-                      <option>Content Creator</option>
-                      <option>Comedian</option>
-                      <option>Other</option>
-                    </select>
                   </div>
-                   {/**category ends */}
-                  </div>
-                 
-
-                  {category === "Other" && (
-                    <FormField
+                  <FormField
                       isInput
                       placeholder="Enter your specific category"
-                      labelName="Enter Category *"
+                      labelName="Enter Title *"
                       inputType="text"
-                      value={other}
-                      handleChange={(e) => setOther(e.target.value)}
+                      value={category}
+                      handleChange={(e) => setCategory(e.target.value)}
                     />
-                  )}
+                
                   <FormField
                     isInput
                     placeholder="Enter Handle e.g vitalikEth"

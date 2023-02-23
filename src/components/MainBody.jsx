@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { useStateContext } from "../context";
@@ -25,7 +24,8 @@ import PlayerSection from "./PlayerSection";
 import Sidebar from "./Sidebar";
 
 const MainBody = () => {
-  const { openBigScreen, openNotification, modal, openPip, openPlayer } = useStateContext();
+  const { openBigScreen, openNotification, modal, openPip, openPlayer } =
+    useStateContext();
   return (
     <PlayerState>
       <div className="flex relative items-center h-full overflow-hidden flex-row">
