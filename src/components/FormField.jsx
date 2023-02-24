@@ -15,9 +15,7 @@ const FormField = ({
   return (
     <label className="flex my-8 flex-col">
       {labelName && (
-        <span className="text-lg font-OpenSans-Bold">
-          {labelName}
-        </span>
+        <span className="text-lg font-OpenSans-Bold">{labelName}</span>
       )}
 
       {isFile && (
@@ -105,7 +103,7 @@ const FormField = ({
             value={value}
             onChange={handleChange}
             placeholder={placeholder}
-            className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
+            className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none px-3 h-12 rounded-[8px]"
           />
         </div>
       )}
