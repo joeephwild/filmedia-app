@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Albums, Music } from "../components";
+import { Albums, Music, Videos } from "../components";
 import { song_list } from "../context/songs";
 import { useStateContext } from "../context";
 import { BsFillPatchCheckFill } from "react-icons/bs";
@@ -18,7 +18,7 @@ const ProfileDetails = ({ i }) => {
 
   const cyberConnect = new CyberConnect({
     namespace: "Filmedia Network",
-    env: Env.PRODUCTION,
+    env: Env.STAGING,
     provider: provider,
     signingMessageEntity: "Filmedia Network",
   });
@@ -127,29 +127,39 @@ const ProfileDetails = ({ i }) => {
             <button className="bg-white text-[#000080] rounded-lg text-lg font-bold px-5 py-3">
               View NFT Profile
             </button>
-            {following ? (
-              <button
-                onClick={handleFollow}
-                className="border-2 border-white px-4 py-2 rounded-lg text-lg font-bold text-gray-500"
-              >
-                Following
-              </button>
-            ) : (
-              <button
-                onClick={handleFollow}
-                className="border-2 border-white px-4 py-2 rounded-lg text-lg font-bold text-gray-500"
-              >
-                Follow
-              </button>
+            {state.to === address && <div></div>}
+            {state.to !== address && (
+              <div>
+                {following ? (
+                  <button
+                    onClick={handleFollow}
+                    className="border-2 border-white px-4 py-2 rounded-lg text-lg font-bold text-gray-500"
+                  >
+                    Following
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleFollow}
+                    className="border-2 border-white px-4 py-2 rounded-lg text-lg font-bold text-gray-500"
+                  >
+                    Follow
+                  </button>
+                )}
+              </div>
             )}
 
             {/** right buttons */}
             <div></div>
           </div>
         </div>
-        <div className="flex flex-col items-center mx-5">
-        <div className="mx-auto w-full ">
-          <div className="flex mx-auto cursor-pointer flex-col lg:mt-0">
+        {state.titles === "Content Creator" ? (
+          <div>
+            <Videos />
+          </div>
+        ): (
+          <div className="flex flex-col items-center mx-5">
+          <div className="mx-auto w-full ">
+            <div className="flex mx-auto cursor-pointer flex-col lg:mt-0">
               <h2 className="text-2xl font-bold text-[#fafafa">Songs</h2>
               <div className="flex items-center justify-between">
                 <span>#</span>
@@ -163,8 +173,9 @@ const ProfileDetails = ({ i }) => {
             </div>
           </div>
           <Albums />
-       
         </div>
+        )}
+
       </div>
     </section>
   );

@@ -32,14 +32,14 @@ export async function sendDataToIPFS (metadata) {
   const url = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
   const data = JSON.stringify({
     pinataMetadata: {
-      name: "listdata",
+      name: "listcontent",
     },
     pinataOptions: {
       cidVersion: 1,
     },
     pinataContent: {
-      profileInfo: {
-      metadataDetails: metadata
+      contentInfo: {
+      content: metadata
       },
     },
   });

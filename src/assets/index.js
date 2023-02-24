@@ -25,6 +25,9 @@ import image10 from './image10.png'
 import loader from './loader.svg'
 import group from './Group.png'
 import upload1 from './upload1.png'
+import slide1 from './slide1.png'
+import slide2 from './slide2.png'
+import slide3 from './slide3.png'
 
 export {
     logo,
@@ -52,5 +55,8 @@ export {
     image10,
     loader,
     group,
-    upload1
+    upload1,
+    slide1,
+    slide2,
+    slide3
 }

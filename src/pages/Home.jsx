@@ -1,4 +1,4 @@
-import { Card } from "../components";
+import { Banner, Card } from "../components";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context";
@@ -12,6 +12,9 @@ const Home = () => {
   };
   return (
     <section className="h-screen items-start">
+      <div>
+        <Banner />
+      </div>
       <div className="mx-[40px] my-[40px] space-y-9">
         {/** artist */}
         <div className="flex flex-col">
@@ -45,6 +48,9 @@ const Home = () => {
                     content={item}
                     handleClick={() => handleNavigate(item)}
                   />
+                )}
+                  {item.titles !== "Content Creator" && (
+                 <div className="hidden"></div>
                 )}
               </div>
             ))}
