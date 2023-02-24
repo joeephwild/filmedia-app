@@ -1,7 +1,7 @@
 
 const Card = ({ content, handleClick }) => {
   return (
-    <div onClick={handleClick} className="bg-black cursor-pointer hover:scale-105 transition-all ease-in-out duration-300 px-9 py-7 text-white  max-w-[260px] max-h-[360px] rounded-xl">
+    <div onClick={handleClick} className="bg-black mt-5 cursor-pointer hover:scale-105 transition-all ease-in-out duration-300 px-9 py-7 text-white  max-w-[260px] max-h-[360px] rounded-xl">
       <img
         src={content.avatar}
         alt=""

@@ -4,11 +4,15 @@ import CyberConnect, { Env } from "@cyberlab/cyberconnect-v2";
 import { auth, db } from "../firebase";
 import { ethers } from "ethers";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
-import { collection, onSnapshot, query,} from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 
 const StateContext = createContext();
-
-
 
 export const StateProvider = ({ children }) => {
   const [success, setSuccess] = useState(false);
@@ -22,11 +26,43 @@ export const StateProvider = ({ children }) => {
   const [followed, setFollowed] = useState(false);
   const [currentProfile, setCurrentProfile] = useState([]);
   const [accounts, setAccounts] = useState([]);
+  const [podcast, setPodcast] = useState([]);
+  const [artist, setArtist] = useState([]);
+  console.log(podcast)
   const [openNotification, setOpenNotification] = useState(false);
-  
+
   const connect = useMetamask();
   const address = useAddress();
 
+  const getPodcastAccount = async () => {
+    const q = query(
+      collection(db, "accounts"),
+      where("titles", "==", "Content Creator")
+    );
+
+    const querySnapshot = await getDocs(q);
+    let account = [];
+    querySnapshot.forEach((doc) => {
+      account.push({ ...doc.data(), id: doc.id });
+    });
+   setPodcast(account);
+  };
+
+  const getArtistAccount = async () => {
+    const q = query(
+      collection(db, "accounts"),
+      where("titles", "==", "Artist")
+    );
+
+    const querySnapshot = await getDocs(q);
+    let account = [];
+    querySnapshot.forEach((doc) => {
+      account.push({ ...doc.data(), id: doc.id });
+    });
+    setArtist(account);
+  };
+
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -58,6 +94,8 @@ export const StateProvider = ({ children }) => {
 
   useEffect(() => {
     connect();
+    getPodcastAccount();
+    getArtistAccount();
     getAllData();
   }, []);
 
@@ -120,7 +158,9 @@ export const StateProvider = ({ children }) => {
         setErrors,
         cyberConnect,
         setFollowed,
-        followed
+        followed,
+        podcast,
+        artist
       }}
     >
       {children}

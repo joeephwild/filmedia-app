@@ -5,7 +5,7 @@ import { useStateContext } from "../context";
 import { BsChevronRight } from "react-icons/bs";
 
 const Home = () => {
-  const { accounts, unFollow } = useStateContext();
+  const { accounts, podcast, artist } = useStateContext();
   const navigate = useNavigate();
   const handleNavigate = (item) => {
     navigate(`/dashboard/profile/${item.handle}`, { state: item });
@@ -41,14 +41,12 @@ const Home = () => {
             <BsChevronRight size={20} />
           </div>
           <div className="lg:grid-cols-4 xl:grid-cols-5 grid-cols-2 md:grid-cols-3 items-start  gap-5 grid">
-            {accounts.map((item, i) => (
+            {podcast.map((item, i) => (
               <div key={i} className="flex flex-col items-start">
-                {item.titles === "Content Creator" && (
                   <Card
                     content={item}
                     handleClick={() => handleNavigate(item)}
                   />
-                )}
                   {item.titles !== "Content Creator" && (
                  <div className="hidden"></div>
                 )}
@@ -59,18 +57,16 @@ const Home = () => {
         {/**recommendation */}
         <div className="flex flex-col">
           <div className="flex font-bold font-OpenSans-Bold items-center space-x-3">
-            <span className="text-xl font-bold">Podcast</span>
+            <span className="text-xl font-bold">Artist</span>
             <BsChevronRight size={20} />
           </div>
           <div className="lg:grid-cols-4 xl:grid-cols-5 grid-cols-2 md:grid-cols-3 items-center  gap-5 grid">
-            {accounts.map((item, i) => (
+            {artist.map((item, i) => (
               <div key={i} id={i} className="flex flex-col items-center">
-                {item.category === "Supporter" && (
                   <Card
                     content={item}
                     handleClick={() => handleNavigate(item, i)}
                   />
-                )}
               </div>
             ))}
           </div>

@@ -13,8 +13,8 @@ const TicketForm = () => {
   const [image, setImage] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState(9);
+  const [price, setPrice] = useState(0.05);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -64,7 +64,16 @@ const TicketForm = () => {
         quantity
       );
       console.log(data);
-      const docRef = await addDoc(collection(db, "accounts"), {});
+      const docRef = await addDoc(collection(db, "ticket"), {
+        image: image,
+        begin: startDate,
+        end: endDate,
+        amount: quantity,
+        cost: price,
+        ticketTitle: title,
+        desc: description,
+        venue: location,
+      });
       console.log((await docRef).id);
       setLoading(false);
       navigate("/dashboard/ticket");
@@ -123,7 +132,7 @@ const TicketForm = () => {
               <div className="w-full ">
                 <label htmlFor="date">Start Date</label>
                 <input
-                  type="date"
+                   type="datetime-local"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
@@ -133,9 +142,7 @@ const TicketForm = () => {
               <div className="w-full font-OpenSans-Bold text-lg ">
                 <label htmlFor="date">End Date</label>
                 <input
-                  type="date"
-                  name=""
-                  id=""
+                  type="datetime-local"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                   className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
