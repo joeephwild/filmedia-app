@@ -1,13 +1,13 @@
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { bell, upload } from "../assets";
+import { bell, stromzy, upload } from "../assets";
 import { useStateContext } from "../context";
 
 const Navbar = () => {
-  const { modal, setModal, setOpenNotification, currentProfile } = useStateContext();
+  const { modal, setModal, setOpenNotification, currentProfile } =
+    useStateContext();
   const handleModal = () => {
-    
     setOpenNotification(false);
   };
   const navigate = useNavigate();
@@ -30,16 +30,16 @@ const Navbar = () => {
           className="w-6 h-6 object-contain"
         />
         <div>
-         {currentProfile.map((item, i) => (
-          <div key={i}
-          onClick={() => setModal(!modal)}>
-           <img
-           src={item.avatar}
-           class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
-           alt="PROFILE"
-         />
-         </div>
-         ))}
+
+          {currentProfile.map((item, i) => (
+            <div key={i} onClick={() => setModal(!modal)}>
+              <img
+                src={item.avatar}
+                class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
+                alt="PROFILE"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </nav>

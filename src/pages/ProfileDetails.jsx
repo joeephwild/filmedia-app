@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { Account, Albums, Music, Videos } from "../components";
 import { song_list } from "../context/songs";
 
+
 const ProfileDetails = ({ i }) => {
   const { state } = useLocation();
 

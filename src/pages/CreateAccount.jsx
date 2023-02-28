@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const { setAccountExist} = useStateContext()
 
   //form state for handling changes in input
   const [category, setCategory] = useState("");
@@ -112,6 +113,7 @@ const CreateAccount = () => {
       setIsLoading(false);
       navigate("/profile")
     } catch (error) {
+      setIsLoading(false)
       console.log("Error creating profile", error);
     }
   };

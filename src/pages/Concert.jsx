@@ -9,26 +9,25 @@ const Concert = () => {
             <div className=''>
                 <div className="w-[100%] h-screen">
                     <div className="flex bg-gradient-to-b from-gray-500 via-purple-500 to-indigo-900 mt-20 h-full flex-col col-span-5 md:col-span-12 lg:col-span-9 xl:col-span-9 text-white row-span-6">
-                        <div className="grid grid-cols-2 px-5 h-1/2 m-5 -mt-10 ">
+                        <div className="grid md:grid-cols-2 grid-cols-1 px-5 h-1/2 m-5 -mt-10 ">
                             <div>
                                 <div className="">
                                     <span clspanss="h-full w-48">
                                         <img alt="by aldi sigun on Unsplash"
-                                            src={state.imgSrc}
+                                            src={state.image}
                                             className="mx-auto object-cover rounded-xl h-full w-full" />
                                     </span>
                                 </div>
                                 <div className="m-5">
                                     <div className="">
-                                        <h1 className="font-bold m-2">ED SHEERAN</h1>
-                                        <h1 className="font-bold text-4xl m-2">Mathematics Tour</h1>
+                                        <h1 className="font-bold text-4xl m-2">{state.ticketTitle}</h1>
                                         <div className="font-bold flex m-2">
-                                            <h1>Wed 10 May 2023 - Wed 27 May 2023</h1>
+                                            <h1>{state.begin} - {state.end}</h1>
                                         </div>
                                         <div className="font-bold flex m-2">
                                             <h1>See Scheduled Dates and Cities</h1>
                                         </div>
-                                        <h1 className="text-xs m-2 overflow-ellipsis">This is the mathematics tour</h1>
+                                        <h1 className="text-xs m-2 overflow-ellipsis">{state.desc}</h1>
                                     </div>
                                 </div>
                             </div>

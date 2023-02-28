@@ -6,16 +6,12 @@ import { BsFillPatchCheckFill } from "react-icons/bs";
 
 const Profile = () => {
   const { currentProfile } = useStateContext();
-
-  function truncate(str, n) {
-    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
-  }
   return (
     <div>
       {currentProfile && (
         <div>
           {currentProfile.map((item, i) => (
-            <section key={i} className="h-s">
+            <section className="h-s">
               <Account key={i} content={item} />
               <div className="grid space-y-16 grid-cols-1 mx-5 gap-5">
                 <Albums />
@@ -38,9 +34,7 @@ const Profile = () => {
           ))}
         </div>
       )}
-      {!currentProfile && (
-        <div>no account</div>
-      )}
+   
     </div>
   );
 };

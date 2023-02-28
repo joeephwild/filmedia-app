@@ -5,9 +5,12 @@ import {
 } from "../assets";
 import { HiLocationMarker } from "react-icons/hi";
 import { BsChevronRight } from "react-icons/bs";
+import { useStateContext } from "../context";
 
 const Ticket = () => {
   const navigate = useNavigate();
+  const { ticket } = useStateContext()
+  console.log(ticket)
 
   const artists = [
     {
@@ -18,12 +21,13 @@ const Ticket = () => {
     },
   ];
 
-  const handleNavigate = () => {
-    navigate(`/dashboard/ticket/${artists[0].concert}`, { state: artists[0] });
+  const handleNavigate = (item) => {
+    navigate(`/dashboard/ticket/${item.ticketTitle}`, { state: item });
   };
   return (
     <div>
-      <div className="flex h-screen">
+      {ticket.map((item, i) => (
+        <div key={i} className="flex h-screen">
         <div className="container my-12 mx-auto px-4 md:px-12">
           <div className="flex flex-wrap -mx-1 lg:-mx-4">
             <div className="my-1 px-1 w-full max-w-[477px] max-h-[400px] lg:my-4 lg:px-4 ">
@@ -31,7 +35,7 @@ const Ticket = () => {
                   <img
                     alt="Placeholder"
                     className="block h-auto w-full"
-                    src="https://www.mcg.org.au/_/media/images/shared/placeholders/1800x800/es23-1800x1000.jpg"
+                    src={item.image}
                   />
                 <div className="bg-black">
                   <header className="items-center relative justify-between leading-tight p-2 md:p-4">
@@ -40,11 +44,11 @@ const Ticket = () => {
                         className="no-underline hover:underline text-[#fafafa]"
                         href="#"
                       >
-                        Mathematics Tour
+                        {item.ticketTitle}
                       </a>
                     </h1>
                     <div className="flex items-center justify-between px-2 py-4">
-                      <p className="text-gray-500 text-lg">
+                      <p className="text-gray-500 text-xs font-OpenSans-Bold md:text-lg">
                         Wed 10 Feb 2023 - Wed 27 Feb 2023{" "}
                       </p>
                       <span className="text-gray-500 flex items-center absolute right-0 mr-5">
@@ -63,7 +67,7 @@ const Ticket = () => {
                       </button>
                     </div>
                     <button
-                      onClick={() => handleNavigate()}
+                      onClick={() => handleNavigate(item)}
                       className="bg-transparent flex font-semibold text-[#fafafa] txt-lg  py-2 space-x-2 items-center"
                     >
                       Learn More
@@ -76,6 +80,9 @@ const Ticket = () => {
           </div>
         </div>
       </div>
+      ))}
+                      
+
     </div>
   );
 };

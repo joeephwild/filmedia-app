@@ -3,23 +3,27 @@ import { ethers } from "ethers";
 import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useStateContext } from "../context";
 import { db } from "../firebase";
 import { sendDataToIPFS, sendFileToIPFS } from "../pinata";
 import FormField from "./FormField";
 import Loader from "./Loader";
 
 const TicketForm = () => {
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [quantity, setQuantity] = useState(9);
-  const [price, setPrice] = useState(0.05);
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
+  const [ipfsHash, setIpfsHash] = useState("");
   const navigate = useNavigate();
   const ipfsgateway = "gateway.pinata.cloud";
+  const { createToken } = useStateContext();
+
   console.log(
     image,
     startDate,
@@ -49,21 +53,19 @@ const TicketForm = () => {
     venue: location,
   };
 
-  const handleSubmit = async (contract) => {
+  const handleSubmit = async () => {
+    const result = await sendDataToIPFS(metadata);
+    setIpfsHash(result);
+    console.log(result);
     try {
-      if(!price || !startDate || !endDate || !quantity || !title || !description || !location || !image)return alert("hey fill up form")
       setLoading(true);
-      const result = sendDataToIPFS(metadata);
-      console.log(result);
-      const data = await contract.call(
-        "createToken",
+      await createToken(
         result,
         price,
-        startDate,
-        endDate,
+        new Date(startDate).getTime(),
+        new Date(endDate).getTime(),
         quantity
       );
-      console.log(data);
       const docRef = await addDoc(collection(db, "ticket"), {
         image: image,
         begin: startDate,
@@ -73,6 +75,7 @@ const TicketForm = () => {
         ticketTitle: title,
         desc: description,
         venue: location,
+        ipfs: result,
       });
       console.log((await docRef).id);
       setLoading(false);
@@ -81,7 +84,10 @@ const TicketForm = () => {
   };
 
   return (
-    <section className="flex flex-col space-y-11 mx-auto items-center max-w-full">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="flex flex-col space-y-11 mx-auto items-center max-w-full"
+    >
       {loading && <Loader />}
       <section className="flex flex-col  items-center w-full">
         <div className=" mx-3 lg:w-[85%] my-9 items-center">
@@ -103,10 +109,7 @@ const TicketForm = () => {
               className="w-[300px] h-[300px] object-cover"
             />
           )}
-          <form
-            action=""
-            className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]"
-          >
+          <div className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
             <div className="flex-col items-center mx-auto">
               <FormField
                 isInput
@@ -130,9 +133,9 @@ const TicketForm = () => {
             </div>
             <div className="flex font-OpenSans-Bold text-lg items-center w-full space-x-6">
               <div className="w-full ">
-                <label htmlFor="date">Start Date</label>
+                <label>Start Date</label>
                 <input
-                   type="datetime-local"
+                  type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
@@ -140,9 +143,9 @@ const TicketForm = () => {
               </div>
 
               <div className="w-full font-OpenSans-Bold text-lg ">
-                <label htmlFor="date">End Date</label>
+                <label>End Date</label>
                 <input
-                  type="datetime-local"
+                  type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                   className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
@@ -159,16 +162,13 @@ const TicketForm = () => {
                 placeholder="Enter a valid url"
               />
             </div>
-          </form>
+          </div>
 
           {/** price section */}
-          <div
-            action=""
-            className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]"
-          >
+          <div className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
             <div className="flex  font-OpenSans-Bold text-lg items-center w-full space-x-6">
               <div className="w-full ">
-                <label htmlFor="date">Price</label>
+                <label>Price</label>
                 <input
                   type="number"
                   step="0.05"
@@ -179,7 +179,7 @@ const TicketForm = () => {
                 />
               </div>
               <div className="w-full font-OpenSans-Bold text-lg ">
-                <label htmlFor="date">Quantity</label>
+                <label>Quantity</label>
                 <input
                   type="number"
                   value={quantity}
@@ -195,10 +195,7 @@ const TicketForm = () => {
       </section>
 
       <div className="flex m-5 justify-center">
-        <label
-          for="checked-checkbox"
-          className="ml-5 text-lg w-1/2 text-gray-500 dark:text-gray-300"
-        >
+        <label className="ml-5 text-lg w-1/2 text-gray-500 dark:text-gray-300">
           By Uploading this file, you acknowledge that the transaction is final
           and cannot be reversed. Includes{" "}
           <Link to="#" className="text-white">
@@ -218,15 +215,14 @@ const TicketForm = () => {
       </div>
       <div className="flex m-5 w-full justify-center">
         <Web3Button
-          accentColor="white"
           contractAddress="0x1Aae1e6ce578CB965b1bd724c80799806AFE7C70"
-          action={handleSubmit}
+          action={() => handleSubmit()}
         >
-          createTicket
+          createToken
         </Web3Button>
       </div>
       <div className="flex m-5 justify-center w-3/4 overflow-auto"></div>
-    </section>
+    </form>
   );
 };
 

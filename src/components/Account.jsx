@@ -1,8 +1,12 @@
 import { ethers } from 'ethers';
 import React, { useState } from 'react'
 import { BsFillPatchCheckFill } from 'react-icons/bs'
-import CyberConnect, { Env } from "@cyberlab/cyberconnect-v2";
 import { useAddress } from '@thirdweb-dev/react';
+import {
+  FollowButton,
+  Env,
+  Blockchain,
+} from '@cyberconnect/react-follow-button';
 
 const Account = ({content}) => {
     console.log(content);
@@ -14,20 +18,6 @@ const Account = ({content}) => {
 
       const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-      const cyberConnect = new CyberConnect({
-        namespace: "Filmedia Network",
-        env: Env.STAGING,
-        provider: provider,
-        signingMessageEntity: "Filmedia Network",
-      });
-    
-      const handleFollow = async () => {
-        if (content.to === address) return alert("hey come on");
-    
-        const follow = await cyberConnect.follow(address, content.handle);
-        setFollowing(true);
-        return follow;
-      };
   return (
     <div>
           <div className="h-2/4 md:h-[500px] overflow-hidden border-b-4 border-white-200">
@@ -119,26 +109,19 @@ const Account = ({content}) => {
             <button className="bg-white text-[#000080] rounded-lg text-lg font-bold px-5 py-3">
               View NFT Profile
             </button>
-            {content.to === address && <div></div>}
-            {content.to !== address && (
-              <div>
-                {following ? (
-                  <button
-                    onClick={handleFollow}
-                    className="border-2 border-white px-4 py-2 rounded-lg text-lg font-bold text-gray-500"
-                  >
-                    Following
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleFollow}
-                    className="border-2 border-white px-4 py-2 rounded-lg text-lg font-bold text-gray-500"
-                  >
-                    Follow
-                  </button>
-                )}
-              </div>
-            )}
+            <FollowButton
+      provider={provider}
+      namespace="CyberConnect"
+      toAddr="0xe6aab1f16ff560d309ed7ce8e08d290306a0906c"
+      env={Env.STAGING}
+      chain={Blockchain.ETH}
+      onSuccess={(e) => {
+        console.log(e);
+      }}
+      onFailure={(e) => {
+        console.log(e);
+      }}
+    />
 
             {/** right buttons */}
             <div></div>

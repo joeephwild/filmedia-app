@@ -3,7 +3,12 @@ import { onAuthStateChanged } from "firebase/auth";
 import CyberConnect, { Env } from "@cyberlab/cyberconnect-v2";
 import { auth, db } from "../firebase";
 import { ethers } from "ethers";
-import { useAddress, useMetamask } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useContract,
+  useContractWrite,
+  useMetamask,
+} from "@thirdweb-dev/react";
 import {
   collection,
   getDocs,
@@ -11,6 +16,13 @@ import {
   query,
   where,
 } from "firebase/firestore";
+const provider = new ethers.providers.Web3Provider(window.ethereum)
+const cyberConnect = new CyberConnect({
+  namespace: 'CyberConnect',
+  env: Env.STAGING,
+  provider: provider,
+  signingMessageEntity: 'CyberConnect',
+});
 
 const StateContext = createContext();
 
@@ -28,8 +40,33 @@ export const StateProvider = ({ children }) => {
   const [accounts, setAccounts] = useState([]);
   const [podcast, setPodcast] = useState([]);
   const [artist, setArtist] = useState([]);
-  console.log(podcast)
+  const [ticket, setTicket] = useState([]);
+  console.log(ticket)
+ const [accountExist, setAccountExist] = useState(false);
   const [openNotification, setOpenNotification] = useState(false);
+  const { contract } = useContract(
+    "0x72FAa5a90b1D9416f2828F0f8D2190a237B02c89"
+  );
+
+  const { mutateAsync: createToken, isLoading } = useContractWrite(
+    contract,
+    "createToken"
+  );
+
+  const createTicket = async (tokenURI, price, _start, _end, _supply) => {
+    try {
+      const data = await createToken([
+        tokenURI,
+        ethers.utils.parseUnits(price, 18),
+        new Date(_start).getTime(),
+        new Date(_end).getTime(),
+        _supply,
+      ]);
+      console.info("contract call successs", data);
+    } catch (err) {
+      console.error("contract call failure", err);
+    }
+  };
 
   const connect = useMetamask();
   const address = useAddress();
@@ -45,7 +82,21 @@ export const StateProvider = ({ children }) => {
     querySnapshot.forEach((doc) => {
       account.push({ ...doc.data(), id: doc.id });
     });
-   setPodcast(account);
+    setPodcast(account);
+  };
+
+  const getTicket = async () => {
+    const q = query(
+      collection(db, "ticket")
+    );
+
+    const querySnapshot = await getDocs(q);
+    let tickets = [];
+    querySnapshot.forEach((doc) => {
+      tickets.push({ ...doc.data(), id: doc.id });
+    });
+    console.log(tickets)
+    setTicket(tickets)
   };
 
   const getArtistAccount = async () => {
@@ -61,8 +112,6 @@ export const StateProvider = ({ children }) => {
     });
     setArtist(account);
   };
-
-  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -96,6 +145,7 @@ export const StateProvider = ({ children }) => {
     connect();
     getPodcastAccount();
     getArtistAccount();
+    getTicket()
     getAllData();
   }, []);
 
@@ -125,8 +175,6 @@ export const StateProvider = ({ children }) => {
   }
 
   const [active, setActive] = useState(currentTab);
-
-  useEffect(() => {}, []);
 
   return (
     <StateContext.Provider
@@ -160,7 +208,11 @@ export const StateProvider = ({ children }) => {
         setFollowed,
         followed,
         podcast,
-        artist
+        artist,
+        setAccountExist,
+        accountExist,
+        createToken: createTicket,
+        ticket
       }}
     >
       {children}
