@@ -30,16 +30,17 @@ const LoginScreen = () => {
     if (
       !fullName ||
       !signUpMail ||
-      !signUpPassword || signUpPassword !== confirmPassword
+      !signUpPassword ||
+      signUpPassword !== confirmPassword
     )
       return alert("no input");
     setIsSubmitting(true);
-  await createUserWithEmailAndPassword(auth, signUpMail, signUpPassword)
+    await createUserWithEmailAndPassword(auth, signUpMail, signUpPassword)
       .then((response) => {
         console.log(response);
         alert("done");
         setIsSubmitting(false);
-        navigate('/profile');
+        navigate("/profile");
       })
       .catch((error) => {
         console.log(error);
@@ -52,12 +53,12 @@ const LoginScreen = () => {
 
   const handleSignin = async () => {
     setIsSubmitting(true);
-   await signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
         console.log(response);
         alert("done");
         setIsSubmitting(false);
-        navigate('/profile');
+        navigate("/profile");
       })
       .catch((error) => {
         console.log(error);
@@ -90,8 +91,8 @@ const LoginScreen = () => {
             <div className="flex-col items-center mx-auto">
               <FormField
                 isInput
-                labelName="UserName"
-                placeholder="username"
+                labelName="Email"
+                placeholder="Email"
                 inputType="email"
                 value={email}
                 handleChange={(e) => setEmail(e.target.value)}
@@ -100,7 +101,7 @@ const LoginScreen = () => {
                 <FormField
                   isInput
                   labelName="Password"
-                  placeholder="password"
+                  placeholder="Password"
                   inputType="password"
                   value={password}
                   handleChange={(e) => setPassword(e.target.value)}
@@ -134,8 +135,8 @@ const LoginScreen = () => {
             <div className="flex-col items-center mx-auto">
               <FormField
                 isInput
-                labelName="Full LegalName"
-                placeholder="username"
+                labelName="Full Legal Name"
+                placeholder="Username"
                 inputType="text"
                 value={fullName}
                 handleChange={(e) => setFullName(e.target.value)}
@@ -144,7 +145,7 @@ const LoginScreen = () => {
                 <FormField
                   isInput
                   labelName="Email"
-                  placeholder="enter a vailid url"
+                  placeholder="Enter a vailid Email"
                   inputType="email"
                   value={signUpMail}
                   handleChange={(e) => setSignUpMail(e.target.value)}
@@ -152,7 +153,7 @@ const LoginScreen = () => {
                 <FormField
                   isInput
                   labelName="Password"
-                  placeholder="enter a vailid url"
+                  placeholder="Enter a vailid Password"
                   inputType="password"
                   value={signUpPassword}
                   handleChange={(e) => setSignUpPassword(e.target.value)}
@@ -160,7 +161,7 @@ const LoginScreen = () => {
                 <FormField
                   isInput
                   labelName="Confirm Password"
-                  placeholder="enter a vailid url"
+                  placeholder="Confirm Password"
                   inputType="password"
                   value={confirmPassword}
                   handleChange={(e) => setConfirmPassword(e.target.value)}
