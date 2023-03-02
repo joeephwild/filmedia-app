@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import {MdCancel} from 'react-icons/md'
 import {IoIosArrowForward} from 'react-icons/io'
 import { image13 } from "../assets";
-
+import { image10 } from "../assets";
 const Notifications = () => {
   const [general, setGeneral] =  useState(true);
-  const [transaction, setTransact] =  useState(true);
+  const [transaction, setTransact] =  useState(false);
   const {setOpenNotification} = useStateContext();
 
   const changeGeneral = () => {
@@ -154,110 +154,107 @@ const Notifications = () => {
         }
 
         { transaction ?
-          <div className='px-7 py-2 flex'>
-            Transaction
+          <>
+          <div className='px-7 py-3'>
+            <div className='flex gap-2'>
+              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
+                <img
+                src={image10}
+                alt="photo"
+                className="w-full h-full absolute rounded-full"
+                />
+              </div>
+              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
+              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
+              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
+            </div>
+  
+            <div className='mt-2 flex gap-2'>
+              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
+                <img
+                src={image10}
+                alt="photo"
+                className="w-full h-full absolute rounded-full"
+                />
+              </div>
+              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
+              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
+              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
+            </div>
+  
+            {/* second section */}
+            <div className='mt-5'>
+              <div className='flex'>
+                <p>This Week</p>
+                <IoIosArrowForward size={25} className='text-gray-500'/>
+              </div>
+  
+              <div className='mt-2 flex gap-2'>
+              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
+                <img
+                src={image10}
+                alt="photo"
+                className="w-full h-full absolute rounded-full"
+                />
+              </div>
+              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
+              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
+              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
+            </div>
+  
+            <div className='mt-2 flex gap-2'>
+              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
+                <img
+                src={image10}
+                alt="photo"
+                className="w-full h-full absolute rounded-full"
+                />
+              </div>
+              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
+              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
+              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
+             </div>
+  
+            </div>
+  
+             {/* third section */}
+             <div className='mt-5'>
+              <div className='flex'>
+                <p>Last Week</p>
+                <IoIosArrowForward size={25} className='text-gray-500'/>
+              </div>
+  
+              <div className='mt-2 flex gap-2'>
+              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
+                <img
+                src={image10}
+                alt="photo"
+                className="w-full h-full absolute rounded-full"
+                />
+              </div>
+              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
+              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
+              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
+            </div>
+  
+            <div className='mt-2 flex gap-2'>
+              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
+                <img
+                src={image10}
+                alt="photo"
+                className="w-full h-full absolute rounded-full"
+                />
+              </div>
+              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
+              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
+              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
+             </div>
+  
+            </div>
+  
+  
           </div>
-          // <>
-          // <div className='px-7 py-3'>
-          //   <div className='flex gap-2'>
-          //     <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-          //       <img
-          //       src={image13}
-          //       alt="photo"
-          //       className="w-full h-full absolute rounded-full"
-          //       />
-          //     </div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-          //     <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          //   </div>
-  
-          //   <div className='mt-2 flex gap-2'>
-          //     <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-          //       <img
-          //       src={image13}
-          //       alt="photo"
-          //       className="w-full h-full absolute rounded-full"
-          //       />
-          //     </div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-          //     <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          //   </div>
-  
-          //   {/* second section */}
-          //   <div className='mt-5'>
-          //     <div className='flex'>
-          //       <p>This Week</p>
-          //       <IoIosArrowForward size={25} className='text-gray-500'/>
-          //     </div>
-  
-          //     <div className='mt-2 flex gap-2'>
-          //     <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-          //       <img
-          //       src={image13}
-          //       alt="photo"
-          //       className="w-full h-full absolute rounded-full"
-          //       />
-          //     </div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-          //     <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          //   </div>
-  
-          //   <div className='mt-2 flex gap-2'>
-          //     <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-          //       <img
-          //       src={image13}
-          //       alt="photo"
-          //       className="w-full h-full absolute rounded-full"
-          //       />
-          //     </div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-          //     <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          //    </div>
-  
-          //   </div>
-  
-          //    {/* third section */}
-          //    <div className='mt-5'>
-          //     <div className='flex'>
-          //       <p>Last Week</p>
-          //       <IoIosArrowForward size={25} className='text-gray-500'/>
-          //     </div>
-  
-          //     <div className='mt-2 flex gap-2'>
-          //     <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-          //       <img
-          //       src={image13}
-          //       alt="photo"
-          //       className="w-full h-full absolute rounded-full"
-          //       />
-          //     </div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-          //     <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          //   </div>
-  
-          //   <div className='mt-2 flex gap-2'>
-          //     <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-          //       <img
-          //       src={image13}
-          //       alt="photo"
-          //       className="w-full h-full absolute rounded-full"
-          //       />
-          //     </div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-          //     <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-          //     <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          //    </div>
-  
-          //   </div>
-  
-  
-          // </div>
-          // </>
+          </>
           :
           <></>
         }
