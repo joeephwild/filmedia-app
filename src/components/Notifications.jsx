@@ -19,8 +19,20 @@ const Notifications = () => {
     setGeneral(!general);
   }
 
+   const datas = [
+    {pic: image13,name:"choice", details: "Started a Live Stream", duration: "10 mins ago"},
+    {pic: image13,name:"Bryan", details: "Just uploaded a new album",  duration:""},
+    {pic: image13,name:"choice", details: "you have one new follower",  duration:"20 mins ago"}
+    ]
+
+    const datatrans = [
+      {pic: image10,name:"choice", details: "Started a Live Stream", duration: "10 mins ago"},
+      {pic: image10,name:"Bryan", details: "Just uploaded a new album",  duration:""},
+      {pic: image10,name:"choice", details: "you have one new follower",  duration:"20 mins ago"}
+      ]
+
   return (
-    <div className='bg-black h-[650px] w-[420px] fixed z-[99999] right-9 top-20'>
+    <div className='overflow-y-scroll scroll-smooth scrollbar scrollbar-thumb-gray-400 scrollbar-track-blue-800 scrollbar-w-2 bg-black h-[550px] w-[420px] fixed z-[99999] right-9' style={{top: "66px"}}>
         <div className='flex px-3.5 py-2.5 items-center justify-between w-full'>
           <span className='text-lg'>Notification</span>
           <span className="-mt-2" onClick={() => setOpenNotification(false)}><MdCancel size={20}/></span>
@@ -47,107 +59,70 @@ const Notifications = () => {
 
         { general?
         <>
-        <div className='px-7 py-3'>
-          <div className='flex gap-2'>
-            <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-              <img
-              src={image13}
-              alt="photo"
-              className="w-full h-full absolute rounded-full"
-              />
-            </div>
-            <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-            <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-            <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          </div>
+          <div className='px-7 py-3'>
+            {datas.map((data,index)=>(
+                <div className='flex gap-2 mb-2'>
+                  <div className='w-10 h-10 relative rounded-full bg-[#FF2424]' key={index}>
+                    <img
+                    src={data.pic}
+                    alt="photo"
+                    className="w-full h-full absolute rounded-full"
+                    />
+                    </div>
+                    <div><p className='mt-2 text-sm text-gray-500'>{data.name}</p></div>
+                    <div><p className='mt-2 text-sm text-white font-bold'>{data.details}</p></div>
+                    <div><p className='mt-2 text-sm text-gray-500'>{data.duration}</p></div>
+                  </div>  
+                ))}
+            
+            {/* second section */}
+            <div className='mt-5'>
+              <div className='flex'>
+                <p>This Week</p>
+                <IoIosArrowForward size={25} className='text-gray-500'/>
+              </div>
 
-          <div className='mt-2 flex gap-2'>
-            <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-              <img
-              src={image13}
-              alt="photo"
-              className="w-full h-full absolute rounded-full"
-              />
-            </div>
-            <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-            <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-            <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          </div>
-
-          {/* second section */}
-          <div className='mt-5'>
-            <div className='flex'>
-              <p>This Week</p>
-              <IoIosArrowForward size={25} className='text-gray-500'/>
-            </div>
-
-            <div className='mt-2 flex gap-2'>
-            <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-              <img
-              src={image13}
-              alt="photo"
-              className="w-full h-full absolute rounded-full"
-              />
-            </div>
-            <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-            <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-            <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          </div>
-
-          <div className='mt-2 flex gap-2'>
-            <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-              <img
-              src={image13}
-              alt="photo"
-              className="w-full h-full absolute rounded-full"
-              />
-            </div>
-            <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-            <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-            <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-           </div>
-
-          </div>
-
-           {/* third section */}
-           <div className='mt-5'>
-            <div className='flex'>
-              <p>Last Week</p>
-              <IoIosArrowForward size={25} className='text-gray-500'/>
-            </div>
-
-            <div className='mt-2 flex gap-2'>
-            <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-              <img
-              src={image13}
-              alt="photo"
-              className="w-full h-full absolute rounded-full"
-              />
-            </div>
-            <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-            <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-            <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-          </div>
-
-          <div className='mt-2 flex gap-2'>
-            <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-              <img
-              src={image13}
-              alt="photo"
-              className="w-full h-full absolute rounded-full"
-              />
-            </div>
-            <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-            <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-            <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-           </div>
-
-          </div>
-
-
-        </div>
+              {datas.map((data,index)=>(           
+                <div className='flex gap-2 mb-2'>
+                  <div className='w-10 h-10 relative rounded-full bg-[#FF2424]' key={index}>
+                    <img
+                    src={data.pic}
+                    alt="photo"
+                    className="w-full h-full absolute rounded-full"
+                    />
+                    </div>
+                    <div><p className='mt-2 text-sm text-gray-500'>{data.name}</p></div>
+                    <div><p className='mt-2 text-sm text-white font-bold'>{data.details}</p></div>
+                    <div><p className='mt-2 text-sm text-gray-500'>{data.duration}</p></div>
+                  </div>              
+                ))}
           
+            </div>
+
+            {/* third section */}
+            <div className='mt-5'>
+              <div className='flex'>
+                <p>Last Week</p>
+                <IoIosArrowForward size={25} className='text-gray-500'/>
+              </div>
+
+              {datas.map((data,index)=>(           
+                <div className='flex gap-2 mb-2'>
+                  <div className='w-10 h-10 relative rounded-full bg-[#FF2424]' key={index}>
+                    <img
+                    src={data.pic}
+                    alt="photo"
+                    className="w-full h-full absolute rounded-full"
+                    />
+                    </div>
+                    <div><p className='mt-2 text-sm text-gray-500'>{data.name}</p></div>
+                    <div><p className='mt-2 text-sm text-white font-bold'>{data.details}</p></div>
+                    <div><p className='mt-2 text-sm text-gray-500'>{data.duration}</p></div>
+                  </div>
+                ))}
           
+            </div>            
+          </div> 
         </>
           :
           <></>
@@ -155,110 +130,74 @@ const Notifications = () => {
 
         { transaction ?
           <>
-          <div className='px-7 py-3'>
-            <div className='flex gap-2'>
-              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-                <img
-                src={image10}
-                alt="photo"
-                className="w-full h-full absolute rounded-full"
-                />
+            <div className='px-7 py-3'>
+              {datatrans.map((data,index)=>(              
+                <div className='flex gap-2 mb-2'>
+                  <div className='w-10 h-10 relative rounded-full bg-[#FF2424]' key={index}>
+                    <img
+                    src={data.pic}
+                    alt="photo"
+                    className="w-full h-full absolute rounded-full"
+                    />
+                    </div>
+                    <div><p className='mt-2 text-sm text-gray-500'>{data.name}</p></div>
+                    <div><p className='mt-2 text-sm text-white font-bold'>{data.details}</p></div>
+                    <div><p className='mt-2 text-sm text-gray-500'>{data.duration}</p></div>
+                  </div>
+                ))}             
+    
+              {/* second section */}
+              <div className='mt-5'>
+                <div className='flex'>
+                  <p>This Week</p>
+                  <IoIosArrowForward size={25} className='text-gray-500'/>
+                </div>
+    
+                {datatrans.map((data,index)=>(           
+                  <div className='flex gap-2 mb-2'>
+                    <div className='w-10 h-10 relative rounded-full bg-[#FF2424]' key={index}>
+                      <img
+                      src={data.pic}
+                      alt="photo"
+                      className="w-full h-full absolute rounded-full"
+                      />
+                      </div>
+                      <div><p className='mt-2 text-sm text-gray-500'>{data.name}</p></div>
+                      <div><p className='mt-2 text-sm text-white font-bold'>{data.details}</p></div>
+                      <div><p className='mt-2 text-sm text-gray-500'>{data.duration}</p></div>
+                    </div>                  
+                  ))}                         
               </div>
-              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
+    
+              {/* third section */}
+              <div className='mt-5'>
+                <div className='flex'>
+                  <p>Last Week</p>
+                  <IoIosArrowForward size={25} className='text-gray-500'/>
+                </div>    
+                
+                {datatrans.map((data,index)=>(           
+                  <div className='flex gap-2 mb-2'>
+                    <div className='w-10 h-10 relative rounded-full bg-[#FF2424]' key={index}>
+                      <img
+                      src={data.pic}
+                      alt="photo"
+                      className="w-full h-full absolute rounded-full"
+                      />
+                      </div>
+                      <div><p className='mt-2 text-sm text-gray-500'>{data.name}</p></div>
+                      <div><p className='mt-2 text-sm text-white font-bold'>{data.details}</p></div>
+                      <div><p className='mt-2 text-sm text-gray-500'>{data.duration}</p></div>
+                    </div>                
+                  ))}         
+              </div>   
+    
             </div>
-  
-            <div className='mt-2 flex gap-2'>
-              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-                <img
-                src={image10}
-                alt="photo"
-                className="w-full h-full absolute rounded-full"
-                />
-              </div>
-              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-            </div>
-  
-            {/* second section */}
-            <div className='mt-5'>
-              <div className='flex'>
-                <p>This Week</p>
-                <IoIosArrowForward size={25} className='text-gray-500'/>
-              </div>
-  
-              <div className='mt-2 flex gap-2'>
-              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-                <img
-                src={image10}
-                alt="photo"
-                className="w-full h-full absolute rounded-full"
-                />
-              </div>
-              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-            </div>
-  
-            <div className='mt-2 flex gap-2'>
-              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-                <img
-                src={image10}
-                alt="photo"
-                className="w-full h-full absolute rounded-full"
-                />
-              </div>
-              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-             </div>
-  
-            </div>
-  
-             {/* third section */}
-             <div className='mt-5'>
-              <div className='flex'>
-                <p>Last Week</p>
-                <IoIosArrowForward size={25} className='text-gray-500'/>
-              </div>
-  
-              <div className='mt-2 flex gap-2'>
-              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-                <img
-                src={image10}
-                alt="photo"
-                className="w-full h-full absolute rounded-full"
-                />
-              </div>
-              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-            </div>
-  
-            <div className='mt-2 flex gap-2'>
-              <div className='w-10 h-10 relative rounded-full bg-[#FF2424]'>
-                <img
-                src={image10}
-                alt="photo"
-                className="w-full h-full absolute rounded-full"
-                />
-              </div>
-              <div><p className='mt-2 text-sm text-gray-500'>choice</p></div>
-              <div><p className='mt-2 text-sm text-white font-bold'>Started a Live Stream</p></div>
-              <div><p className='mt-2 text-sm text-gray-500'>10 mins ago</p></div>
-             </div>
-  
-            </div>
-  
-  
-          </div>
-          </>
-          :
-          <></>
-        }
-    </div>
+            </>
+            :
+            <></>
+          }
+      </div>
   )
 }
 
