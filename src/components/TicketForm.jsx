@@ -88,6 +88,12 @@ const TicketForm = () => {
       onSubmit={(e) => e.preventDefault()}
       className="flex flex-col space-y-11 mx-auto items-center max-w-full"
     >
+      <div className='flex items-center justify-center flex-col'>
+      <div className='bg-black w-[600px] h-[200px] text-white font-OpenSans-ExtraBold font-extrabold'>
+        <span className='w-full items-center text-3xl mt-[15%] text-center flex justify-center'>Ticket Form</span>
+        <span className="font-OpenSans-Bold font-bold text-lg text-center flex justify-center items-center">Upload a ticket for concert and shows</span>
+      </div>
+    </div>
       {loading && <Loader />}
       <section className="flex flex-col  items-center w-full">
         <div className=" mx-3 lg:w-[85%] my-9 items-center">

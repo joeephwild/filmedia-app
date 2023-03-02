@@ -1,116 +1,102 @@
-import React, { useState } from 'react'
-import FormField from './FormField'
+import React, { useState } from "react";
+import FormField from "./FormField";
+import { useCreateAsset } from "@livepeer/react";
 
 const PodcastForm = () => {
-    const [form, setForm] = useState({
-        name: "",
-        title: "",
-        description: "",
-        target: "",
-        deadline: "",
-        image: "",
-      });
-    
-      const handleFormFieldChange = (fieldName, e) => {
-        setForm({ ...form, [fieldName]: e.target.value });
-      };
+  const {
+    mutate: createAsset,
+    data: asset,
+    status,
+    progress,
+    error,
+  } = useCreateAsset();
+  // Creating state for the input field
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [video, setVideo] = useState("");
+
   return (
     <div className="w-full items-center justify-center">
-    <section className="flex flex-col items-center w-full">
-      <div className="flex justify-center w-3/4">
-        <div className="p-5 w-full m-5 mt-0 ">
-          <FormField
-            isFile
-            labelName="Image *"
-            placeholder="John Doe"
-            inputType="text"
-            value={form.name}
-            handleChange={(e) => handleFormFieldChange("name", e)}
-          />
+      <div className="flex items-center justify-center flex-col">
+        <div className="bg-black w-[600px] h-[200px] text-white font-OpenSans-ExtraBold font-extrabold">
+          <span className="w-full items-center text-3xl mt-[15%] text-center flex justify-center">
+            Podcast Form
+          </span>
+          <span className="font-OpenSans-Bold font-bold text-lg text-center flex justify-center items-center">
+            Upload a Podcast and share with Fans
+          </span>
         </div>
       </div>
-
-      <div className="flex justify-center w-3/4 overflow-auto">
-        <div className="p-5 w-full m-5 mt-0 border rounded-lg">
-          <FormField
-            isInput
-            labelName="Your Name *"
-            placeholder="John Doe"
-            inputType="text"
-            value={form.name}
-            handleChange={(e) => handleFormFieldChange("name", e)}
-          />
-          <FormField
-            isTextArea
-            labelName="Description *"
-            placeholder="John Doe"
-            inputType="text"
-            value={form.name}
-            handleChange={(e) => handleFormFieldChange("name", e)}
-          />
-
-          <FormField
-            isImageFile
-            labelName="Your Name *"
-            placeholder="John Doe"
-            inputType="text"
-            value={form.name}
-            handleChange={(e) => handleFormFieldChange("name", e)}
-          />
-          <div className="grid grid-cols-2 items-center gap-5">
-            <FormField
-              isOption
-              labelName="Your Name *"
-              placeholder="John Doe"
-              inputType="text"
-              value={form.name}
-              handleChange={(e) => handleFormFieldChange("name", e)}
-            />
-            <div>
+      <section className="flex flex-col  items-center w-full">
+        <div className=" mx-3 lg:w-[85%] my-9 items-center">
+          <div className="border-2 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
+            <div className="flex-col items-center mx-auto">
               <FormField
-                isOption
-                labelName="Your Name *"
-                placeholder="John Doe"
-                inputType="text"
-                value={form.name}
-                handleChange={(e) => handleFormFieldChange("name", e)}
+                isImageFile
+                labelName="Podcast Image"
+                inputType="file"
+                placeholder="Enter a valid url"
+                value={thumbnail}
+                handleChange={(e) => setThumbnail(e.target.value)}
               />
             </div>
           </div>
+
+          <div className="border-2 mt-7 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
+            <div className="flex-col items-center mx-auto">
+              <FormField
+                isImageFile
+                labelName="Podcast Video"
+                inputType="file"
+                placeholder="Enter a valid url"
+                value={video}
+                handleChange={(e) => setVideo(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
+            <div className="flex-col items-center mx-auto">
+              <FormField
+                isInput
+                labelName="Title"
+                inputType="text"
+                placeholder="Enter a valid url"
+                value={title}
+                handleChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="flex-col items-center mx-auto">
+              <FormField
+                isTextArea
+                labelName="Description"
+                inputType="text"
+                placeholder="Enter a valid url"
+                value={description}
+                handleChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="flex-col font-OpenSans-Bold text-lg items-center mx-auto">
+              <div className="w-full ">
+                <label>Price</label>
+                <input
+                  type="number"
+                  step="0.05"
+                  placeholder="enter price in 0.8"
+                  className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
+                  value={price}
+                  handleChange={(e) => setPrice(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+    </div>
+  );
+};
 
-      <div className="flex m-5 justify-center w-3/4 overflow-auto">
-        <label
-          for="checked-checkbox"
-          className="ml-5 text-xs w-1/2 text-gray-500 dark:text-gray-300"
-        >
-          By Uploading this file, you acknowledge that the transaction is
-          final and cannot be reversed. Includes{" "}
-          <a href="#" className="text-white">
-            royalty split agreement
-          </a>
-          . Read and understand
-          <a href="#" className="text-white">
-            {" "}
-            contract terms{" "}
-          </a>
-          and
-          <a href="#" className="text-white">
-            {" "}
-            potential risks.
-          </a>
-        </label>
-      </div>
-      <div className="flex m-5 justify-center w-3/4 overflow-auto">
-        <button className="bg-white px-9 py-3 text-lg mr-5 hover:bg-transparent text-black font-semibold hover:text-white border border-white-500 hover:border-white rounded">
-          Upload
-        </button>
-      </div>
-      <div className="flex m-5 justify-center w-3/4 overflow-auto"></div>
-    </section>
-  </div>
-  )
-}
-
-export default PodcastForm
+export default PodcastForm;

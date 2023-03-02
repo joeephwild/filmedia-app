@@ -161,7 +161,7 @@ export const StateProvider = ({ children }) => {
   }, [currentProfile, address]);
 
   useEffect(() => {
-    connectWallet();
+    connect();
     getPodcastAccount();
     getArtistAccount();
     getTicket();
