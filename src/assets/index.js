@@ -28,6 +28,7 @@ import upload1 from './upload1.png'
 import slide1 from './slide1.png'
 import slide2 from './slide2.png'
 import slide3 from './slide3.png'
+import errorg from './error.gif'
 
 export {
     logo,
@@ -58,5 +59,6 @@ export {
     upload1,
     slide1,
     slide2,
-    slide3
+    slide3,
+    errorg
 }

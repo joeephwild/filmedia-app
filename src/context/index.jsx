@@ -5,6 +5,7 @@ import { auth, db } from "../firebase";
 import { ethers } from "ethers";
 import {
   useAddress,
+  useChainId,
   useContract,
   useContractWrite,
   useMetamask,
@@ -16,12 +17,12 @@ import {
   query,
   where,
 } from "firebase/firestore";
-const provider = new ethers.providers.Web3Provider(window.ethereum)
+const provider = new ethers.providers.Web3Provider(window.ethereum);
 const cyberConnect = new CyberConnect({
-  namespace: 'CyberConnect',
+  namespace: "CyberConnect",
   env: Env.STAGING,
   provider: provider,
-  signingMessageEntity: 'CyberConnect',
+  signingMessageEntity: "CyberConnect",
 });
 
 const StateContext = createContext();
@@ -41,12 +42,15 @@ export const StateProvider = ({ children }) => {
   const [podcast, setPodcast] = useState([]);
   const [artist, setArtist] = useState([]);
   const [ticket, setTicket] = useState([]);
-  console.log(ticket)
- const [accountExist, setAccountExist] = useState(false);
+  const [accountExist, setAccountExist] = useState(false);
+  const [error, setError] = useState("");
+  const [handle, setHandle] = useState("");
+  console.log(handle)
   const [openNotification, setOpenNotification] = useState(false);
   const { contract } = useContract(
     "0x72FAa5a90b1D9416f2828F0f8D2190a237B02c89"
   );
+  const chainId = useChainId();
 
   const { mutateAsync: createToken, isLoading } = useContractWrite(
     contract,
@@ -86,17 +90,15 @@ export const StateProvider = ({ children }) => {
   };
 
   const getTicket = async () => {
-    const q = query(
-      collection(db, "ticket")
-    );
+    const q = query(collection(db, "ticket"));
 
     const querySnapshot = await getDocs(q);
     let tickets = [];
     querySnapshot.forEach((doc) => {
       tickets.push({ ...doc.data(), id: doc.id });
     });
-    console.log(tickets)
-    setTicket(tickets)
+    console.log(tickets);
+    setTicket(tickets);
   };
 
   const getArtistAccount = async () => {
@@ -122,6 +124,14 @@ export const StateProvider = ({ children }) => {
     };
   });
 
+  const connectWallet = () => {
+    if (chainId === 97) {
+      connect();
+    } else {
+      console.log("wrong network")
+    }
+  };
+
   const getAllData = () => {
     const q = query(collection(db, "accounts"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -142,10 +152,19 @@ export const StateProvider = ({ children }) => {
   }, [accounts, address]);
 
   useEffect(() => {
-    connect();
+    const currentHandle =    currentProfile.map(
+      (person) => ({
+       handle: person.handle
+      })
+    );
+    setHandle(currentHandle)
+  }, [currentProfile, address]);
+
+  useEffect(() => {
+    connectWallet();
     getPodcastAccount();
     getArtistAccount();
-    getTicket()
+    getTicket();
     getAllData();
   }, []);
 
@@ -212,7 +231,9 @@ export const StateProvider = ({ children }) => {
         setAccountExist,
         accountExist,
         createToken: createTicket,
-        ticket
+        ticket,
+        error,
+        setError,
       }}
     >
       {children}
