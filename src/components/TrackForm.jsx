@@ -21,9 +21,9 @@ const TrackForm = () => {
   return (
     <div className="w-full items-center justify-center">
       <div className='flex items-center justify-center flex-col'>
-      <div className='bg-black w-[600px] h-[200px] text-white font-OpenSans-ExtraBold font-extrabold'>
-        <span className='w-full items-center text-3xl mt-[15%] text-center flex justify-center'>Track Form</span>
-        <span className="font-OpenSans-Bold font-bold text-lg text-center flex justify-center items-center">Upload your latest music for fans to play</span>
+      <div className='bg-black md:w-[600px] w-[350px] h-[200px] md:h-[200px] text-white font-OpenSans-ExtraBold font-extrabold'>
+        <span className='w-full items-center text-xl md:text-3xl mt-[15%] text-center flex justify-center'>Track Form</span>
+        <span className="font-OpenSans-Bold font-bold text-sm md:text-lg text-center flex justify-center items-center">Upload your latest music for fans to play</span>
       </div>
     </div>
       {isLoading && <Loader />}

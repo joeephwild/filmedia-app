@@ -21,8 +21,8 @@ const Ticket = () => {
     },
   ];
 
-  const handleNavigate = (item) => {
-    navigate(`/dashboard/ticket/${item.ticketTitle}`, { state: item });
+  const handleNavigate = (item, i) => {
+    navigate(`/dashboard/ticket/${item.ticketTitle}`, { state: item, i });
   };
   return (
     <div>
@@ -40,12 +40,12 @@ const Ticket = () => {
                 <div className="bg-black">
                   <header className="items-center relative justify-between leading-tight p-2 md:p-4">
                     <h1 className="text-2xl font-semibold font-OpenSans-ExtraBold">
-                      <a
+                      <div
                         className="no-underline hover:underline text-[#fafafa]"
                         href="#"
                       >
                         {item.ticketTitle}
-                      </a>
+                      </div>
                     </h1>
                     <div className="flex items-center justify-between px-2 py-4">
                       <p className="text-gray-500 text-xs font-OpenSans-Bold md:text-lg">
@@ -67,7 +67,7 @@ const Ticket = () => {
                       </button>
                     </div>
                     <button
-                      onClick={() => handleNavigate(item)}
+                      onClick={() => handleNavigate(item, i)}
                       className="bg-transparent flex font-semibold text-[#fafafa] txt-lg  py-2 space-x-2 items-center"
                     >
                       Learn More

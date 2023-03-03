@@ -7,6 +7,7 @@ import {
   createReactClient,
   studioProvider,
 } from "@livepeer/react";
+import { TicketProvider } from "../context/TicketContext";
 
 const livepeerClient = createReactClient({
   provider: studioProvider({
@@ -20,7 +21,7 @@ const Upload = () => {
     <LivepeerConfig client={livepeerClient}>
       <section className="flex flex-col  h-screen">
         <div class="grid grid-cols-2  p-5 gap-5">
-          <div class="items-start">
+          <div class="items-start flex">
             <button
               onClick={() => setPage(1)}
               className={
@@ -58,7 +59,11 @@ const Upload = () => {
             <TrackForm />
           </TrackProvider>
         )}
-        {page === 2 && <TicketForm />}
+        {page === 2 && (
+          <TicketProvider>
+            <TicketForm />
+          </TicketProvider>
+        )}
         {page === 3 && (
           <PodcastProvider>
             <PodcastForm />

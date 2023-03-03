@@ -28,6 +28,7 @@ const cyberConnect = new CyberConnect({
 const StateContext = createContext();
 
 export const StateProvider = ({ children }) => {
+  const [allPodcast, setAllPodcast] = useState([])
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState("");
   const [openPlayer, setOpenPlayer] = useState(false);
@@ -234,6 +235,8 @@ export const StateProvider = ({ children }) => {
         ticket,
         error,
         setError,
+        allPodcast,
+        setAllPodcast
       }}
     >
       {children}

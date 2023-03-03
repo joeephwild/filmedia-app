@@ -1,30 +1,86 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import {
+  useContract,
+  useContractRead,
+  useContractWrite,
+} from "@thirdweb-dev/react";
+import { ThirdwebStorage } from "@thirdweb-dev/storage";
+import { ethers } from "ethers";
+import axios from "axios";
+import { useStateContext } from ".";
 
 const PodcastContext = createContext();
 
 export const PodcastProvider = ({ children }) => {
+  const { 
+    allPodcast,
+    setAllPodcast} = useStateContext()
   const { contract } = useContract(
-    "0x5cA4280cffA430e4bE6ea06E61953bB20b56154a"
+    "0xF1e175EBa3D005Bf9253C97aD33F1Fcde1477901"
   );
   const { mutateAsync: createPodcast, isLoading } = useContractWrite(
     contract,
     "createPodcast"
   );
+  const { mutateAsync: accessPodcast } = useContractWrite(contract, "accessPodcast")
 
-  const call = async (_title, _description, _ipfsHash, _price) => {
+  const call = async ( _title, _thumbnail, _price, _file, _category) => {
     try {
-      const data = await createPodcast([ _title, _description, _ipfsHash, _price ]);
+      const data = await createPodcast([ _title, _thumbnail, _price, _file, _category ]);
       console.info("contract call successs", data);
     } catch (err) {
       console.error("contract call failure", err);
     }
-  }
+  };
 
-  return <PodcastContext.Provider value={{
-    isLoading,
-    createPodcast: call
-  }}>{children}</PodcastContext.Provider>;
+  const tipPodcasts = async (id) => {
+    try {
+      const data = await accessPodcast([ id ]);
+      console.info("contract call successs", data);
+    } catch (err) {
+      console.error("contract call failure", err);
+    }
+  };
+
+  const downloadJson = async (hash) => {
+    const storage = new ThirdwebStorage();
+    let result = [];
+    const data = await storage.downloadJSON(hash).then((response) => {
+      result.push(response);
+    });
+  };
+
+  const getPodcasts = async () => {
+    const campaigns = await contract.call("getPodcasts");
+    console.log(campaigns);
+    const parsedPodcast = campaigns.map((campaign, i) => ({
+      pid: campaign.id.toNumber(),
+      owner: campaign.author,
+      price: ethers.utils.formatEther(campaign.price.toString()),
+      time: campaign.time.toNumber(),
+      image: campaign.thumbnail,
+      video: campaign.file,
+      title: campaign.title
+    }));
+    setAllPodcast(parsedPodcast)
+    return parsedPodcast;
+  };
+
+  useEffect(() => {
+    getPodcasts()
+  }, )
+
+  return (
+    <PodcastContext.Provider
+      value={{
+        isLoading,
+        createPodcast: call,
+        tipPodcast: tipPodcasts,
+      }}
+    >
+      {children}
+    </PodcastContext.Provider>
+  );
 };
 
 export const usePodcastContext = () => useContext(PodcastContext);

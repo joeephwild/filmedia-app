@@ -4,6 +4,7 @@ import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context";
+import { useTicketContext } from "../context/TicketContext";
 import { db } from "../firebase";
 import { sendDataToIPFS, sendFileToIPFS } from "../pinata";
 import FormField from "./FormField";
@@ -22,18 +23,7 @@ const TicketForm = () => {
   const [ipfsHash, setIpfsHash] = useState("");
   const navigate = useNavigate();
   const ipfsgateway = "gateway.pinata.cloud";
-  const { createToken } = useStateContext();
-
-  console.log(
-    image,
-    startDate,
-    endDate,
-    quantity,
-    price,
-    title,
-    description,
-    location
-  );
+  const {createToken} = useTicketContext()
 
   const handleUpload = async (e) => {
     const file = e.target.files[0];
@@ -61,7 +51,7 @@ const TicketForm = () => {
       setLoading(true);
       await createToken(
         result,
-        price,
+        ethers.utils.parseEther(price),
         new Date(startDate).getTime(),
         new Date(endDate).getTime(),
         quantity
