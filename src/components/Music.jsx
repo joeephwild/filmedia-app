@@ -1,5 +1,5 @@
 import { useAddress } from "@thirdweb-dev/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useStateContext } from "../context";
 import { usePlayerContext } from "../context/PlayerState";
 import { useTrackContext } from "../context/TrackContext";
@@ -8,46 +8,66 @@ const Music = ({ content, index }) => {
   console.log(content);
   const { setOpenPlayer, openPlayer } = useStateContext();
   const { setCurrentSongs, setCurrent } = usePlayerContext();
+  const {currentTime, setCurrentTime} = useState(0)
   const handleClick = () => {
     setOpenPlayer(true);
     setCurrentSongs(content);
   };
-  const [campaigns, setCampaigns] = useState([]);
-  const {getMusicTracks, contract} = useTrackContext()
-  const address = useAddress()
-
-  const fetchCampaigns = async () => {
-    const data = await getMusicTracks();
-    setCampaigns(data);
-  }
-
-  useEffect(() => {
-    if(contract) fetchCampaigns();
-  }, [address, contract]);
+ 
   return (
-    <div
-      onClick={handleClick}
-      className="flex space-y-[24px] items-center w-full justify-between"
-    >
-        <table className="min-w-full  ">
-          <thead className="border-b-2 border-gray-600">
-            <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Date</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody className="">
-            <tr>
-              <td>{index + 1}</td>
-            </tr>
-            <tr>
-              <td>{content.title}</td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
+    <div className="flex flex-col">
+      <div className="overflow-x-auto">
+        <div className="p-1.5 w-full inline-block align-middle">
+          <audio className="hidden" src={content.audio}></audio>
+            <table className="min-w-full divide-dashed divide-gray-200">
+              <thead className="border-b-2 border-gray-500">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                  >
+                    #
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                  >
+                    Title
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                  >
+                    Released Date
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                  >
+                    Time
+                  </th>
+                 
+                </tr>
+              </thead>
+              <tbody className='w-full' onClick={() => handleClick()}>
+                <tr>
+                  <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap">
+                    {index}
+                  </td>
+                  <td className="px-6 py-4 text-sm whitespace-nowrap">{content.title}</td>
+                  <td className="px-6 py-4 text-sm whitespace-nowrap">
+                    jonne62@gmail.com
+                  </td>
+                  <td className="px-6 py-4 text-sm whitespace-nowrap">
+                   3.9
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
   );
 };
 

@@ -7,7 +7,7 @@ const TrackContext = createContext();
 
 export const TrackProvider = ({ children }) => {
   const { setAllMusic } = useStateContext()
-  const { contract } = useContract("0xd270A86dFEd39123637F462d26B93612E5ad80e7");
+  const { contract } = useContract("0x56a48eF3c0F06B55F5A97417481FA77579478799");
   const { mutateAsync: uploadMusic, isLoading } = useContractWrite(contract, "uploadMusic")
 
   const address = useAddress()
@@ -20,31 +20,27 @@ export const TrackProvider = ({ children }) => {
       console.error("contract call failure", err);
     }
   }
-    const { data } = useContractRead(contract, "getAllContent", address)
 
-    const getMusicTracks = async (owner) => {
-     const result = await contract.call("getAllContent", owner)
-      const parsedMusic = result.map((content, i) => ({
-        audio: content.musicFile,
-        video: content.videoFile,
-        image: content.image,
-        title: content.title,
-        price: ethers.utils.formatEther(content.price.toString()),
-        owner: content.owner,
-        collected: content.amountCollected.toNumber(),
-      }));
-      console.log(parsedMusic)
-      return parsedMusic;
-    };
-    getMusicTracks()
+  const getTracks = async (owner) => {
+    const allTracks = await contract.call("getMyContent", owner);
+
+    const parsedTracks = allTracks.map((content, i) => ({
+      audio: content.musicFile,
+      video: content.videoFile,
+      image: content.image,
+      title: content.title,
+      cost: ethers.utils.formatEther(content.price.toString()),
+      artist: content.owner
+    }));
+    return parsedTracks;
+  }
 
   return <TrackContext.Provider value={{
     isLoading,
     uploadMusic: call,
-    data,
-    getMusicTracks,
     contract,
-    address
+    address,
+    getTracks
   }}>{children}</TrackContext.Provider>;
 };
 
