@@ -15,6 +15,7 @@ import {
   Concert,
   ProfileDetails,
   Profile,
+  Subscribe
 } from "./pages";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/dashboard/ticket/:id" element={<Concert />} />
           <Route path="/dashboard/playlist" element={<Playlist />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/subscribe" element={<Subscribe />} />
         </Route>
       </Routes>
     </div>

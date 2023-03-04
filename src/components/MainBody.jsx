@@ -29,11 +29,11 @@ const config = {
     readOnlyChainId: Mainnet.chainId,
 }
 
-// const connectButton = () => {
-//   const {account, deactivate, activateBrowserWallet} = useEthers()
-//   if(account) return <button onClick={()=> deactivate()}>Dis</button>
-//   else return <button onClick={()=> activateBrowserWallet()}></button>
-// }
+const ConnectButton = () => {
+  const {account, deactivate, activateBrowserWallet} = useEthers()
+  if(account) return <button onClick={()=> deactivate()}>Dis</button>
+  else return <button onClick={()=> activateBrowserWallet()}></button>
+}
 const MainBody = () => {
   const { openBigScreen, openNotification, modal, openPip, openPlayer } =
     useStateContext();
@@ -44,7 +44,7 @@ const MainBody = () => {
         <div className="flex-1 mx-auto h-screen  overflow-y-scroll flex-col text-white w-full  md:">
           <Navbar />
           {openBigScreen && <FullScreen />}
-          {openNotification &&<DAppProvider config={config}><Notifi/></DAppProvider> }
+          {openNotification &&<Notifications/> }
           {modal && <Modal />}
           <Routes>
             <Route path="/home" element={<Home />} />
