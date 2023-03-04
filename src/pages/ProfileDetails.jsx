@@ -12,8 +12,8 @@ const ProfileDetails = ({ i }) => {
   const { contract } = useTrackContext()
   const address = useAddress()
   const { allMusic } = useStateContext()
-  const { data, isLoading } = useContractRead(contract, "getAllContent", state.owner);
-
+  const { data, isLoading } = useContractRead(contract, "getAllContent", state.to);
+console.log(data)
 
 
   return (
