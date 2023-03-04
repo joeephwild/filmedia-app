@@ -2,7 +2,7 @@ import { useContext, useReducer, useState } from "react";
 import PlayerReducer from "./PlayerReducer";
 import playerContext from "./PlayerContext";
 
-import { song_list } from "./songs";
+
 
 import {
     SET_CURRENT_SONG,
@@ -11,17 +11,21 @@ import {
     TOGGLE_PLAYING,
     SET_SONGS_ARRAY,
   } from './types'
+import { useStateContext } from ".";
 
 export const PlayerState = (props) => {
   const [currentSongs, setCurrentSongs] = useState({});
+  console.log(currentSongs)
+  const {allMusic} = useStateContext()
   const initialState = {
     currentSong: 0,
-    songslist: song_list,
+    songslist: currentSongs,
     repeat: false,
     random: false,
     playing: false,
     audio: null,
   };
+  console.log(initialState)
 
   const [state, dispatch] = useReducer(PlayerReducer, initialState);
 

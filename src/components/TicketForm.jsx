@@ -29,6 +29,7 @@ const TicketForm = () => {
     const file = e.target.files[0];
     const getCid = await sendFileToIPFS(file);
     const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid;
+    console.log(ipfsPath)
     setImage(ipfsPath);
   };
 
@@ -45,7 +46,6 @@ const TicketForm = () => {
 
   const handleSubmit = async () => {
     const result = await sendDataToIPFS(metadata);
-    setIpfsHash(result);
     console.log(result);
     try {
       setLoading(true);

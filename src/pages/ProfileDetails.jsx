@@ -1,10 +1,19 @@
+import { useAddress, useContractRead } from "@thirdweb-dev/react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Account, Albums, Music, Videos } from "../components";
+import { useStateContext } from "../context";
 import { song_list } from "../context/songs";
+import { useTrackContext } from "../context/TrackContext";
 
 
 const ProfileDetails = ({ i }) => {
   const { state } = useLocation();
+  const { contract } = useTrackContext()
+  const address = useAddress()
+  const { allMusic } = useStateContext()
+  const { data, isLoading } = useContractRead(contract, "getAllContent", state.owner);
+
 
 
   return (
@@ -22,14 +31,12 @@ const ProfileDetails = ({ i }) => {
           <div className="mx-auto w-full ">
             <div className="flex mx-auto cursor-pointer flex-col lg:mt-0">
               <h2 className="text-2xl font-bold text-[#fafafa">Songs</h2>
-              <div className="flex items-center justify-between">
-                <span>#</span>
-                <span>Title</span>
-                <span>Feature Artist</span>
-                <span>Time</span>
-              </div>
-              {song_list.slice(0, 4).map((song, i) => (
-                <Music key={i} index={i} content={song} />
+              {allMusic.map((song, i) => (
+              <div>
+                {song.owner === address &&(
+                   <Music key={i} index={i} content={song} />
+                )}
+                </div>
               ))}
             </div>
           </div>

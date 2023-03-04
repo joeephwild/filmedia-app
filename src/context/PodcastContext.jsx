@@ -51,9 +51,8 @@ export const PodcastProvider = ({ children }) => {
   };
 
   const getPodcasts = async () => {
-    const campaigns = await contract.call("getPodcasts");
-    console.log(campaigns);
-    const parsedPodcast = campaigns.map((campaign, i) => ({
+    const podcast = await contract.call("getPodcasts");
+    const parsedPodcast = podcast.map((campaign, i) => ({
       pid: campaign.id.toNumber(),
       owner: campaign.author,
       price: ethers.utils.formatEther(campaign.price.toString()),
@@ -68,7 +67,7 @@ export const PodcastProvider = ({ children }) => {
 
   useEffect(() => {
     getPodcasts()
-  }, )
+  }, [] )
 
   return (
     <PodcastContext.Provider

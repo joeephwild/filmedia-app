@@ -94,7 +94,7 @@ const CreateAccount = () => {
        /* preData */
 				0x0,
 				/* postData */
-				0x0
+				0x0,
       );
       console.log(tx);
       const docRef = await addDoc(collection(db, "accounts"), {

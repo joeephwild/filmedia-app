@@ -29,6 +29,7 @@ const StateContext = createContext();
 
 export const StateProvider = ({ children }) => {
   const [allPodcast, setAllPodcast] = useState([])
+  const [allMusic, setAllMusic] = useState([])
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState("");
   const [openPlayer, setOpenPlayer] = useState(false);
@@ -46,7 +47,6 @@ export const StateProvider = ({ children }) => {
   const [accountExist, setAccountExist] = useState(false);
   const [error, setError] = useState("");
   const [handle, setHandle] = useState("");
-  console.log(handle)
   const [openNotification, setOpenNotification] = useState(false);
   const { contract } = useContract(
     "0x72FAa5a90b1D9416f2828F0f8D2190a237B02c89"
@@ -98,7 +98,6 @@ export const StateProvider = ({ children }) => {
     querySnapshot.forEach((doc) => {
       tickets.push({ ...doc.data(), id: doc.id });
     });
-    console.log(tickets);
     setTicket(tickets);
   };
 
@@ -236,7 +235,9 @@ export const StateProvider = ({ children }) => {
         error,
         setError,
         allPodcast,
-        setAllPodcast
+        setAllPodcast,
+        setAllMusic,
+        allMusic
       }}
     >
       {children}

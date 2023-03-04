@@ -3,9 +3,16 @@ import { useStateContext } from "../context";
 import { Account, Albums, Music } from "../components";
 import { song_list } from "../context/songs";
 import { BsFillPatchCheckFill } from "react-icons/bs";
+import { useAddress, useContractRead } from "@thirdweb-dev/react";
+import { useTrackContext } from "../context/TrackContext";
+import { ethers } from "ethers";
 
 const Profile = () => {
-  const { currentProfile } = useStateContext();
+  const { currentProfile, allMusic } = useStateContext();
+  const { contract } = useTrackContext()
+  const address = useAddress();
+  const { data, isLoading } = useContractRead(contract, "getAllContent", address);
+  console.log(data);
   return (
     <div>
       {currentProfile && (
@@ -24,8 +31,12 @@ const Profile = () => {
                       <span>Feature Artist</span>
                       <span>Time</span>
                     </div>
-                    {song_list.slice(0, 4).map((song, i) => (
-                      <Music key={i} index={i} content={song} />
+                    {allMusic.slice(0, 4).map((song, i) => (
+                      <div>
+                        {song.owner === address && (
+                          <Music key={i} index={i} content={song} />
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -34,7 +45,6 @@ const Profile = () => {
           ))}
         </div>
       )}
-   
     </div>
   );
 };

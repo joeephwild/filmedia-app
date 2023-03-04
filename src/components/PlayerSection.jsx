@@ -14,12 +14,10 @@ import { useLocation } from "react-router-dom";
 import { usePlayerContext } from "../context/PlayerState";
 
 const PlayerSection = () => {
-  const { state } = useLocation();
   const {
-    currentSong,
+    currentSongs,
     togglePlaying,
     playing,
-    // songs: state.songs,
     songslist,
     repeat,
     random,
@@ -31,9 +29,9 @@ const PlayerSection = () => {
     handleEnd,
     songsSet,
   } = usePlayerContext();
-
-  const { setPip, openPip } = useStateContext();
-  const { setBigScreen, openBigScreen } = useStateContext();
+  console.log(songslist)
+  const { setPip, openPip, setBigScreen, openBigScreen, allMusic } = useStateContext();
+  console.log(allMusic)
   // self State
   const [statevolume, setStateVolume] = useState(0.3);
   const [duration, setDuration] = useState(0);
@@ -77,7 +75,7 @@ const PlayerSection = () => {
       toggleAudio()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSong])
+  }, [currentSongs])
 
   let audioPlayer = useRef("audio_tag");
 
@@ -87,13 +85,12 @@ const PlayerSection = () => {
         <div class="flex ml-5">
           <img
             class="h-1/4 w-1/4 rounded rounded-l"
-            src={state.imgSrc}
+            src={currentSongs.image}
             alt=""
           />
           <div class="relative ml-2 w-full">
             <div class="absolute bottom-0 left-0">
-              <h1 class="font-bold">{songslist[currentSong].title}</h1>
-              <h1 class="text-xs text-gray-500">{state.name} </h1>
+              <h1 class="text-xs text-gray-500"> </h1>
             </div>
           </div>
         </div>
@@ -107,7 +104,7 @@ const PlayerSection = () => {
         type="audioPlayer/mpeg"
         preload="true"
         ref={audioPlayer}
-        src={songslist[currentSong].fileUrl}
+        src={currentSongs.audio}
       ></audio>
 
       <div class="col-span-8 p-4">

@@ -2,11 +2,12 @@ import React, { useContext, createContext, useState, useEffect } from "react";
 import { useContract, useContractWrite } from "@thirdweb-dev/react";
 import { ThirdwebStorage } from "@thirdweb-dev/storage";
 import axios from "axios";
+import { ethers } from "ethers";
 
 const TicketContext = createContext();
 
 export const TicketProvider = ({ children }) => {
-    const { contract } = useContract("0x72FAa5a90b1D9416f2828F0f8D2190a237B02c89");
+  const { contract } = useContract("0x0C8b911AF2AE745417EE6EFa4Ad331Fc226F2fDE");
     const { mutateAsync: createToken, isLoading } = useContractWrite(contract, "createToken");
     const { mutateAsync: executeSale } = useContractWrite(contract, "executeSale")
 
@@ -19,14 +20,11 @@ export const TicketProvider = ({ children }) => {
         }
       }
 
-      const downloadJson = async (hash) => {
+      const downloadJson = async () => {
         const storage = new ThirdwebStorage();
-        let result = [];
-        const data = await storage.downloadJSON(hash).then((response) => {
-         
-        });
+        const data = await storage.downloadJSON("ipfs://QmWgbcjKWCXhaLzMz4gNBxQpAHktQK6MkLvBkKXbsoWEEy/0")
+        return data;
       };
-      downloadJson()
 
       const payTicketFee = async (tokenId, _quantity) => {
         try {
@@ -36,6 +34,20 @@ export const TicketProvider = ({ children }) => {
           console.error("contract call failure", err);
         }
       }
+
+      const getPodcasts = async () => {
+        const campaigns = await contract.call("getAllTicket");
+        console.log(campaigns);
+        const parsedPodcast = campaigns.map((campaign, i) => ({
+        
+        }));
+        return parsedPodcast;
+      };
+    
+      useEffect(() => {
+        getPodcasts()
+      }, )
+    
 
   return <TicketContext.Provider value={{
     isLoading,
