@@ -17,12 +17,23 @@ import {
 import Concert from "../pages/Concert";
 import FullScreen from "./FullScreen";
 import Modal from "./Modal";
-import Navbar from "./Navbar";
-import Notifications from "./Notifications";
+import Navbar from "./Navbar.tsx";
+import Notifications from "./Notifications.tsx";
+import {Notifi} from "./NotifiCard.tsx";
 import PictureInPicture from "./PictureInPicture";
 import PlayerSection from "./PlayerSection";
 import Sidebar from "./Sidebar";
+import { DAppProvider, Mainnet, useEthers } from "@usedapp/core";
 
+const config = {
+    readOnlyChainId: Mainnet.chainId,
+}
+
+// const connectButton = () => {
+//   const {account, deactivate, activateBrowserWallet} = useEthers()
+//   if(account) return <button onClick={()=> deactivate()}>Dis</button>
+//   else return <button onClick={()=> activateBrowserWallet()}></button>
+// }
 const MainBody = () => {
   const { openBigScreen, openNotification, modal, openPip, openPlayer } =
     useStateContext();
@@ -33,7 +44,7 @@ const MainBody = () => {
         <div className="flex-1 mx-auto h-screen  overflow-y-scroll flex-col text-white w-full  md:">
           <Navbar />
           {openBigScreen && <FullScreen />}
-          {openNotification && <Notifications />}
+          {openNotification &&<DAppProvider config={config}><Notifi/></DAppProvider> }
           {modal && <Modal />}
           <Routes>
             <Route path="/home" element={<Home />} />

@@ -32,10 +32,10 @@ const Notifications = () => {
       ]
 
   return (
-    <div className='overflow-y-scroll scroll-smooth scrollbar scrollbar-thumb-gray-400 scrollbar-track-blue-800 scrollbar-w-2 bg-black h-[550px] w-[420px] fixed z-[99999] right-9' style={{top: "66px"}}>
+    <div className='overflow-y-scroll scroll-smooth scrollbar scrollbar-thumb-gray-400 scrollbar-track-red-600 scrollbar-w-2 bg-black h-[550px] w-[420px] fixed z-[99999] right-9' style={{top: "66px"}}>
         <div className='flex px-3.5 py-2.5 items-center justify-between w-full'>
           <span className='text-lg'>Notification</span>
-          <span className="-mt-2" onClick={() => setOpenNotification(false)}><MdCancel size={20}/></span>
+          <span className="-mt-2 cursor-pointer" onClick={() => setOpenNotification(false)}><MdCancel size={20}/></span>
         </div>
 
         <div className='w-[370px] h-[48px] ml-7 mt-6 bg-[#808080] rounded relative flex justify-around'>
