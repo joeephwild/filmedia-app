@@ -3,16 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { useStateContext } from "../context";
 import { usePlayerContext } from "../context/PlayerState";
 import { useTrackContext } from "../context/TrackContext";
+import {Loader} from '../components'
 
 const Music = ({ content, index }) => {
   console.log(content);
   const { setOpenPlayer, openPlayer } = useStateContext();
   const { setCurrentSongs, setCurrent } = usePlayerContext();
-  const {currentTime, setCurrentTime} = useState(0)
   const handleClick = () => {
     setOpenPlayer(true);
     setCurrentSongs(content);
+    setCurrent(index)
   };
+
  
   return (
     <div className="flex flex-col">

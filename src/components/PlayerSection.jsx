@@ -12,30 +12,39 @@ import { FiRepeat, FiHeart } from "react-icons/fi";
 import { useStateContext } from "../context";
 import { useLocation } from "react-router-dom";
 import { usePlayerContext } from "../context/PlayerState";
+import { useTrackContext } from "../context/TrackContext";
 
 const PlayerSection = () => {
+  const { state } = useLocation()
   const {
     currentSongs,
     togglePlaying,
     playing,
-    songslist,
-    repeat,
-    random,
-    audio,
     nextSong,
     prevSong,
     toggleRandom,
     toggleRepeat,
     handleEnd,
-    songsSet,
+    current,
   } = usePlayerContext();
-  console.log(songslist)
-  const { setPip, openPip, setBigScreen, openBigScreen, allMusic } = useStateContext();
-  console.log(allMusic)
+  const { setPip, openPip, setBigScreen, openBigScreen, allMusic } =
+    useStateContext();
+  console.log(allMusic);
   // self State
   const [statevolume, setStateVolume] = useState(0.3);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+
+  const { purchaseTrack, isLoading } = useTrackContext();
+
+  const handlePurchase = async () => {
+    try {
+      const data = await purchaseTrack(current);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClick = () => {
     if (!openPip) {
@@ -62,7 +71,9 @@ const PlayerSection = () => {
   };
 
   const toggleAudio = () =>
-    audioPlayer.current.paused ? audioPlayer.current.play() : audioPlayer.current.pause();
+    audioPlayer.current.paused
+      ? audioPlayer.current.play()
+      : audioPlayer.current.pause();
 
   const handleVolume = (p) => {
     setStateVolume(p);
@@ -70,12 +81,12 @@ const PlayerSection = () => {
   };
 
   useEffect(() => {
-    audioPlayer.current.volume = statevolume
+    audioPlayer.current.volume = statevolume;
     if (playing) {
-      toggleAudio()
+      toggleAudio();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSongs])
+  }, [currentSongs]);
 
   let audioPlayer = useRef("audio_tag");
 
@@ -89,8 +100,9 @@ const PlayerSection = () => {
             alt=""
           />
           <div class="relative ml-2 w-full">
-            <div class="absolute bottom-0 left-0">
-              <h1 class="text-xs text-gray-500"> </h1>
+            <div class="">
+              <h1 class="text-lg font-bold font-OpenSans-Bold">{currentSongs.title}</h1>
+              <h1 class="text-xs text-gray-500">{state.name}</h1>
             </div>
           </div>
         </div>
@@ -178,7 +190,7 @@ const PlayerSection = () => {
         <button>
           <FiHeart size={29} />
         </button>
-        <button>
+        <button onClick={() => handlePurchase()}>
           <RiMoneyDollarCircleLine size={29} />
         </button>
         <button>...</button>

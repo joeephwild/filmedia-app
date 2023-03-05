@@ -9,7 +9,7 @@ export const TrackProvider = ({ children }) => {
   const { setAllMusic } = useStateContext()
   const { contract } = useContract("0x56a48eF3c0F06B55F5A97417481FA77579478799");
   const { mutateAsync: uploadMusic, isLoading } = useContractWrite(contract, "uploadMusic")
-
+  const { mutateAsync: buyMusic } = useContractWrite(contract, "buyMusic")
   const address = useAddress()
 
   const call = async ( _musicHash, _videoHash, _imageHash, _title, _price) => {
@@ -35,12 +35,22 @@ export const TrackProvider = ({ children }) => {
     return parsedTracks;
   }
 
+  const purchaseTrack = async (index) => {
+    try {
+      const data = await buyMusic([ index ]);
+      console.info("contract call successs", data);
+    } catch (err) {
+      console.error("contract call failure", err);
+    }
+  }
+
   return <TrackContext.Provider value={{
     isLoading,
     uploadMusic: call,
     contract,
     address,
-    getTracks
+    getTracks,
+    purchaseTrack
   }}>{children}</TrackContext.Provider>;
 };
 
