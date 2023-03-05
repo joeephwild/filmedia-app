@@ -10,7 +10,8 @@ import { useEthers } from '@usedapp/core';
 import React, { useMemo } from 'react';
 import { providers } from 'ethers';
 
-export const Notifi: React.FC = () => {
+const NotifiCard = () => {
+
   const { account, library } = useEthers();
   const signer = useMemo(() => {
     if (library instanceof providers.JsonRpcProvider) {
@@ -24,7 +25,7 @@ export const Notifi: React.FC = () => {
     return null;
   }
 
-  const inputLabels: NotifiInputFieldsText = {
+  const inputLabels = {
     label: {
       email: 'Email',
       sms: 'Text Message',
@@ -35,7 +36,7 @@ export const Notifi: React.FC = () => {
     },
   };
 
-  const inputSeparators: NotifiInputSeparators = {
+  const inputSeparators = {
     // smsSeparator: {
     //   content: 'OR',
     // },
@@ -46,24 +47,26 @@ export const Notifi: React.FC = () => {
 
   return (
     <NotifiContext
-      dappAddress="filmapp"
-      env="Development"
-      signMessage={async (message: Uint8Array) => {
-        const result = await signer.signMessage(message);
-        return arrayify(result);
-      }}
-      walletPublicKey={account}
-      walletBlockchain="ETHEREUM" // NOTE - Please update to the correct chain name.
-      //If Polygon, use "POLYGON"
-      //If Arbitrum, use "ARBITRUM"
-      //If Binance, use "BINANCE"
-    >
-      <NotifiSubscriptionCard
-        cardId="ae2fc63ed6ef4b289ae3735f0a32da9b"
-        inputLabels={inputLabels}
-        inputSeparators={inputSeparators}
-        darkMode //optional
-      />
-    </NotifiContext>
-  );
-};
+    dappAddress="filmapp"
+    env="Development"
+    signMessage={async (message) => {
+      const result = await signer.signMessage(message);
+      return arrayify(result);
+    }}
+    walletPublicKey={account}
+    walletBlockchain="ETHEREUM" // NOTE - Please update to the correct chain name.
+    //If Polygon, use "POLYGON"
+    //If Arbitrum, use "ARBITRUM"
+    //If Binance, use "BINANCE"
+  >
+    <NotifiSubscriptionCard
+      cardId="ae2fc63ed6ef4b289ae3735f0a32da9b"
+      inputLabels={inputLabels}
+      inputSeparators={inputSeparators}
+      darkMode //optional
+    />
+  </NotifiContext>
+  )
+}
+
+export default NotifiCard

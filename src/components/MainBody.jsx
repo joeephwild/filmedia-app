@@ -18,9 +18,9 @@ import {
 import Concert from "../pages/Concert";
 import FullScreen from "./FullScreen";
 import Modal from "./Modal";
-import Navbar from "./Navbar.tsx";
+import Navbar from "./Navbar.jsx";
 import Notifications from "./Notifications.jsx";
-import {Notifi} from "./NotifiCard.tsx";
+import {Notifi} from "./NotifiCard.jsx";
 import PictureInPicture from "./PictureInPicture";
 import PlayerSection from "./PlayerSection";
 import Sidebar from "./Sidebar";
