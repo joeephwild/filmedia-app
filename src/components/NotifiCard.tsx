@@ -36,9 +36,9 @@ export const Notifi: React.FC = () => {
   };
 
   const inputSeparators: NotifiInputSeparators = {
-    smsSeparator: {
-      content: 'OR',
-    },
+    // smsSeparator: {
+    //   content: 'OR',
+    // },
     emailSeparator: {
       content: 'OR',
     },

@@ -8,9 +8,11 @@ const Subscribe = () => {
     }
     
 return (
-    <div className="absolute z-10 my-9">
+    <div className="absolute z-10 my-9 mx-20">
       <DAppProvider config={config}>
-          <Notifi/>
+        <div className='card' style={{width: 900}}>
+          <Notifi className=''/>
+        </div>
       </DAppProvider>
   </div>
   )

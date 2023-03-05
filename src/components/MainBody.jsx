@@ -19,7 +19,7 @@ import Concert from "../pages/Concert";
 import FullScreen from "./FullScreen";
 import Modal from "./Modal";
 import Navbar from "./Navbar.tsx";
-import Notifications from "./Notifications.tsx";
+import Notifications from "./Notifications.jsx";
 import {Notifi} from "./NotifiCard.tsx";
 import PictureInPicture from "./PictureInPicture";
 import PlayerSection from "./PlayerSection";

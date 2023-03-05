@@ -32,7 +32,40 @@ const Notifications = () => {
       {pic: image10,name:"Bryan", details: "Just uploaded a new album",  duration:""},
       {pic: image10,name:"choice", details: "you have one new follower",  duration:"20 mins ago"}
       ]
+    
+      const useOutsideClick = (callback) => {
+        const ref = React.useRef();
+      
+        React.useEffect(() => {
+          const handleClick = (event) => {
+            callback();
+          };
+      
+          document.addEventListener('click', handleClick,false);
+      
+          return () => {
+            document.removeEventListener('click', handleClick,false);
+          };
+        }, []);
+      
+        return ref;
+      };
+    
 
+      // const handleClickOutside = () => {
+      //   setOpenNotification(false);
+      // };
+
+      // const handleClick = () => {
+      //   setOpenNotification(false);
+      // };
+    
+      // const ref = useOutsideClick(handleClickOutside);
+       
+      // const handleHeaderClick = (event) => {     
+      //   event.stopPropagation();
+      // };
+    
   return (
     <div className='overflow-y-scroll scroll-smooth scrollbar scrollbar-thumb-gray-400 scrollbar-track-red-600 scrollbar-w-2 bg-black h-[550px] w-[420px] fixed z-[99999] right-9' style={{top: "66px"}}>
         <div className='flex px-3.5 py-2.5 items-center justify-between w-full'>
