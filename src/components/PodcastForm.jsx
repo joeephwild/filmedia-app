@@ -1,116 +1,156 @@
-import React, { useState } from 'react'
-import FormField from './FormField'
+import React, { useState } from "react";
+import FormField from "./FormField";
+import { useCreateAsset } from "@livepeer/react";
+import { usePodcastContext } from "../context/PodcastContext";
+import { ethers } from "ethers";
+import { sendFileToIPFS, sendJSONToIPFS } from "../pinata";
+import {Loader} from  '../components'
+import { useStorageUpload } from "@thirdweb-dev/react";
 
 const PodcastForm = () => {
-    const [form, setForm] = useState({
-        name: "",
-        title: "",
-        description: "",
-        target: "",
-        deadline: "",
-        image: "",
-      });
-    
-      const handleFormFieldChange = (fieldName, e) => {
-        setForm({ ...form, [fieldName]: e.target.value });
-      };
+
+  const ipfsgateway = "gateway.pinata.cloud";
+
+
+  // Creating state for the input field
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [video, setVideo] = useState("");
+  console.log(video);
+  const { createPodcast, isLoading } = usePodcastContext();
+
+  const { mutateAsync: upload } = useStorageUpload();
+
+
+  const uploadImage = async(e) => {
+    const file = e.target.files[0];
+    const getCid = await sendFileToIPFS(file);
+    const ipfsPath = "https://" + ipfsgateway  + "/ipfs/" + getCid;
+    setThumbnail(ipfsPath);
+    console.log(ipfsPath)
+  };
+
+  const uploadVideo = async(e) => {
+    const file = e.target.files[0];
+    const getCid = await sendFileToIPFS(file);
+    const ipfsPath = "https://" + ipfsgateway  + "/ipfs/" + getCid;
+    setVideo(ipfsPath)
+    console.log(ipfsPath)
+  };
+
+  const handlePodcastUpload = async () => {
+    try {
+      const data = await createPodcast(
+        title,
+        thumbnail,
+        ethers.utils.parseEther(price),
+        video,
+        category
+      );
+      alert("done")
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full items-center justify-center">
-    <section className="flex flex-col items-center w-full">
-      <div className="flex justify-center w-3/4">
-        <div className="p-5 w-full m-5 mt-0 ">
-          <FormField
-            isFile
-            labelName="Image *"
-            placeholder="John Doe"
-            inputType="text"
-            value={form.name}
-            handleChange={(e) => handleFormFieldChange("name", e)}
-          />
+      <div className="flex items-center justify-center flex-col">
+        <div className="bg-black w-[600px] h-[200px] text-white font-OpenSans-ExtraBold font-extrabold">
+          <span className="w-full items-center text-3xl mt-[15%] text-center flex justify-center">
+            Podcast Form
+          </span>
+          <span className="font-OpenSans-Bold font-bold text-lg text-center flex justify-center items-center">
+            Upload a Podcast and share with Fans
+          </span>
         </div>
       </div>
-
-      <div className="flex justify-center w-3/4 overflow-auto">
-        <div className="p-5 w-full m-5 mt-0 border rounded-lg">
-          <FormField
-            isInput
-            labelName="Your Name *"
-            placeholder="John Doe"
-            inputType="text"
-            value={form.name}
-            handleChange={(e) => handleFormFieldChange("name", e)}
-          />
-          <FormField
-            isTextArea
-            labelName="Description *"
-            placeholder="John Doe"
-            inputType="text"
-            value={form.name}
-            handleChange={(e) => handleFormFieldChange("name", e)}
-          />
-
-          <FormField
-            isImageFile
-            labelName="Your Name *"
-            placeholder="John Doe"
-            inputType="text"
-            value={form.name}
-            handleChange={(e) => handleFormFieldChange("name", e)}
-          />
-          <div className="grid grid-cols-2 items-center gap-5">
-            <FormField
-              isOption
-              labelName="Your Name *"
-              placeholder="John Doe"
-              inputType="text"
-              value={form.name}
-              handleChange={(e) => handleFormFieldChange("name", e)}
-            />
-            <div>
+      {isLoading && <Loader />}
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="flex flex-col  items-center w-full"
+      >
+        <div className=" mx-3 lg:w-[85%] my-9 items-center">
+          <div className="border-2 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
+            <div className="flex-col items-center mx-auto">
               <FormField
-                isOption
-                labelName="Your Name *"
-                placeholder="John Doe"
-                inputType="text"
-                value={form.name}
-                handleChange={(e) => handleFormFieldChange("name", e)}
+                isImageFile
+                labelName="Podcast Image"
+                inputType="file"
+                handleChange={uploadImage}
               />
             </div>
           </div>
+
+          <div className="border-2 mt-7 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
+            <div className="flex-col items-center mx-auto">
+              <FormField
+                isFile
+                labelName="Podcast Video"
+                inputType="file"
+                placeholder="Enter a valid url"
+                handleChange={uploadVideo}
+              />
+            </div>
+          </div>
+
+          <div className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
+            <div className="flex-col items-center mx-auto">
+              <FormField
+                isInput
+                labelName="Title"
+                inputType="text"
+                placeholder="Enter a valid url"
+                value={title}
+                handleChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+           
+            <div className="flex font-OpenSans-Bold text-lg items-center mx-auto">
+              <div className="w-full ">
+                <label>Price</label>
+                <input
+                  type="number"
+                  step="0.05"
+                  placeholder="enter price in 0.8"
+                  className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+                <div className="flex w-full mt-4 flex-col items-start">
+                  <label className="text-lg font-OpenSans-Bold">Category</label>
+                  <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    class="w-full font-bold font-OpenSans-Bold bg-[#f0f0f0] rounded-[8px] h-16 text-[#000000]"
+                  >
+                    <option>Select Category</option>
+                    <option>Comedy</option>
+                    <option>Inspirational</option>
+                    <option>Education</option>
+                    <option>Movies</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </form>
+      <div className="flex justify-center items-center">
+      <button
+        className="bg-white text-black font-OpenSans-Bold font-bold text-lg px-5 py-2.5 rounded-lg"
+        onClick={() => handlePodcastUpload()}
+        type="submit"
+      >
+        Create Podcast
+      </button>
       </div>
+    </div>
+  );
+};
 
-      <div className="flex m-5 justify-center w-3/4 overflow-auto">
-        <label
-          for="checked-checkbox"
-          className="ml-5 text-xs w-1/2 text-gray-500 dark:text-gray-300"
-        >
-          By Uploading this file, you acknowledge that the transaction is
-          final and cannot be reversed. Includes{" "}
-          <a href="#" className="text-white">
-            royalty split agreement
-          </a>
-          . Read and understand
-          <a href="#" className="text-white">
-            {" "}
-            contract terms{" "}
-          </a>
-          and
-          <a href="#" className="text-white">
-            {" "}
-            potential risks.
-          </a>
-        </label>
-      </div>
-      <div className="flex m-5 justify-center w-3/4 overflow-auto">
-        <button className="bg-white px-9 py-3 text-lg mr-5 hover:bg-transparent text-black font-semibold hover:text-white border border-white-500 hover:border-white rounded">
-          Upload
-        </button>
-      </div>
-      <div className="flex m-5 justify-center w-3/4 overflow-auto"></div>
-    </section>
-  </div>
-  )
-}
-
-export default PodcastForm
+export default PodcastForm;

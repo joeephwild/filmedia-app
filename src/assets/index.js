@@ -29,6 +29,8 @@ import slide1 from './slide1.png'
 import slide2 from './slide2.png'
 import slide3 from './slide3.png'
 import person from './person.jpg'
+import errorg from './error.gif'
+
 export {
     logo,
     home,
@@ -59,5 +61,6 @@ export {
     slide1,
     slide2,
     slide3,
-    person
+    person,
+    errorg
 }

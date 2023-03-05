@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useStateContext } from "../context";
 import { Account, Albums, Music } from "../components";
-import { song_list } from "../context/songs";
-import { BsFillPatchCheckFill } from "react-icons/bs";
+import { useAddress, useContractRead } from "@thirdweb-dev/react";
+import { useTrackContext } from "../context/TrackContext";
+import { ethers } from "ethers";
 
 const Profile = () => {
-  const { currentProfile } = useStateContext();
+  const { currentProfile, allMusic } = useStateContext();
+  const { contract, getTracks } = useTrackContext();
+  const [music, setMusic] = useState()
+  console.log(music)
+  const address = useAddress();
+ 
+  const fetchCampaigns = async () => {
+    const data = await getTracks(address);
+    setMusic(data);
+  }
+
+  useEffect(() => {
+    if(contract) fetchCampaigns();
+  }, [address, contract]);
   return (
     <div>
       {currentProfile && (
@@ -14,19 +28,12 @@ const Profile = () => {
             <section className="h-s">
               <Account key={i} content={item} />
               <div className="grid space-y-16 grid-cols-1 mx-5 gap-5">
-                <Albums />
                 <div className="mx-aut mx-9">
                   <div className="flex mx-auto cursor-pointer flex-col my-[25%] lg:mt-0">
                     <h2 className="text-2xl font-bold text-[#fafafa">Songs</h2>
-                    <div className="flex items-center justify-between">
-                      <span>#</span>
-                      <span>Title</span>
-                      <span>Feature Artist</span>
-                      <span>Time</span>
-                    </div>
-                    {song_list.slice(0, 4).map((song, i) => (
-                      <Music key={i} index={i} content={song} />
-                    ))}
+                      {music?.map((songs, i) => (
+                        <Music content={songs} key={i} index={i} />
+                      ))}
                   </div>
                 </div>
               </div>
@@ -34,7 +41,6 @@ const Profile = () => {
           ))}
         </div>
       )}
-   
     </div>
   );
 };

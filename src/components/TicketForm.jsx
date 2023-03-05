@@ -4,6 +4,7 @@ import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context";
+import { useTicketContext } from "../context/TicketContext";
 import { db } from "../firebase";
 import { sendDataToIPFS, sendFileToIPFS } from "../pinata";
 import FormField from "./FormField";
@@ -22,23 +23,13 @@ const TicketForm = () => {
   const [ipfsHash, setIpfsHash] = useState("");
   const navigate = useNavigate();
   const ipfsgateway = "gateway.pinata.cloud";
-  const { createToken } = useStateContext();
-
-  console.log(
-    image,
-    startDate,
-    endDate,
-    quantity,
-    price,
-    title,
-    description,
-    location
-  );
+  const {createToken} = useTicketContext()
 
   const handleUpload = async (e) => {
     const file = e.target.files[0];
     const getCid = await sendFileToIPFS(file);
     const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid;
+    console.log(ipfsPath)
     setImage(ipfsPath);
   };
 
@@ -55,13 +46,12 @@ const TicketForm = () => {
 
   const handleSubmit = async () => {
     const result = await sendDataToIPFS(metadata);
-    setIpfsHash(result);
     console.log(result);
     try {
       setLoading(true);
       await createToken(
         result,
-        price,
+        ethers.utils.parseEther(price),
         new Date(startDate).getTime(),
         new Date(endDate).getTime(),
         quantity
@@ -88,6 +78,12 @@ const TicketForm = () => {
       onSubmit={(e) => e.preventDefault()}
       className="flex flex-col space-y-11 mx-auto items-center max-w-full"
     >
+      <div className='flex items-center justify-center flex-col'>
+      <div className='bg-black w-[600px] h-[200px] text-white font-OpenSans-ExtraBold font-extrabold'>
+        <span className='w-full items-center text-3xl mt-[15%] text-center flex justify-center'>Ticket Form</span>
+        <span className="font-OpenSans-Bold font-bold text-lg text-center flex justify-center items-center">Upload a ticket for concert and shows</span>
+      </div>
+    </div>
       {loading && <Loader />}
       <section className="flex flex-col  items-center w-full">
         <div className=" mx-3 lg:w-[85%] my-9 items-center">

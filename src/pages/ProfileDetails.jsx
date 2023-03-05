@@ -1,42 +1,40 @@
+import { useAddress, useContractRead } from "@thirdweb-dev/react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Account, Albums, Music, Videos } from "../components";
-import { song_list } from "../context/songs";
-
+import { Account, Albums, Loader, Music} from "../components";
+import { useTrackContext } from "../context/TrackContext";
 
 const ProfileDetails = ({ i }) => {
   const { state } = useLocation();
+  const { contract, getTracks, isLoading } = useTrackContext();
+  const [music, setMusic] = useState()
+  console.log(music)
+  const address = useAddress()
+ 
+  const fetchCampaigns = async () => {
+    const data = await getTracks(state.to);
+    setMusic(data);
+  }
 
-
+  useEffect(() => {
+    if(contract) fetchCampaigns();
+  }, [address, contract]);
   return (
-    <section className="h-screen">
-      <div className="w-[100%] h-screen">
-      <Account
-      content={state}
-       />
-        {state.titles === "Content Creator" ? (
-          <div>
-            <Videos />
-          </div>
-        ): (
-          <div className="flex flex-col items-center mx-5">
-          <div className="mx-auto w-full ">
+    <section className="h-s">
+      {isLoading && <Loader />}
+      <div className="w-[100%] h-s">
+        <Account content={state} />
+
+        <div className="flex flex-col items-center mx-5">
+          <div className="mx-auto h-[400px] w-full ">
             <div className="flex mx-auto cursor-pointer flex-col lg:mt-0">
               <h2 className="text-2xl font-bold text-[#fafafa">Songs</h2>
-              <div className="flex items-center justify-between">
-                <span>#</span>
-                <span>Title</span>
-                <span>Feature Artist</span>
-                <span>Time</span>
-              </div>
-              {song_list.slice(0, 4).map((song, i) => (
-                <Music key={i} index={i} content={song} />
+              {music?.map((item, i) => (
+               <Music key={i} content={item} index={i} />
               ))}
             </div>
           </div>
-          <Albums />
         </div>
-        )}
-
       </div>
     </section>
   );

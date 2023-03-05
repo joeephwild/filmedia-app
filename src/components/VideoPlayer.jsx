@@ -1,38 +1,44 @@
-import { Player } from "@livepeer/react"
-import * as React from 'react';
+import { Player } from "@livepeer/react";
+import * as React from "react";
 import { usePlayerContext } from "../context/PlayerState";
 
-const playbackId =
-  '382apfiowzvrwj3y';
-
-const PosterImage = () => {
+const VideoPlayer = () => {
+  const { currentSongs } = usePlayerContext();
   return (
-    <img
-      src="https://wallpapercave.com/wp/wp2281843.jpg"
-      
-    />
+    <div>
+      {currentSongs.video ? (
+        <Player
+          title="Waterfalls"
+          src={currentSongs.video}
+          poster={currentSongs.image}
+          showPipButton
+          showTitle={false}
+          aspectRatio="16to9"
+          controls={{ autohide: true }}
+          theme={{
+            borderStyles: { containerBorderStyle: "hidden" },
+            radii: { containerBorderRadius: "10px" },
+          }}
+        />
+      ) : (
+        <div>
+          <Player
+            title="Waterfalls"
+            src={currentSongs.video}
+            poster={currentSongs.image}
+            showPipButton
+            showTitle={true}
+            aspectRatio="16to9"
+            controls={{ autohide: true }}
+            theme={{
+              borderStyles: { containerBorderStyle: "hidden" },
+              radii: { containerBorderRadius: "10px" },
+            }}
+          />
+        </div>
+      )}
+    </div>
   );
 };
-  
 
-  
-const VideoPlayer = () => {
-  const { currentSongs } = usePlayerContext()
-  return (
-    <Player
-    title="Waterfalls"
-    src={currentSongs.video}
-    showPipButton
-    showTitle={false}
-    aspectRatio="16to9"
-   controls={{autohide: true}}
-    autoPlay
-    theme={{
-      borderStyles: { containerBorderStyle: 'hidden' },
-      radii: { containerBorderRadius: '10px' },
-    }}
-  />
-  )
-}
-
-export default VideoPlayer
+export default VideoPlayer;

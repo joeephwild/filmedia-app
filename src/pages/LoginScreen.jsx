@@ -22,7 +22,7 @@ const LoginScreen = () => {
   const [signUpPassword, setSignUpPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { setRegisteredUser } = useStateContext();
+  const { setError } = useStateContext();
   const [isSubmittng, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const LoginScreen = () => {
       !signUpPassword ||
       signUpPassword !== confirmPassword
     )
-      return alert("no input");
+      return setError("Pls fill form completely");
     setIsSubmitting(true);
     await createUserWithEmailAndPassword(auth, signUpMail, signUpPassword)
       .then((response) => {
@@ -43,7 +43,8 @@ const LoginScreen = () => {
         navigate("/profile");
       })
       .catch((error) => {
-        console.log(error);
+        setIsSubmitting(false)
+       setError(error.message);
       });
     const docRef = addDoc(collection(db, "users"), {
       name: fullName,
@@ -61,7 +62,8 @@ const LoginScreen = () => {
         navigate("/profile");
       })
       .catch((error) => {
-        console.log(error);
+        setIsSubmitting(false)
+        setError(error.message);
       });
   };
 
@@ -166,6 +168,9 @@ const LoginScreen = () => {
                   value={confirmPassword}
                   handleChange={(e) => setConfirmPassword(e.target.value)}
                 />
+                {signUpPassword !== confirmPassword && (
+                  <span className="text-red-600 font-OpenSans-Bold text-lg">Password doesn't match</span>
+                )}
               </div>
             </div>
           </form>
