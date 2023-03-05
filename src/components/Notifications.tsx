@@ -40,8 +40,9 @@ const Notifications = () => {
           <span className="-mt-2 cursor-pointer" onClick={() => setOpenNotification(false)}><MdCancel size={20}/></span>
         </div>
         <div className='flex justify-center bg-[#FF2424] p-1'>
-        <Link to="/dashboard/playlist">
-          <div className='flex justify-center bg-[#000] p-2 hover:brightness-200 hover:font-bold rounded-full'>            <button>Subscribe</button>
+        <Link to="/subscribe">
+          <div className='flex justify-center bg-[#000] p-2 hover:brightness-200 hover:font-bold rounded-full'> 
+            <button>Subscribe</button>
             <span>  
                 <img
                   src={bell}

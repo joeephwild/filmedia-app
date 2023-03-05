@@ -13,6 +13,7 @@ import {
   Playlist,
   ProfileDetails,
   Profile,
+  Subscribe
 } from "../pages";
 import Concert from "../pages/Concert";
 import FullScreen from "./FullScreen";
@@ -58,6 +59,7 @@ const MainBody = () => {
             <Route path="/dashboard/ticket/:id" element={<Concert />} />
             <Route path="/dashboard/playlist" element={<Playlist />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/subscribe" element={<Subscribe />} />
           </Routes>
         </div>
         {openPip && <PictureInPicture />}
