@@ -15,7 +15,8 @@ import { usePlayerContext } from "../context/PlayerState";
 import { useTrackContext } from "../context/TrackContext";
 
 const PlayerSection = () => {
-  const { state } = useLocation()
+  const { state } = useLocation();
+  console.log(state)
   const {
     currentSongs,
     togglePlaying,
@@ -29,7 +30,7 @@ const PlayerSection = () => {
   } = usePlayerContext();
   const { setPip, openPip, setBigScreen, openBigScreen, allMusic } =
     useStateContext();
-  console.log(allMusic);
+  console.log(currentSongs);
   // self State
   const [statevolume, setStateVolume] = useState(0.3);
   const [duration, setDuration] = useState(0);
@@ -102,7 +103,7 @@ const PlayerSection = () => {
           <div class="relative ml-2 w-full">
             <div class="">
               <h1 class="text-lg font-bold font-OpenSans-Bold">{currentSongs.title}</h1>
-              <h1 class="text-xs text-gray-500">{state.name}</h1>
+              <h1 class="text-xs text-gray-500">{currentSongs.artist}</h1>
             </div>
           </div>
         </div>
