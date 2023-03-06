@@ -22,6 +22,12 @@ const Profile = () => {
   }, [address, contract]);
   return (
     <div>
+      {currentProfile.length === 0 && (
+        <div className="min-h-screen flex flex-col space-y-9 items-center justify-center w-full">
+          <span className="text-[#ffffff] txt-[20px] font-bold font-OpenSans-Bold txt-center">Do You want to have a 100% fun on this app, create an account and experience a 100% fun.</span>
+          <button className="bg-[#ffffff] text-[#000080] rounded-[8px]  font-bold text-xl px-8 py-3.5">Create an Account</button>
+        </div>
+      )}
       {currentProfile && (
         <div>
           {currentProfile.map((item, i) => (

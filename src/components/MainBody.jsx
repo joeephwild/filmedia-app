@@ -1,4 +1,5 @@
 import React from "react";
+import OutsideClickHandler from "react-outside-click-handler";
 import { Route, Routes } from "react-router-dom";
 import { useStateContext } from "../context";
 import { PlayerState } from "../context/PlayerState";
@@ -13,6 +14,7 @@ import {
   Playlist,
   ProfileDetails,
   Profile,
+  Subscription,
 } from "../pages";
 import Concert from "../pages/Concert";
 import FullScreen from "./FullScreen";
@@ -24,17 +26,38 @@ import PlayerSection from "./PlayerSection";
 import Sidebar from "./Sidebar";
 
 const MainBody = () => {
-  const { openBigScreen, openNotification, modal, openPip, openPlayer } =
-    useStateContext();
+  const {
+    openBigScreen,
+    openNotification,
+    modal,
+    openPip,
+    openPlayer,
+    setPip,
+    setOpenPlayer,
+    setOpenNotification,
+    setModal,
+  } = useStateContext();
   return (
     <PlayerState>
       <div className="flex relative items-center h-full overflow-hidden flex-row">
         <Sidebar />
         <div className="flex-1 mx-auto h-screen  overflow-y-scroll flex-col text-white w-full  md:">
           <Navbar />
-          {openBigScreen && <FullScreen />}
-          {openNotification && <Notifications />}
-          {modal && <Modal />}
+          {openNotification && (
+            <OutsideClickHandler
+            onOutsideClick={() => setOpenNotification(false)}
+            >
+              <Notifications />
+            </OutsideClickHandler>
+          )}
+          {modal &&(
+               <OutsideClickHandler
+               onOutsideClick={() => setModal(false)}
+               >
+             <Modal />
+             </OutsideClickHandler>
+             )}
+           
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard/search" element={<Search />} />
@@ -47,11 +70,20 @@ const MainBody = () => {
             <Route path="/dashboard/ticket/:id" element={<Concert />} />
             <Route path="/dashboard/playlist" element={<Playlist />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/subscription" element={<Subscription />} />
           </Routes>
         </div>
-        {openPip && <PictureInPicture />}
-        {openPlayer && <PlayerSection />}
+
+        {openPip && (
+          <OutsideClickHandler onOutsideClick={() => setPip(false)}>
+            <PictureInPicture />
+          </OutsideClickHandler>
+        )}
+     
       </div>
+      {openPlayer && (
+            <PlayerSection />
+        )}
     </PlayerState>
   );
 };

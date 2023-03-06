@@ -42,7 +42,7 @@ const { setActive, active, currentProfile} = useStateContext()
     <section className="lg:w-2/12 md:w-2/5 bg-[#000100] w-full h-screen hidden  mx-auto lg:flex  flex-col p-6">
       <Link
         onClick={() => setActive("Home")}
-        to="/"
+        to="/home"
         className="flex space-x-3 items-start"
       >
         <img src={logo} alt="logo" className="w-14 h-14 object-contain" />
@@ -72,6 +72,15 @@ const { setActive, active, currentProfile} = useStateContext()
         className="w-full cursor-pointer flex space-x-[24px] items-center mx-auto mt-[30%] "
       >
       <div>
+      {currentProfile.length === 0 && (
+          <div >
+           <img
+           src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600"
+           class="w-10 h-10 border-2 rounded-xl border-white-200 object-cover"
+           alt="PROFILE"
+         />
+         </div>
+         )}
          {currentProfile.map((item, i) => (
           <div key={i}>
            <img

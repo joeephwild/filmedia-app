@@ -21,7 +21,7 @@ const Modal = () => {
       <Link to="/dashboard/stream" className="w-full px-4 py-2">
         Livestream
       </Link>
-      <span className=" w-full px-4 py-2">Video</span>
+      <Link to='/subscription' className=" w-full px-4 py-2">Notifications</Link>
       <div onClick={handleSignOut} className=" w-full px-4 py-2">
         LogOut
       </div>

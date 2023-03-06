@@ -2,13 +2,14 @@ import { ethers } from "ethers";
 import React, { useState } from "react";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import { useAddress } from "@thirdweb-dev/react";
-import {
-  FollowButton,
-  Env,
-  Blockchain,
-} from "@cyberconnect/react-follow-button";
+import CyberConnect, {
+  Env
+} from '@cyberlab/cyberconnect-v2';
+
+
 
 const Account = ({ content }) => {
+  const [following, setFollowing] = useState(false)
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
@@ -16,11 +17,30 @@ const Account = ({ content }) => {
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
+  const cyberConnect = new CyberConnect({
+    namespace: 'FilMedia',
+    env: Env.STAGING,
+    provider: provider,
+    signingMessageEntity: 'FilMedia',
+  });
+
+  const handleFollowing = async() => {
+    if(following === false){
+      const follow =  await cyberConnect.follow(content.handle)
+      console.log(follow);
+      setFollowing(true)
+    }else {
+      const unfollow = await cyberConnect.unfollow(content.handle);
+      console.log(unfollow)
+      setFollowing(false)
+    }
+  }
+
   return (
     <div>
-      <div className="h-2/4 md:h-[500px] overflow-hidden border-b-4 border-white-200">
+      <div className="h-2/4 md:h-[256px] overflow-hidden border-b-4 border-white-200">
         <img
-          className="w-full h-full object-cover rounded-t "
+          className="w-full h-full  object-cover rounded-t "
           src={content.cover}
           alt="cover"
         />
@@ -90,36 +110,33 @@ const Account = ({ content }) => {
       </div>
       <div className="">
         <div className="px-7 mb-8">
-          <h2 className="text-3xl font-bold text-white-800 dark:text-gray-300">
+          <h2 className="text-[40px] font-bold text-[#ffffff] ">
             {content.name}
-            <span className="inline-flex text-xl text-blue-600  items-center m-2">
+            <span className="inline-flex text-[25px] text-blue-600  items-center m-2">
               <BsFillPatchCheckFill />
             </span>
           </h2>
-          <p className="text-gray-400 mt-2 dark:text-gray-400">
+          <p className="text-gray-400 text-[40px] mt-2 dark:text-gray-400">
             {content.title}
           </p>
-          <p className="mt-2 text-lg font-bold font-OpenSans-Bold text-[#ffffff] max-w-[50rem]">
+          <p className="mt-2 text-[16px] font-bold font-OpenSans-Bold text-[#ffffff] max-w-[50rem]">
             {truncate(content.desc, 170)}
           </p>
         </div>
         <div className="flex mx-5 space-x-4 my-9">
-          <button className="bg-white text-[#000080] rounded-lg text-lg font-bold px-5 py-3">
-            View NFT Profile
+          <button className="bg-white rounded-lg font-bold px-4 py-2 md:px-9 md:py-3">
+            <span className="md:text-[20px] text-[12px] text-[#000080] ">View Nft Profile</span>
+            
           </button>
-          <FollowButton
-            provider={provider}
-            namespace="CyberConnect"
-            toAddr="0xe6aab1f16ff560d309ed7ce8e08d290306a0906c"
-            env={Env.STAGING}
-            chain={Blockchain.ETH}
-            onSuccess={(e) => {
-              console.log(e);
-            }}
-            onFailure={(e) => {
-              console.log(e);
-            }}
-          />
+          {content.to === address && (
+            <div></div>
+          )}
+            {content.to !== address && (
+             <button onClick={handleFollowing} className="border-white border-2 rounded-lg px-4 py-2 font-bold md:px-9 md:py-3">
+             <span className="md:text-[20px] text-[12px] text-[#808080]">{following ? "Following" : "follow"}</span>
+           </button>
+          )}
+        
 
           {/** right buttons */}
           <div></div>

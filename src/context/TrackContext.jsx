@@ -30,7 +30,8 @@ export const TrackProvider = ({ children }) => {
       image: content.image,
       title: content.title,
       cost: ethers.utils.formatEther(content.price.toString()),
-      artist: content.owner
+      artist: content.owner, 
+      pid: i
     }));
     return parsedTracks;
   }

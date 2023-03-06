@@ -35,7 +35,7 @@ const Home = () => {
         </div>
         {/**podcast */}
 
-        <div className="flex flex-col">
+        <div className="flex flex-col my-9">
           <div className="flex font-bold font-OpenSans-Bold items-center space-x-3">
             <span className="text-xl font-bold">Podcast</span>
             <BsChevronRight size={20} />

@@ -62,7 +62,6 @@ const PictureInPicture = () => {
                                 <button class="hover:text-red-500" onClick={() => handleClick()}>
                                   <AiOutlineCloseCircle size={29} />
                                 </button>
-                                <button class="hover:text-red-500" onClick={() => handleBigScreen()}>Big</button>
                                 <button class="hover:text-red-500">...</button>
                             </div>
                         </div>
