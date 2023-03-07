@@ -34,7 +34,38 @@ const ProfileDetails = ({ i }) => {
                 </div>
               )}
               {music?.map((item, i) => (
+                <div className="min-w-full">
+                       <thead className="border-b-2 border-gray-500">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                  >
+                    #
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                  >
+                    Title
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                  >
+                    Released Date
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                  >
+                    Time
+                  </th>
+                 
+                </tr>
+              </thead>
                 <Music key={i} content={item} index={i} />
+                </div>
               ))}
             </div>
           </div>

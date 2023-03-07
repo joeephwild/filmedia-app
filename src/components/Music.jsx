@@ -22,35 +22,7 @@ const Music = ({ content, index }) => {
         <div className="p-1.5 w-full inline-block align-middle">
           <audio className="hidden" src={content.audio}></audio>
             <table className="min-w-full divide-dashed divide-gray-200">
-              <thead className="border-b-2 border-gray-500">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    #
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    Released Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    Time
-                  </th>
-                 
-                </tr>
-              </thead>
+         
               <tbody className='w-full' onClick={() => handleClick()}>
                 <tr>
                   <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap">
