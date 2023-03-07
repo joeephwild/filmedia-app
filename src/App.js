@@ -20,10 +20,8 @@ import {
 } from "./pages";
 
 function App() {
-  const {error} = useStateContext();
   return (
     <div className="bg-gradient-to-br h-screen from-[#111111] to-[#000080]">
-      {error && (<Error />)}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginScreen />} />
