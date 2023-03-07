@@ -59,7 +59,7 @@ export const Notifi: React.FC = () => {
       //If Binance, use "BINANCE"
     >
       <NotifiSubscriptionCard
-        cardId="ae2fc63ed6ef4b289ae3735f0a32da9b"
+        cardId="cf5bff770906478882187dfced5fee16"
         inputLabels={inputLabels}
         inputSeparators={inputSeparators}
         darkMode //optional
