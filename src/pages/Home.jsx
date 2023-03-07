@@ -11,64 +11,61 @@ const Home = () => {
     navigate(`/dashboard/profile/${item.handle}`, { state: item });
   };
   return (
-    <section className="h-screen items-start">
+    <section className="h-screen overflo-hidden items-start">
       <div>
         <Banner />
       </div>
-      <div className="mx-[40px] my-[40px] space-y-9">
+      <div className=" my-[40px]">
         {/** artist */}
-        <div className="flex flex-col">
-          <div className="flex font-bold font-OpenSans-Bold items-center space-x-3">
-            <span className="text-xl font-bold">All Creators</span>
-            <BsChevronRight size={20} />
-          </div>
-          <div className="lg:grid-cols-4 xl:grid-cols-5 grid-cols-2 md:grid-cols-3 items-start  gap-5 grid">
-            {accounts.map((item, i) => (
-              <div key={i} className="flex flex-col items-start">
-                  <Card
-                    content={item}
-                    handleClick={() => handleNavigate(item)}
-                  />
-              </div>
-            ))}
+        <div>
+          <h1 className="m-3 text-xl font-bold">
+            All Creators
+          </h1>
+          <div className="relative flex items-center group">
+            <div className="relative flex w-full h-full overflow-y-hidden scrollbar-none scroll-smooth whitespace-nowrap">
+              {accounts.map((item, id) => (
+                <Card
+                  content={item}
+                  key={id}
+                  handleClick={() => handleNavigate(item)}
+                />
+              ))}
+            </div>
           </div>
         </div>
         {/**podcast */}
 
-        <div className="flex flex-col my-9">
-          <div className="flex font-bold font-OpenSans-Bold items-center space-x-3">
-            <span className="text-xl font-bold">Podcast</span>
-            <BsChevronRight size={20} />
-          </div>
-          <div className="lg:grid-cols-4 xl:grid-cols-5 grid-cols-2 md:grid-cols-3 items-start  gap-5 grid">
-            {podcast.map((item, i) => (
-              <div key={i} className="flex flex-col items-start">
-                  <Card
-                    content={item}
-                    handleClick={() => handleNavigate(item)}
-                  />
-                  {item.titles !== "Content Creator" && (
-                 <div className="hidden"></div>
-                )}
-              </div>
-            ))}
+        <div>
+          <h1 className="m-3 text-xl font-bold">
+            Podcast
+          </h1>
+          <div className="relative flex items-center group">
+            <div className="relative flex w-full h-full overflow-y-hidden scrollbar-none scroll-smooth whitespace-nowrap">
+              {podcast.map((item, id) => (
+                <Card
+                  content={item}
+                  key={id}
+                  handleClick={() => handleNavigate(item)}
+                />
+              ))}
+            </div>
           </div>
         </div>
         {/**recommendation */}
-        <div className="flex flex-col">
-          <div className="flex font-bold font-OpenSans-Bold items-center space-x-3">
-            <span className="text-xl font-bold">Artist</span>
-            <BsChevronRight size={20} />
-          </div>
-          <div className="lg:grid-cols-4 xl:grid-cols-5 grid-cols-2 md:grid-cols-3 items-center  gap-5 grid">
-            {artist.map((item, i) => (
-              <div key={i} id={i} className="flex flex-col items-center">
-                  <Card
-                    content={item}
-                    handleClick={() => handleNavigate(item, i)}
-                  />
-              </div>
-            ))}
+        <div>
+          <h1 className="m-3 text-xl font-bold">
+            Artist
+          </h1>
+          <div className="relative flex items-center group">
+            <div className="relative flex w-full h-full overflow-y-hidden scrollbar-none scroll-smooth whitespace-nowrap">
+              {artist.map((item, id) => (
+                <Card
+                  content={item}
+                  key={id}
+                  handleClick={() => handleNavigate(item)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

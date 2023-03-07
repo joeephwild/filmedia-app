@@ -1,5 +1,5 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import { useContract, useContractMetadata, useContractRead, useContractWrite, useNFT, useNFTs } from "@thirdweb-dev/react";
 
 const TicketContext = createContext();
 
@@ -7,6 +7,8 @@ export const TicketProvider = ({ children }) => {
   const { contract } = useContract("0x0C8b911AF2AE745417EE6EFa4Ad331Fc226F2fDE");
     const { mutateAsync: createToken, isLoading } = useContractWrite(contract, "createToken");
     const { mutateAsync: executeSale } = useContractWrite(contract, "executeSale")
+    const { data: nft } = useContractRead(contract, "getAllTicket")
+    console.log(nft);
 
     const call = async ( tokenURI, price, _start, _end, _supply ) => {
         try {

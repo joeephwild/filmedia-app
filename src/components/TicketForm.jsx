@@ -56,18 +56,6 @@ const TicketForm = () => {
         new Date(endDate).getTime(),
         quantity
       );
-      const docRef = await addDoc(collection(db, "ticket"), {
-        image: image,
-        begin: startDate,
-        end: endDate,
-        amount: quantity,
-        cost: price,
-        ticketTitle: title,
-        desc: description,
-        venue: location,
-        ipfs: result,
-      });
-      console.log((await docRef).id);
       setLoading(false);
       navigate("/dashboard/ticket");
     } catch (error) {}

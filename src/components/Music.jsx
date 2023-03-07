@@ -17,31 +17,18 @@ const Music = ({ content, index }) => {
 
  
   return (
-    <div className="flex flex-col">
-      <div className="overflow-x-auto">
-        <div className="p-1.5 w-full inline-block align-middle">
-          <audio className="hidden" src={content.audio}></audio>
-            <table className="min-w-full divide-dashed divide-gray-200">
-         
-              <tbody className='w-full' onClick={() => handleClick()}>
-                <tr>
-                  <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap">
-                    {index}
-                  </td>
-                  <td className="px-6 py-4 text-sm whitespace-nowrap">{content.title}</td>
-                  <td className="px-6 py-4 text-sm whitespace-nowrap">
-                    jonne62@gmail.com
-                  </td>
-                  <td className="px-6 py-4 text-sm whitespace-nowrap">
-                   3.9
-                  </td>
-                  
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+    <tbody className='w-full' onClick={() => handleClick()}>
+    <tr>
+      <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap">
+        {index}
+      </td>
+      <td className="px-6 py-4 text-sm whitespace-nowrap">{content.title}</td>
+      <td className="px-6 py-4 text-sm whitespace-nowrap">
+       3.9
+      </td>
+      
+    </tr>
+  </tbody>
   );
 };
 

@@ -28,45 +28,45 @@ const ProfileDetails = ({ i }) => {
           <div className="mx-auto h-[400px] w-full ">
             <div className="flex mx-auto cursor-pointer flex-col lg:mt-0">
               <h2 className="text-2xl font-bold text-[#fafafa">Songs</h2>
-              {music?.length === 0 && (
-                <div className="text-[#ffffff] font-bold txt-[20px">
-                  No Content Available
+              <div className="flex flex-col">
+                <div className="overflow-x-auto">
+                  <div className="p-1.5 w-full inline-block align-middle">
+                    <table className="min-w-full divide-dashed divide-gray-200">
+                      <thead className="border-b-2 border-gray-500">
+                        <tr>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                          >
+                            #
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                          >
+                            Title
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-xs font-bold text-left  uppercase "
+                          >
+                            Time
+                          </th>
+                        </tr>
+                      </thead>
+                      {music?.map((songs, i) => (
+                          <Music content={songs} key={i} index={i} />
+                      ))}  
+                       {music?.length === 0 && (
+                        <div className="text-[#ffffff] font-bold txt-[20px">
+                          No Content Available
+                        </div>
+                      )}
+
+                    </table>
+                  </div>
                 </div>
-              )}
-              {music?.map((item, i) => (
-                <div className="min-w-full">
-                       <thead className="border-b-2 border-gray-500">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    #
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    Released Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    Time
-                  </th>
-                 
-                </tr>
-              </thead>
-                <Music key={i} content={item} index={i} />
-                </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>

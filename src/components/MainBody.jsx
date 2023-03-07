@@ -39,7 +39,7 @@ const MainBody = () => {
   } = useStateContext();
   return (
     <PlayerState>
-      <div className="flex relative items-center h-full overflow-hidden flex-row">
+      <div className="flex relative items-center h-full overflow-x-hidden flex-row">
         <Sidebar />
         <div className="flex-1 mx-auto h-screen  overflow-y-scroll flex-col text-white w-full  md:">
           <Navbar />
