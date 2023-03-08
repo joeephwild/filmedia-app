@@ -23,7 +23,7 @@ const Home = () => {
           </h1>
           <div className="relative flex items-center group">
             <div className="relative flex w-full h-full overflow-y-hidden scrollbar-none scroll-smooth whitespace-nowrap">
-              {accounts.map((item, id) => (
+              {accounts.slice(0, 5).map((item, id) => (
                 <Card
                   content={item}
                   key={id}
@@ -41,7 +41,7 @@ const Home = () => {
           </h1>
           <div className="relative flex items-center group">
             <div className="relative flex w-full h-full overflow-y-hidden scrollbar-none scroll-smooth whitespace-nowrap">
-              {podcast.map((item, id) => (
+              {podcast.slice(0, 5).map((item, id) => (
                 <Card
                   content={item}
                   key={id}
@@ -58,7 +58,7 @@ const Home = () => {
           </h1>
           <div className="relative flex items-center group">
             <div className="relative flex w-full h-full overflow-y-hidden scrollbar-none scroll-smooth whitespace-nowrap">
-              {artist.map((item, id) => (
+              {artist.slice(0, 5).map((item, id) => (
                 <Card
                   content={item}
                   key={id}

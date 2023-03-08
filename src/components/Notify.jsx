@@ -9,34 +9,32 @@ import '@notifi-network/notifi-react-card/dist/index.css';
 import { useAddress } from '@thirdweb-dev/react';
 import { useEthers } from '@usedapp/core';
 import { providers } from 'ethers';
-import React, { useMemo } from 'react';
+import React, { useMemo } from 'react'
 
-const Notifi = () => {
-  const { library } = useEthers();
-  const address = useAddress()
-  console.log(library)
+
+export const Notifi = () => {
+  const { account, library } = useEthers();
   const signer = useMemo(() => {
     if (library instanceof providers.JsonRpcProvider) {
       return library.getSigner();
     }
     return undefined;
   }, [library]);
+  const address = useAddress()
 
   if (address === undefined) {
     // account is required
     return null;
   }
-  
 
   const inputLabels = {
     label: {
       email: 'Email',
       sms: 'Text Message',
-      //telegram: 'Telegram',
+      telegram: 'Telegram',
     },
     placeholderText: {
       email: 'Email',
-      sms: 'Sms'
     },
   };
 
@@ -48,9 +46,10 @@ const Notifi = () => {
       content: 'OR',
     },
   };
+
   return (
- <NotifiContext
-      dappAddress="filmediaDapp"
+    <NotifiContext
+      dappAddress="Filmedia"
       env="Development"
       signMessage={async (message) => {
         const result = await signer.signMessage(message);
@@ -69,7 +68,6 @@ const Notifi = () => {
         darkMode //optional
       />
     </NotifiContext>
-  )
-}
+  );
+};
 
-export default Notifi

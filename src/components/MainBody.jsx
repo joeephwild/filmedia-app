@@ -24,6 +24,7 @@ import Notifications from "./Notifications";
 import PictureInPicture from "./PictureInPicture";
 import PlayerSection from "./PlayerSection";
 import Sidebar from "./Sidebar";
+import Stream from "./Stream";
 
 const MainBody = () => {
   const {
@@ -71,6 +72,7 @@ const MainBody = () => {
             <Route path="/dashboard/playlist" element={<Playlist />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/subscription" element={<Subscription />} />
+            <Route path="/stream/:id" element={<Stream />} />
           </Routes>
         </div>
 

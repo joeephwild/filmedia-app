@@ -1,5 +1,6 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import { useContract, useContractMetadata, useContractRead, useContractWrite, useNFT, useNFTs } from "@thirdweb-dev/react";
+import { useCreateStream } from "@livepeer/react";
 
 const TicketContext = createContext();
 
@@ -9,6 +10,10 @@ export const TicketProvider = ({ children }) => {
     const { mutateAsync: executeSale } = useContractWrite(contract, "executeSale")
     const { data: nft } = useContractRead(contract, "getAllTicket")
     console.log(nft);
+  const { data: nfts } = useNFTs(contract);
+
+  const { data: metadata, isLoading: loadingMetadata } = useContractMetadata(contract);
+  console.log(nfts)
 
     const call = async ( tokenURI, price, _start, _end, _supply ) => {
         try {

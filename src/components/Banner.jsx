@@ -11,7 +11,7 @@ function Banner() {
   return (
     <div className="relative grid-cols-2 grid gap-4 m-9">
 
-      <div className="relative w-[735px] h-[300px] ">
+      <div className="relative w-[705px] h-[300px] ">
         <img src={concert1} alt="concert" className="w-full object-cover h-full" />
         <p className="text-[16px] font-semibold absolute top-[40px] left-[40px]">POST MALONE</p>
         <h1 className="text-[48px] font-bold font-OpenSans-Bold absolute top-[70px] left-[40px]">Circle Of Greatness</h1>
@@ -24,7 +24,7 @@ function Banner() {
         </div>
        </div>
 
-       <div className="relative w-[735px] h-[300px] ">
+       <div className="relative w-[705px] h-[300px] ">
         <img src={concert2} alt="concert" className="w-full object-cover h-full" />
         <p className="text-[16px] font-semibold absolute top-[40px] left-[40px]">POST MALONE</p>
         <h1 className="text-[48px] font-bold font-OpenSans-Bold absolute top-[70px] left-[40px]">Renaissance World Tour</h1>

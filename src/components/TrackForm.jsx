@@ -1,6 +1,7 @@
+import { useCreateAsset } from "@livepeer/react";
 import { Web3Button } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTrackContext } from "../context/TrackContext";
 import { sendFileToIPFS } from "../pinata";
@@ -25,6 +26,21 @@ const TrackForm = () => {
     console.log(ipfsPath);
   };
 
+  const {
+    mutate: createAsset,
+    data: asset,
+    status,
+    progress,
+    error,
+  } = useCreateAsset(
+    video
+      ? {
+          sources: [{ name: video.name, file: video }] ,
+        }
+      : null,
+  );
+  console.log(asset?.plackbackId)
+
   const uploadVideo = async (e) => {
     const file = e.target.files[0];
     const getCid = await sendFileToIPFS(file);
@@ -41,11 +57,13 @@ const TrackForm = () => {
     console.log(ipfsPath);
   };
 
+  const loading = useMemo(() => status === 'loading', [status]);
+
   const handleSubmit = async () => {
     try {
       const data = await uploadMusic(
         music,
-        video,
+        asset?.playbaclId,
         image,
         title,
         ethers.utils.parseEther(price)
@@ -103,10 +121,13 @@ const TrackForm = () => {
                 placeholder="Enter a valid url"
                 handleChange={uploadVideo}
               />
+              {progress && (
+                <div>{progress}loading......</div>
+              )}
             </div>
           </div>
-           {video && (
-            <video muted className="h-[200px] w-[200px] object-cover" src={video}></video>
+           {asset && (
+            <video muted className="h-[200px] w-[200px] object-cover" src={asset?.playbackId}></video>
            )}
           <div className="border-2 mt-7 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
             <div className="flex-col items-center mx-auto">

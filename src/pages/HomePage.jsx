@@ -18,20 +18,20 @@ const HomePage = () => {
         </button>
       </nav>
       {/** hero section */}
-      <div className="grid grid-cols-1 my-12 lg:grid-cols-2 w-full items-center mx-auto">
-        <div className="w-full mx-auto items-center flex flex-col justify-center">
-        <h1 className="text-[40px] md:text-[70px] xl:text-[80px] font-bold text-[##F0F0F0]">
+      <div className="grid grid-cols-1 mx-6 text-left my-12 lg:grid-cols-2 w-full items-center">
+        <div className=" items-start  w-[800px] flex flex-col justify-start">
+        <h1 className="text-[40px] ml-[79px] mr-[33px]  md:text-[70px] xl:text-[80px] font-bold text-[##F0F0F0]">
             Music Revolution
           </h1>
-          <p className="mt-[40px] md:text-[20px] w-[80%] text-center  text-[#808080] ">
+          <p className="mt-[40px] ml-[79px] mr-[33px] md:text-[20px] w-[80%] text-start  text-[#808080] ">
             Support your favorite artists by purchasing unique music tracks
             directly from artist with split royalties for resale. <br /> <br/> Experience
             live streams and videos, and purchase tickets for events, all while
             being a part of a true decentralized platform. Join Fil Media now
             where Music meets decentralization!
           </p>
-          <Link to="/login" className="flex justify-center mx-auto items-center">
-            <button className=" mt-[80px] bg-[#f0f0f0] py-5 px-3.5  text-[#000080] text-[20px] font-bold text-center rounded-[8px] ">
+          <Link to="/login" className="flex ml-[79px] mr-[33px] justify-start mx-6 items-start">
+            <button className=" mt-[80px] bg-[#f0f0f0] py-5 px-3.5  text-[#000080] text-[20px] font-bold rounded-[8px] ">
               Get Started with FilMedia
             </button>
           </Link>

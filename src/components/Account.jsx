@@ -124,8 +124,8 @@ const Account = ({ content }) => {
           </p>
         </div>
         <div className="flex mx-5 space-x-4 my-9">
-          <button className="bg-white rounded-lg font-bold px-4 py-2 md:px-9 md:py-3">
-            <span className="md:text-[20px] text-[12px] text-[#000080] ">View Nft Profile</span>
+          <button className="bg-white rounded-lg font-bold px-5 py-2">
+            <span className="md:text-[16px] text-[12px] text-[#000080] ">View Nft Profile</span>
             
           </button>
           {content.to === address && (

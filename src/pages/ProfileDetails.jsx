@@ -3,6 +3,16 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Account, Albums, Loader, Music } from "../components";
 import { useTrackContext } from "../context/TrackContext";
+import {create as ipfsClient} from 'ipfs-http-client';
+
+const ipfs = ipfsClient({
+  host: 'ipfs.infura.io',
+  port: '5001',
+  protocol: 'https',
+  repo: "code"
+});
+
+
 
 const ProfileDetails = ({ i }) => {
   const { state } = useLocation();
@@ -16,9 +26,12 @@ const ProfileDetails = ({ i }) => {
     setMusic(data);
   };
 
+
+
   useEffect(() => {
     if (contract) fetchCampaigns();
   }, [address, contract]);
+
   return (
     <section className="h-s">
       {isLoading && <Loader />}

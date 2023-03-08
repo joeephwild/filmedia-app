@@ -1,3 +1,4 @@
+import { Stream } from "@xmtp/xmtp-js";
 import { Route, Routes } from "react-router-dom";
 import { Error, MainBody } from "./components";
 import { useStateContext } from "./context";
@@ -39,6 +40,7 @@ function App() {
           <Route path="/dashboard/playlist" element={<Playlist />} />
           <Route path="/profile" element={<Profile />} />
           <Route path='/subscription' element={<Subscription />} />
+          <Route path="/stream/:id" element={<Stream />} />
         </Route>
       </Routes>
     </div>
