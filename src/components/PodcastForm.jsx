@@ -146,15 +146,34 @@ const PodcastForm = () => {
                   placeholder="Enter a valid description"
                   value={handle}
                   handleChange={(e) => setHandle(e.target.value)}
-                <label>PriceRecent</label>
-                <input
-                  type="number"
-                  step="0.05"
-                  placeholder="enter price in 0.8"
-                  className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
                 />
+               
+                {/** price section */}
+                {/* <div className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
+                  <div className="flex  font-OpenSans-Bold text-lg items-center w-full space-x-6">
+                    <div className="w-full ">
+                    <label>PriceRecent</label>
+                      <input
+                        type="number"
+                        step="0.05"
+                        placeholder="enter price in 0.8"
+                        className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                      />
+                    </div>
+                    <div className="w-full font-OpenSans-Bold text-lg ">
+                      <label>Quantity</label>
+                      <input
+                        type="number"
+                        value={quantity}
+                        placeholder="Enter quantity to be minted"
+                        onChange={(e) => setQuantity(e.target.value)}
+                        className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
+                      />
+                    </div>
+                  </div>
+                </div> */}
                 <div className="flex w-full mt-4 flex-col items-start">
                   <label className="text-lg font-OpenSans-Bold">Category</label>
                   <select
