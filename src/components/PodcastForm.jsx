@@ -20,6 +20,7 @@ const PodcastForm = () => {
   const [thumbnail, setThumbnail] = useState("");
   const [video, setVideo] = useState("");
   const [handle, setHandle] = useState("");
+  const [price, setPrice] = useState("");
   console.log(video);
   const { createAPost } = usePodcastContext();
 
@@ -131,21 +132,14 @@ const PodcastForm = () => {
 
             <div className="flex font-OpenSans-Bold text-lg items-center mx-auto">
               <div className="w-full ">
-                <FormField
-                  isTextArea
-                  labelName="Description"
-                  inputType="text"
-                  placeholder="Enter a valid description"
-                  value={description}
-                  handleChange={(e) => setDescription(e.target.value)}
-                />
-                <FormField
-                  isInput
-                  labelName="Handle"
-                  inputType="text"
-                  placeholder="Enter a valid description"
-                  value={handle}
-                  handleChange={(e) => setHandle(e.target.value)}
+                <label>PriceRecent</label>
+                <input
+                  type="number"
+                  step="0.05"
+                  placeholder="enter price in 0.8"
+                  className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
                 />
                 <div className="flex w-full mt-4 flex-col items-start">
                   <label className="text-lg font-OpenSans-Bold">Category</label>

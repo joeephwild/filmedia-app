@@ -47,26 +47,24 @@ const NotifiCard = () => {
 
   return (
     <NotifiContext
-    dappAddress="filmapp"
-    env="Development"
-    signMessage={async (message) => {
-      const result = await signer.signMessage(message);
-      return arrayify(result);
-    }}
-    walletPublicKey={account}
-    walletBlockchain="ETHEREUM" // NOTE - Please update to the correct chain name.
-    //If Polygon, use "POLYGON"
-    //If Arbitrum, use "ARBITRUM"
-    //If Binance, use "BINANCE"
-  >
-    <NotifiSubscriptionCard
-      cardId="ae2fc63ed6ef4b289ae3735f0a32da9b"
-      inputLabels={inputLabels}
-      inputSeparators={inputSeparators}
-      darkMode //optional
-    />
-  </NotifiContext>
-  )
-}
-
-export default NotifiCard
+      dappAddress="filmapp"
+      env="Development"
+      signMessage={async (message) => {
+        const result = await signer.signMessage(message);
+        return arrayify(result);
+      }}
+      walletPublicKey={account}
+      walletBlockchain="ETHEREUM" // NOTE - Please update to the correct chain name.
+      //If Polygon, use "POLYGON"
+      //If Arbitrum, use "ARBITRUM"
+      //If Binance, use "BINANCE"
+    >
+      <NotifiSubscriptionCard
+        cardId="cf5bff770906478882187dfced5fee16"
+        inputLabels={inputLabels}
+        inputSeparators={inputSeparators}
+        darkMode //optional
+      />
+    </NotifiContext>
+  );
+};
