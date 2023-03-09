@@ -1,9 +1,6 @@
-import { useAddress } from "@thirdweb-dev/react";
-import React, { useEffect, useRef, useState } from "react";
+
 import { useStateContext } from "../context";
 import { usePlayerContext } from "../context/PlayerState";
-import { useTrackContext } from "../context/TrackContext";
-import {Loader} from '../components'
 
 const Music = ({ content, index }) => {
   console.log(content);
