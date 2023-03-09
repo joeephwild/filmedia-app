@@ -6,6 +6,8 @@ import { ethers } from "ethers";
 import { sendFileToIPFS, sendJSONToIPFS } from "../pinata";
 import { Loader } from "../components";
 import { useStorageUpload } from "@thirdweb-dev/react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
 
 const PodcastForm = () => {
   const ipfsgateway = "gateway.pinata.cloud";
@@ -53,6 +55,15 @@ const PodcastForm = () => {
     try {
       setIsLoading(true);
       const data = await createAPost(content);
+      const docRef = await addDoc(collection(db, "content"), {
+        title: title,
+        image: thumbnail,
+        video: video,
+        section: category,
+        desc: description,
+        handle: handle
+      });
+      console.log((await docRef).id);
       setIsLoading(false);
       alert("done");
       console.log(data);
@@ -89,7 +100,9 @@ const PodcastForm = () => {
               />
             </div>
           </div>
-
+           {thumbnail && (
+            <img src={thumbnail} alt='upload' className="h-[300px] w-[300px] object-cover" />
+           )}
           <div className="border-2 mt-7 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
             <div className="flex-col items-center mx-auto">
               <FormField
@@ -101,7 +114,9 @@ const PodcastForm = () => {
               />
             </div>
           </div>
-
+          {video && (
+            <video src={video} className='w-[300px] h-[300px] object-cover'></video>
+          )}
           <div className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
             <div className="flex-col items-center mx-auto">
               <FormField
@@ -144,6 +159,7 @@ const PodcastForm = () => {
                     <option>Inspirational</option>
                     <option>Education</option>
                     <option>Movies</option>
+                    <option>Music</option>
                   </select>
                 </div>
               </div>

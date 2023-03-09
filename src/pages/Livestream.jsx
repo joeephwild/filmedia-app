@@ -42,12 +42,23 @@ const Livestream = () => {
       <span className="text-[48px] font-bold font-OpenSans-Bold text-[#ffffff]">
         Ready to livestream?
       </span>
-        <Link 
-        className="text-[18px] mb-3 hover:underline font-bold font-OpenSans-Bold text-[#ffffff]" 
-        to='https://obsproject.com/'>
-          Download an OBS for liveStream or
-         <Link to='https://livepeer.studio/'> Login and sign up at Livepeer Studio's</Link>
-          </Link>
+      <div className="flex items-center space-x-2">
+        <Link
+          className="text-[18px] mb-3 hover:underline font-bold font-OpenSans-Bold text-[#ffffff]"
+          to="https://obsproject.com/"
+        >
+          Download an OBS for liveStream
+        </Link>
+        or
+        <Link
+          className="text-[18px] mb-3 hover:underline font-bold font-OpenSans-Bold text-[#ffffff]"
+          to="https://livepeer.studio/"
+        >
+          {" "}
+          Login and sign up at Livepeer Studio's
+        </Link>
+      </div>
+      <label className="text-lg font-OpenSans-Bold">Stream Name</label>
       <input
         type="text"
         placeholder="Stream name"

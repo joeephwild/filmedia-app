@@ -7,9 +7,9 @@ const TrackContext = createContext();
 
 export const TrackProvider = ({ children }) => {
   const { setAllMusic } = useStateContext()
-  const { contract } = useContract("0xbc52Ff9687F045693b1f327022473E7921784e58");
-  const { mutateAsync: uploadMusic, isLoading } = useContractWrite(contract, "uploadMusic")
-  const { mutateAsync: purchaseMusic } = useContractWrite(contract, "purchaseMusic")
+  const { contract } = useContract("0x8466779BD0dd462e6530d5d042C1699b22fF16a7");
+  const { mutateAsync: uploadMusic, isLoading } = useContractWrite(contract, "uploadMusic");
+  const { mutateAsync: purchaseMusic } = useContractWrite(contract, "purchaseMusic");
   const address = useAddress()
 
   const call = async ( _musicHash, _videoHash, _imageHash, _title, _price) => {
@@ -19,6 +19,11 @@ export const TrackProvider = ({ children }) => {
     } catch (err) {
       console.error("contract call failure", err);
     }
+  }
+
+  const donate = async (pId, _owner, amount) => {
+    const data = await contract.call('purchaseMusic', pId, _owner, { value: ethers.utils.parseEther(amount)});
+    return data;
   }
 
   const getTracks = async (owner) => {
@@ -51,7 +56,8 @@ export const TrackProvider = ({ children }) => {
     contract,
     address,
     getTracks,
-    purchaseTrack
+    purchaseTrack,
+    donate
   }}>{children}</TrackContext.Provider>;
 };
 

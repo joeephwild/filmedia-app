@@ -26,21 +26,6 @@ const TrackForm = () => {
     console.log(ipfsPath);
   };
 
-  const {
-    mutate: createAsset,
-    data: asset,
-    status,
-    progress,
-    error,
-  } = useCreateAsset(
-    video
-      ? {
-          sources: [{ name: video.name, file: video }] ,
-        }
-      : null,
-  );
-  console.log(asset?.plackbackId)
-
   const uploadVideo = async (e) => {
     const file = e.target.files[0];
     const getCid = await sendFileToIPFS(file);
@@ -57,13 +42,11 @@ const TrackForm = () => {
     console.log(ipfsPath);
   };
 
-  const loading = useMemo(() => status === 'loading', [status]);
-
   const handleSubmit = async () => {
     try {
       const data = await uploadMusic(
         music,
-        asset?.playbaclId,
+        video,
         image,
         title,
         ethers.utils.parseEther(price)
@@ -121,13 +104,10 @@ const TrackForm = () => {
                 placeholder="Enter a valid url"
                 handleChange={uploadVideo}
               />
-              {progress && (
-                <div>{progress}loading......</div>
-              )}
             </div>
           </div>
-           {asset && (
-            <video muted className="h-[200px] w-[200px] object-cover" src={asset?.playbackId}></video>
+           {video && (
+            <video muted className="h-[200px] w-[200px] object-cover" src={video}></video>
            )}
           <div className="border-2 mt-7 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
             <div className="flex-col items-center mx-auto">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   getHuddleClient,
@@ -12,12 +12,22 @@ import {
 import { RiMoneyDollarCircleFill, RiSettings3Line } from "react-icons/ri";
 import { Player } from "@livepeer/react";
 import { useLocation } from "react-router-dom";
+import { Client } from "@xmtp/xmtp-js";
+import { useAddress } from "@thirdweb-dev/react";
 
 const Stream = ({stream}) => {
   const huddleClient = getHuddleClient("4cc3283d63a85b6b9fcd6bbceb8dbfef39bb281c9e37417b7659f080112f3630");
 const { state } = useLocation()
-console.log(state)
+const address = useAddress()
+const [input, setInput] = useState("")
 
+const message = async() => {
+const xmtp = await Client.create(address);
+const conversation = await xmtp.conversations.newConversation(
+  '0x3F11b27F323b62B159D2642964fa27C46C841897'
+)
+await conversation.send(input)
+}
   return (
     <div class="h-screen overflow-x-hidden">
       <div className="flex  mx-9 my-9 justify-between w-full gap-x-6 px-9 ">
@@ -43,8 +53,10 @@ console.log(state)
                 type="text"
                 placeholder="Comment"
                 className="border-2 rounded-[8px] px-3 border-[#000100] outline-none"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
               />
-              <MdSend size={25} />
+              <MdSend onClick={() => message()} size={25} />
               <RiMoneyDollarCircleFill size={25} />
               <MdShare size={25} />
               <MdMoreHoriz size={25} />

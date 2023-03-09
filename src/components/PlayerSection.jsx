@@ -15,6 +15,8 @@ import { useLocation } from "react-router-dom";
 import { usePlayerContext } from "../context/PlayerState";
 import { useTrackContext } from "../context/TrackContext";
 import Loader from "./Loader";
+import { ethers } from "ethers";
+import { usePodcastContext } from "../context/PodcastContext";
 
 const PlayerSection = () => {
   const { state } = useLocation();
@@ -24,11 +26,9 @@ const PlayerSection = () => {
     togglePlaying,
     playing,
     nextSong,
-    prevSong,
     toggleRandom,
     toggleRepeat,
     handleEnd,
-    current,
     setCurrentSongs
   } = usePlayerContext();
   const { setPip, openPip, setBigScreen, openBigScreen, setOpenPlayer } =
@@ -39,15 +39,21 @@ const PlayerSection = () => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(30)
-  console.log(state, currentSongs);
+  const { go } = usePodcastContext()
+  console.log(currentSongs.cost);
 
-  const { purchaseTrack, isLoading } = useTrackContext();
+  const { purchaseTrack, isLoading, donate } = useTrackContext();
   const [loading, setLoading] = useState(false)
 
   const handlePurchase = async () => {
     try {
       setLoading(true)
-      const data = await purchaseTrack(currentSongs.pid);
+      const data = await donate(
+        currentSongs.pid, 
+        currentSongs.artist,
+        currentSongs.cost
+        );
+       await go()
       console.log(data);
       setLoading(false)
     } catch (error) {
@@ -106,11 +112,6 @@ const PlayerSection = () => {
     audioPlayer.current.paused
       ? audioPlayer.current.play()
       : audioPlayer.current.pause();
-
-  const handleVolume = (p) => {
-    setStateVolume(p);
-    audioPlayer.current.volume = p;
-  };
 
   useEffect(() => {
     audioPlayer.current.volume = statevolume;
