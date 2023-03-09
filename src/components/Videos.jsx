@@ -1,10 +1,23 @@
 import React from 'react'
 import { usePodcastContext } from '../context/PodcastContext'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import CyberConnect, {
+  Env
+} from '@cyberlab/cyberconnect-v2';
 
+const cyberConnect = new CyberConnect({
+  namespace: 'CyberConnect',
+  env: Env.Production,
+  provider: provider,
+  signingMessageEntity: 'CyberConnect' || your entity,
+});
+const follow() = () => {
+  cyberConnect.follow(handle);
+}
 const Videos = () => {
   const { content } = usePodcastContext()
   return (
+<<<<<<< HEAD
     <div className='my-9 relative'>
       {content.map((item, i) => (
         <div className='bg-black rounded-[8px] h-[360px] w-[460px]'>
@@ -16,6 +29,10 @@ const Videos = () => {
           </div>
         </div>
       ))}
+=======
+    <div>Videos
+      <button onClick={follow}>follow</button>
+>>>>>>> notifi
     </div>
   )
 }

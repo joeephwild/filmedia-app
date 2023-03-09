@@ -16,8 +16,7 @@ import {
   LoginScreen,
   Concert,
   ProfileDetails,
-  Profile,
-  Subscription,
+  Profile
 } from "./pages";
 
 function App() {
@@ -39,8 +38,6 @@ function App() {
           <Route path="/dashboard/ticket/:id" element={<Concert />} />
           <Route path="/dashboard/playlist" element={<Playlist />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path='/subscription' element={<Subscription />} />
-          <Route path="/stream/:id" element={<Stream />} />
         </Route>
       </Routes>
     </div>

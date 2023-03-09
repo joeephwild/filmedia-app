@@ -14,18 +14,29 @@ import {
   Playlist,
   ProfileDetails,
   Profile,
-  Subscription,
+  Subscription
 } from "../pages";
 import Concert from "../pages/Concert";
 import FullScreen from "./FullScreen";
 import Modal from "./Modal";
-import Navbar from "./Navbar";
-import Notifications from "./Notifications";
+import Navbar from "./Navbar.tsx";
+import Notifications from "./Notifications.jsx";
+import {Notifi} from "./NotifiCard.tsx";
 import PictureInPicture from "./PictureInPicture";
 import PlayerSection from "./PlayerSection";
 import Sidebar from "./Sidebar";
 import Stream from "./Stream";
+import { DAppProvider, Mainnet, useEthers } from "@usedapp/core";
 
+const config = {
+    readOnlyChainId: Mainnet.chainId,
+}
+
+const ConnectButton = () => {
+  const {account, deactivate, activateBrowserWallet} = useEthers()
+  if(account) return <button onClick={()=> deactivate()}>Dis</button>
+  else return <button onClick={()=> activateBrowserWallet()}></button>
+}
 const MainBody = () => {
   const {
     openBigScreen,
@@ -44,6 +55,7 @@ const MainBody = () => {
         <Sidebar />
         <div className="flex-1 mx-auto h-screen  overflow-y-scroll flex-col text-white w-full  md:">
           <Navbar />
+<<<<<<< HEAD
           {openNotification && (
             <OutsideClickHandler
             onOutsideClick={() => setOpenNotification(false)}
@@ -59,6 +71,11 @@ const MainBody = () => {
              </OutsideClickHandler>
              )}
            
+=======
+          {openBigScreen && <FullScreen />}
+          {openNotification &&<Notifications/> }
+          {modal && <Modal />}
+>>>>>>> notifi
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard/search" element={<Search />} />
@@ -71,8 +88,12 @@ const MainBody = () => {
             <Route path="/dashboard/ticket/:id" element={<Concert />} />
             <Route path="/dashboard/playlist" element={<Playlist />} />
             <Route path="/profile" element={<Profile />} />
+<<<<<<< HEAD
             <Route path="/subscription" element={<Subscription />} />
             <Route path="/stream/:id" element={<Stream />} />
+=======
+            <Route path="/subscribe" element={<Subscribe />} />
+>>>>>>> notifi
           </Routes>
         </div>
 

@@ -4,6 +4,8 @@ import {MdCancel} from 'react-icons/md'
 import {IoIosArrowForward} from 'react-icons/io'
 import { image13 } from "../assets";
 import { image10 } from "../assets";
+import { bell } from "../assets";
+import {Link} from 'react-router-dom';
 const Notifications = () => {
   const [general, setGeneral] =  useState(true);
   const [transaction, setTransact] =  useState(false);
@@ -30,12 +32,59 @@ const Notifications = () => {
       {pic: image10,name:"Bryan", details: "Just uploaded a new album",  duration:""},
       {pic: image10,name:"choice", details: "you have one new follower",  duration:"20 mins ago"}
       ]
+    
+      const useOutsideClick = (callback) => {
+        const ref = React.useRef();
+      
+        React.useEffect(() => {
+          const handleClick = (event) => {
+            callback();
+          };
+      
+          document.addEventListener('click', handleClick,false);
+      
+          return () => {
+            document.removeEventListener('click', handleClick,false);
+          };
+        }, []);
+      
+        return ref;
+      };
+    
 
+      // const handleClickOutside = () => {
+      //   setOpenNotification(false);
+      // };
+
+      // const handleClick = () => {
+      //   setOpenNotification(false);
+      // };
+    
+      // const ref = useOutsideClick(handleClickOutside);
+       
+      // const handleHeaderClick = (event) => {     
+      //   event.stopPropagation();
+      // };
+    
   return (
-    <div className='overflow-y-scroll scroll-smooth scrollbar scrollbar-thumb-gray-400 scrollbar-track-blue-800 scrollbar-w-2 bg-black h-[550px] w-[420px] fixed z-[99999] right-9' style={{top: "66px"}}>
+    <div className='overflow-y-scroll scroll-smooth scrollbar scrollbar-thumb-gray-400 scrollbar-track-red-600 scrollbar-w-2 bg-black h-[550px] w-[420px] fixed z-[99999] right-9' style={{top: "66px"}}>
         <div className='flex px-3.5 py-2.5 items-center justify-between w-full'>
           <span className='text-lg'>Notification</span>
-          <span className="-mt-2" onClick={() => setOpenNotification(false)}><MdCancel size={20}/></span>
+          <span className="-mt-2 cursor-pointer" onClick={() => setOpenNotification(false)}><MdCancel size={20}/></span>
+        </div>
+        <div className='flex justify-center bg-[#FF2424] p-1'>
+        <Link to="/subscribe">
+          <div className='flex justify-center bg-[#000] p-2 hover:brightness-200 hover:font-bold rounded-full'> 
+            <button>Subscribe</button>
+            <span>  
+                <img
+                  src={bell}
+                  alt="upload"
+                  className="w-6 h-6 object-contain"
+                />
+            </span>
+          </div>
+        </Link>
         </div>
 
         <div className='w-[370px] h-[48px] ml-7 mt-6 bg-[#808080] rounded relative flex justify-around'>

@@ -1,9 +1,8 @@
-import React from 'react'
-
-const Playlist = () => {
+import React from "react";
+const Playlist= () => {
   return (
     <div className='h-screen'>Playlist</div>
-  )
-}
+  );
+};
 
-export default Playlist
+export default Playlist;
