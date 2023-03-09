@@ -1,6 +1,5 @@
-import { useContractRead } from "@thirdweb-dev/react";
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { FormField, Loader } from "../components";
 import { useTicketContext } from "../context/TicketContext";
 

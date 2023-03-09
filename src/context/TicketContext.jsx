@@ -1,10 +1,9 @@
-import React, { useContext, createContext, useState, useEffect } from "react";
+import React, { useContext, createContext, useState } from "react";
 import {
   useContract,
   useContractWrite,
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
-import { ThirdwebStorage } from "@thirdweb-dev/storage";
 
 const TicketContext = createContext();
 
@@ -37,11 +36,13 @@ export const TicketProvider = ({ children }) => {
     }
   };
 
-  const fetchData = async (url) => {
+/**
+ *   const fetchData = async (url) => {
     const storage = new ThirdwebStorage();
     const data = await storage.downloadJSON(url)
    return data;
-  };
+  };}
+ */
 
   const formatDateRange = (date) => {
     const options = {

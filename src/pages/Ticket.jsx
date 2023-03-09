@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useStateContext } from "../context";
-import { useNavigate } from "react-router";
 import { useTicketContext } from "../context/TicketContext";
 import TicketCard from "../components/TicketCard";
 import { Loader } from "../components";
+import { useAddress } from "@thirdweb-dev/react";
 
 const Ticket = () => {
   const [allTicket, setAllTicket] = useState([]);
   const [loading, setLoading] = useState(false)
   const { ticket } = useStateContext();
+  const address = useAddress()
   const { getAllTickets, contract } = useTicketContext()
 
   const fetchData = async() => {
@@ -21,7 +22,7 @@ const Ticket = () => {
 
   useEffect(() => {
    if(contract) fetchData();
-  }, [])
+  }, [contract, address])
   
   return (
    <div>
