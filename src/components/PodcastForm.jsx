@@ -132,7 +132,7 @@ const PodcastForm = () => {
 
             <div className="flex font-OpenSans-Bold text-lg items-center mx-auto">
               <div className="w-full ">
-                <label>PriceRecent</label>
+                <label>Price</label>
                 <input
                   type="number"
                   step="0.05"

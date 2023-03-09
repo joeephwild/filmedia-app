@@ -14,7 +14,7 @@ import {
   Playlist,
   ProfileDetails,
   Profile,
-  Subscription,
+  Subscription
 } from "../pages";
 import Concert from "../pages/Concert";
 import FullScreen from "./FullScreen";
@@ -28,13 +28,11 @@ import Stream from "./Stream";
 
 const MainBody = () => {
   const {
-    openBigScreen,
     openNotification,
     modal,
     openPip,
     openPlayer,
     setPip,
-    setOpenPlayer,
     setOpenNotification,
     setModal,
   } = useStateContext();
@@ -58,7 +56,6 @@ const MainBody = () => {
              <Modal />
              </OutsideClickHandler>
              )}
-           
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard/search" element={<Search />} />
@@ -71,7 +68,6 @@ const MainBody = () => {
             <Route path="/dashboard/ticket/:id" element={<Concert />} />
             <Route path="/dashboard/playlist" element={<Playlist />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/subscription" element={<Subscription />} />
             <Route path="/stream/:id" element={<Stream />} />
           </Routes>
         </div>
@@ -81,7 +77,6 @@ const MainBody = () => {
             <PictureInPicture />
           </OutsideClickHandler>
         )}
-     
       </div>
       {openPlayer && (
             <PlayerSection />
