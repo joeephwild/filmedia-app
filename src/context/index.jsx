@@ -17,13 +17,6 @@ import {
   query,
   where,
 } from "firebase/firestore";
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const cyberConnect = new CyberConnect({
-  namespace: "CyberConnect",
-  env: Env.STAGING,
-  provider: provider,
-  signingMessageEntity: "CyberConnect",
-});
 
 const StateContext = createContext();
 
