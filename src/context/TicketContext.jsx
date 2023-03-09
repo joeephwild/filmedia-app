@@ -28,7 +28,7 @@ export const TicketProvider = ({ children }) => {
 
       const payTicketFee = async (tokenId, _quantity, price) => {
         try {
-          const data = await executeSale([ tokenId, _quantity, {value: ethers.utils.parseEther(price)} ]);
+          const data = await executeSale([ tokenId, _quantity ]);
           console.info("contract call successs", data);
         } catch (err) {
           console.error("contract call failure", err);

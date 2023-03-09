@@ -10,6 +10,7 @@ const Profile = () => {
   const { currentProfile } = useStateContext();
   const { contract, getTracks } = useTrackContext();
   const [music, setMusic] = useState()
+  console.log(music)
   const address = useAddress();
  
   const fetchCampaigns = async () => {
