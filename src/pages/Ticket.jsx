@@ -1,11 +1,8 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  edsheran,
-} from "../assets";
 import { HiLocationMarker } from "react-icons/hi";
 import { BsChevronRight } from "react-icons/bs";
 import { useStateContext } from "../context";
+import { useNavigate } from "react-router";
 
 const Ticket = () => {
   const navigate = useNavigate();

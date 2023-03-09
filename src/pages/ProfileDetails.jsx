@@ -1,4 +1,4 @@
-import { useAddress, useContractRead } from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Account, Loader, Music} from "../components";
@@ -13,6 +13,7 @@ const ProfileDetails = ({ i }) => {
 
   const fetchCampaigns = async () => {
     const data = await getTracks(state.to);
+    console.log(data);
     setMusic(data);
   };
 

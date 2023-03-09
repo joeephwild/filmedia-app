@@ -6,7 +6,6 @@ import { useStateContext } from ".";
 const TrackContext = createContext();
 
 export const TrackProvider = ({ children }) => {
-  const { setAllMusic } = useStateContext()
   const { contract } = useContract("0x8466779BD0dd462e6530d5d042C1699b22fF16a7");
   const { mutateAsync: uploadMusic, isLoading } = useContractWrite(contract, "uploadMusic");
   const { mutateAsync: purchaseMusic } = useContractWrite(contract, "purchaseMusic");
@@ -28,7 +27,7 @@ export const TrackProvider = ({ children }) => {
 
   const getTracks = async (owner) => {
     const allTracks = await contract.call("getMyContent", owner);
-
+ console.log(allTracks)
     const parsedTracks = allTracks.map((content, i) => ({
       audio: content.musicFile,
       video: content.videoFile,

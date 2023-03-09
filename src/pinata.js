@@ -1,9 +1,7 @@
 import axios from "axios";
 import {
-  getHeader,
   pinata_apikey,
   pinata_secret,
-  readHeader,
   sendJsonHeader,
 } from "./confg";
 
