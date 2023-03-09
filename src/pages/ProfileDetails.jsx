@@ -1,17 +1,9 @@
 import { useAddress, useContractRead } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Account, Albums, Loader, Music, Videos } from "../components";
+import { Account, Loader, Music} from "../components";
 import { useTrackContext } from "../context/TrackContext";
-import { create as ipfsClient } from "ipfs-http-client";
-import { usePodcastContext } from "../context/PodcastContext";
 
-const ipfs = ipfsClient({
-  host: "ipfs.infura.io",
-  port: "5001",
-  protocol: "https",
-  repo: "code",
-});
 
 const ProfileDetails = ({ i }) => {
   const { state } = useLocation();

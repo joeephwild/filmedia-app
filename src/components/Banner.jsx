@@ -1,5 +1,4 @@
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 import { concert1, concert2} from "../assets";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import {  FiHeart, FiMoreHorizontal } from "react-icons/fi";

@@ -33,7 +33,7 @@ const Profile = () => {
       {currentProfile && (
         <div>
           {currentProfile.map((item, i) => (
-           <section className="h-s">
+           <section key={i} className="h-s">
            <div className="w-[100%] h-s">
              <Account content={item} />
              <div className="flex flex-col overflow-x-hidden w-full items-center mx-5">

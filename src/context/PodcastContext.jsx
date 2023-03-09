@@ -3,8 +3,6 @@ import CyberConnect, {
   Env
 } from '@cyberlab/cyberconnect-v2';
 import { ethers } from "ethers";
-
-import * as LitJsSdk from '@lit-protocol/lit-node-client';
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../firebase";
 

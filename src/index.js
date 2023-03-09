@@ -6,8 +6,6 @@ import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { StateProvider } from "./context";
 import { createReactClient, LivepeerConfig, studioProvider, } from '@livepeer/react';
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
-import { apolloClient } from "./apollo";
 import { TrackProvider } from "./context/TrackContext";
 import { TicketProvider } from "./context/TicketContext";
 import { PodcastProvider } from "./context/PodcastContext";

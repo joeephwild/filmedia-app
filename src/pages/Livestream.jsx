@@ -1,25 +1,11 @@
 import React, { useMemo, useState } from "react";
-import {
-  LivepeerConfig,
-  createReactClient,
-  studioProvider,
-  Player,
-} from "@livepeer/react";
-import Stream from "../components/Stream";
-import { useCreateStream } from "@livepeer/react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { Link, useNavigate } from "react-router-dom";
 
-const queryClient = new QueryClient();
+import { useCreateStream } from "@livepeer/react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Livestream = () => {
   const [streamKey, setStreamKey] = useState();
   const navigate = useNavigate();
-  const livepeerClient = createReactClient({
-    provider: studioProvider({
-      apiKey: "24797498-709f-4ad3-b348-06e40d3bc888",
-    }),
-  });
 
   const handleNavigate = (item) => {
     navigate(`/stream/${item?.name}`, { state: item });
