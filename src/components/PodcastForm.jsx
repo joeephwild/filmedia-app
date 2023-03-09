@@ -53,7 +53,15 @@ const PodcastForm = () => {
 
   const handlePodcastUpload = async () => {
     if (!thumbnail || !video || !description || !category) return alert("hey something is wrong here");
+    console.log("what do u think?")
+    console.log("running", title)
+    console.log("cute",thumbnail)
+    console.log("dat", video)
+    console.log("gig", category)
+    console.log("eng", description)
+    console.log("sev", handle)
     try {
+     
       setIsLoading(true);
       const data = await createAPost(content);
       const docRef = await addDoc(collection(db, "content"), {
@@ -67,7 +75,8 @@ const PodcastForm = () => {
       console.log((await docRef).id);
       setIsLoading(false);
       alert("done");
-      console.log(data);
+      console.log("done",content);
+      console.log("do",data);
     } catch (error) {
       console.log(error);
     }

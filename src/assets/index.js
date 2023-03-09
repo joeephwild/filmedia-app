@@ -1,5 +1,6 @@
 
 import logo from './logo.svg'
+import video from './video1.mp4'
 import activehome from './home.svg'
 import home from './home.png'
 import layers from './layers.svg'
@@ -66,5 +67,6 @@ export {
     person,
     errorg,
     concert1,
-    concert2
+    concert2,
+    video
 }

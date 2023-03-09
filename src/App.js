@@ -18,7 +18,7 @@ import {
   ProfileDetails,
   Profile,
 } from "./pages";
-
+import { Videos } from './components';
 function App() {
   return (
     <div className="bg-gradient-to-br h-screen from-[#111111] to-[#000080]">
@@ -37,8 +37,9 @@ function App() {
           <Route path="/dashboard/stream" element={<Livestream />} />
           <Route path="/dashboard/ticket/:id" element={<Concert />} />
           <Route path="/dashboard/playlist" element={<Playlist />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} 
           <Route path="/stream/:id" element={<Stream />} />
+          <Route path="/videos" element={<Videos />} />
         </Route>
       </Routes>
     </div>
