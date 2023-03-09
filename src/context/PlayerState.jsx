@@ -11,12 +11,10 @@ import {
     TOGGLE_PLAYING,
     SET_SONGS_ARRAY,
   } from './types'
-import { useStateContext } from ".";
 
 export const PlayerState = (props) => {
   const [currentSongs, setCurrentSongs] = useState({});
   console.log(currentSongs)
-  const {allMusic} = useStateContext()
   const initialState = {
     currentSong: currentSongs.pid,
     songslist: currentSongs,
