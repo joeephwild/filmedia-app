@@ -27,15 +27,6 @@ import PlayerSection from "./PlayerSection";
 import Sidebar from "./Sidebar";
 import Stream from "./Stream";
 
-const config = {
-    readOnlyChainId: Mainnet.chainId,
-}
-
-const ConnectButton = () => {
-  const {account, deactivate, activateBrowserWallet} = useEthers()
-  if(account) return <button onClick={()=> deactivate()}>Dis</button>
-  else return <button onClick={()=> activateBrowserWallet()}></button>
-}
 const MainBody = () => {
   const {
     openBigScreen,
