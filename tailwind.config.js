@@ -13,6 +13,6 @@ module.exports = {
   },
   plugins: [
     // ...
-    require('tailwind-scrollbar')({ nocompatible: true })
+    require('tailwind-scrollbar', 'tailwind-scrollbar-hide')({ nocompatible: true })
   ],
 }

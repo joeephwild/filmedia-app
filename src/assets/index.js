@@ -30,6 +30,8 @@ import slide2 from './slide2.png'
 import slide3 from './slide3.png'
 import person from './person.jpg'
 import errorg from './error.gif'
+import concert1 from './concert 1.jpg'
+import concert2 from './concert2.jpg'
 
 export {
     logo,
@@ -62,5 +64,7 @@ export {
     slide2,
     slide3,
     person,
-    errorg
+    errorg,
+    concert1,
+    concert2
 }

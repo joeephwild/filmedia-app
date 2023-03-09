@@ -1,3 +1,4 @@
+import { Stream } from "@xmtp/xmtp-js";
 import { Route, Routes } from "react-router-dom";
 import { Error, MainBody } from "./components";
 import { useStateContext } from "./context";
@@ -16,14 +17,11 @@ import {
   Concert,
   ProfileDetails,
   Profile,
-  Subscribe
 } from "./pages";
 
 function App() {
-  const {error} = useStateContext();
   return (
     <div className="bg-gradient-to-br h-screen from-[#111111] to-[#000080]">
-      {error && (<Error />)}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginScreen />} />
@@ -40,7 +38,6 @@ function App() {
           <Route path="/dashboard/ticket/:id" element={<Concert />} />
           <Route path="/dashboard/playlist" element={<Playlist />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/subscribe" element={<Subscribe />} />
         </Route>
       </Routes>
     </div>

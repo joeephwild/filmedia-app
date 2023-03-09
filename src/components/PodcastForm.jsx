@@ -4,53 +4,68 @@ import { useCreateAsset } from "@livepeer/react";
 import { usePodcastContext } from "../context/PodcastContext";
 import { ethers } from "ethers";
 import { sendFileToIPFS, sendJSONToIPFS } from "../pinata";
-import {Loader} from  '../components'
+import { Loader } from "../components";
 import { useStorageUpload } from "@thirdweb-dev/react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
 
 const PodcastForm = () => {
-
   const ipfsgateway = "gateway.pinata.cloud";
-
 
   // Creating state for the input field
   const [title, setTitle] = useState("");
+  const [isLoading, setIsLoading] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
   const [thumbnail, setThumbnail] = useState("");
   const [video, setVideo] = useState("");
+  const [handle, setHandle] = useState("");
   console.log(video);
-  const { createPodcast, isLoading } = usePodcastContext();
+  const { createAPost } = usePodcastContext();
 
   const { mutateAsync: upload } = useStorageUpload();
 
-
-  const uploadImage = async(e) => {
+  const uploadImage = async (e) => {
     const file = e.target.files[0];
     const getCid = await sendFileToIPFS(file);
-    const ipfsPath = "https://" + ipfsgateway  + "/ipfs/" + getCid;
+    const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid;
     setThumbnail(ipfsPath);
-    console.log(ipfsPath)
+    console.log(ipfsPath);
   };
 
-  const uploadVideo = async(e) => {
+  const uploadVideo = async (e) => {
     const file = e.target.files[0];
     const getCid = await sendFileToIPFS(file);
-    const ipfsPath = "https://" + ipfsgateway  + "/ipfs/" + getCid;
-    setVideo(ipfsPath)
-    console.log(ipfsPath)
+    const ipfsPath = "https://" + ipfsgateway + "/ipfs/" + getCid;
+    setVideo(ipfsPath);
+    console.log(ipfsPath);
+  };
+
+  const content = {
+    title: title,
+    image: thumbnail,
+    video: video,
+    section: category,
+    desc: description,
+    handle: handle
   };
 
   const handlePodcastUpload = async () => {
+    if (!thumbnail || !video || !description || !category) return null;
     try {
-      const data = await createPodcast(
-        title,
-        thumbnail,
-        ethers.utils.parseEther(price),
-        video,
-        category
-      );
-      alert("done")
+      setIsLoading(true);
+      const data = await createAPost(content);
+      const docRef = await addDoc(collection(db, "content"), {
+        title: title,
+        image: thumbnail,
+        video: video,
+        section: category,
+        desc: description,
+        handle: handle
+      });
+      console.log((await docRef).id);
+      setIsLoading(false);
+      alert("done");
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -85,7 +100,9 @@ const PodcastForm = () => {
               />
             </div>
           </div>
-
+           {thumbnail && (
+            <img src={thumbnail} alt='upload' className="h-[300px] w-[300px] object-cover" />
+           )}
           <div className="border-2 mt-7 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
             <div className="flex-col items-center mx-auto">
               <FormField
@@ -97,7 +114,9 @@ const PodcastForm = () => {
               />
             </div>
           </div>
-
+          {video && (
+            <video src={video} className='w-[300px] h-[300px] object-cover'></video>
+          )}
           <div className="border-2 mt-9 px-6 py-3.5 mx-w-[600px] rounded-[8px] broder-[#f0f0f0]">
             <div className="flex-col items-center mx-auto">
               <FormField
@@ -109,17 +128,24 @@ const PodcastForm = () => {
                 handleChange={(e) => setTitle(e.target.value)}
               />
             </div>
-           
+
             <div className="flex font-OpenSans-Bold text-lg items-center mx-auto">
               <div className="w-full ">
-                <label>Price</label>
-                <input
-                  type="number"
-                  step="0.05"
-                  placeholder="enter price in 0.8"
-                  className="w-full bg-[#f0f0f0] text-[#000000] text-sm border-none  h-16 rounded-[8px]"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                <FormField
+                  isTextArea
+                  labelName="Description"
+                  inputType="text"
+                  placeholder="Enter a valid description"
+                  value={description}
+                  handleChange={(e) => setDescription(e.target.value)}
+                />
+                <FormField
+                  isInput
+                  labelName="Handle"
+                  inputType="text"
+                  placeholder="Enter a valid description"
+                  value={handle}
+                  handleChange={(e) => setHandle(e.target.value)}
                 />
                 <div className="flex w-full mt-4 flex-col items-start">
                   <label className="text-lg font-OpenSans-Bold">Category</label>
@@ -133,6 +159,7 @@ const PodcastForm = () => {
                     <option>Inspirational</option>
                     <option>Education</option>
                     <option>Movies</option>
+                    <option>Music</option>
                   </select>
                 </div>
               </div>
@@ -141,13 +168,13 @@ const PodcastForm = () => {
         </div>
       </form>
       <div className="flex justify-center items-center">
-      <button
-        className="bg-white text-black font-OpenSans-Bold font-bold text-lg px-5 py-2.5 rounded-lg"
-        onClick={() => handlePodcastUpload()}
-        type="submit"
-      >
-        Create Podcast
-      </button>
+        <button
+          className="bg-white text-[#000080] font-OpenSans-Bold font-bold text-lg px-5 py-2.5 rounded-lg"
+          onClick={() => handlePodcastUpload()}
+          type="submit"
+        >
+          Create Podcast
+        </button>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
+import { useCreateAsset } from "@livepeer/react";
 import { Web3Button } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTrackContext } from "../context/TrackContext";
 import { sendFileToIPFS } from "../pinata";
@@ -10,6 +11,7 @@ import Loader from "./Loader";
 const TrackForm = () => {
   const { isLoading, uploadMusic } = useTrackContext();
   const ipfsgateway = "gateway.pinata.cloud";
+  const navigate = useNavigate()
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [video, setVideo] = useState("");
@@ -49,6 +51,7 @@ const TrackForm = () => {
         title,
         ethers.utils.parseEther(price)
       );
+      navigate("/profile")
       console.log(data);
     } catch (error) {
       console.log(error);

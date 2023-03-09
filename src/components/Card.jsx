@@ -1,16 +1,16 @@
-
 const Card = ({ content, handleClick }) => {
   return (
-    <div onClick={handleClick} className="bg-black mt-5 cursor-pointer hover:scale-105 transition-all ease-in-out duration-300 px-9 py-7 text-white  max-w-[260px] max-h-[360px] rounded-xl">
-      <img
-        src={content.avatar}
-        alt=""
-        className="w-48 h-48 mx-auto rounded-full object-cover"
-      />
-      <div className="flex-col flex items-start mt-8 justify-center">
-        <h2 className="font-OpenSans-Bold text-lg font-bold items-start">{content.name}</h2>
-        <h2 className="font-OpenSans-Bold text-xs font-bold items-start">{content.handle}</h2>
-        <h2 className="font-OpenSans-Bold text-xs font-bold items-start text-[#808080]">{content.titles}</h2>
+    <div className="mr-12 ml-3 w-[250px]">
+        <div onClick={handleClick} className="bg-black py-[35px] cursor-pointer hover:scale-95 transition-all min-w-[270px] h-[360px] block px-[35px]" >
+        <img
+          className='!rounded-full  min-w-[200px] min-h-[200px]  object-cover'
+          src={content.avatar}
+          alt={content.handle}
+        />
+        <div className="min-h-[125px]">
+          <h2 className="text-[24px] mt-9 font-bold font-OpenSans-Bold">{content.name}</h2>
+          <h4 className="text-[16px] font-semibold font-OpenSans-Bold">{content.titles}</h4>
+        </div>
       </div>
     </div>
   );

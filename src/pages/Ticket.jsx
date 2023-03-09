@@ -12,15 +12,6 @@ const Ticket = () => {
   const { ticket } = useStateContext()
   console.log(ticket)
 
-  const artists = [
-    {
-      id: "1",
-      artist: "Ed Sheeran",
-      concert: "Mathematics Tour",
-      imgSrc: edsheran,
-    },
-  ];
-
   const handleNavigate = (item, i) => {
     navigate(`/dashboard/ticket/${item.ticketTitle}`, { state: item, i });
   };

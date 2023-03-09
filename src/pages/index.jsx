@@ -12,5 +12,5 @@ export {default as LoginScreen} from './LoginScreen'
 export {default as Playlist} from './Playlist'
 export {default as Concert} from './Concert'
 export {default as Profile} from './Profile'
-export {default as Subscribe} from './Subscribe'
+export {default as Subscription} from './Subscription'
 

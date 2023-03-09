@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import OutsideClickHandler from "react-outside-click-handler";
 
 const LoginScreen = () => {
   //signin usestate
@@ -22,9 +23,10 @@ const LoginScreen = () => {
   const [signUpPassword, setSignUpPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { setError } = useStateContext();
+  const { setError, error } = useStateContext();
   const [isSubmittng, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSignup = async () => {
     if (
@@ -43,8 +45,8 @@ const LoginScreen = () => {
         navigate("/profile");
       })
       .catch((error) => {
-        setIsSubmitting(false)
-       setError(error.message);
+        setIsSubmitting(false);
+        setError(error.message);
       });
     const docRef = addDoc(collection(db, "users"), {
       name: fullName,
@@ -62,13 +64,13 @@ const LoginScreen = () => {
         navigate("/profile");
       })
       .catch((error) => {
-        setIsSubmitting(false)
+        setIsSubmitting(false);
         setError(error.message);
       });
   };
 
   return (
-    <div className="w-screen h-screen overflow-y-scroll">
+    <div className="w-screen relative h-screen overflow-y-scroll">
       {isSubmittng && <Loader />}
       <nav className="bg-[#000100] text-start items-start w-full px-5 py-2 flex justify-between">
         <div className="flex items-center space-x-[8px]">
@@ -169,7 +171,9 @@ const LoginScreen = () => {
                   handleChange={(e) => setConfirmPassword(e.target.value)}
                 />
                 {signUpPassword !== confirmPassword && (
-                  <span className="text-red-600 font-OpenSans-Bold text-lg">Password doesn't match</span>
+                  <span className="text-red-600 font-OpenSans-Bold text-lg">
+                    Password doesn't match
+                  </span>
                 )}
               </div>
             </div>
@@ -186,6 +190,17 @@ const LoginScreen = () => {
           </div>
         </div>
         {/** right form ends */}
+        <OutsideClickHandler
+        onOutsideClick={() => setError("")}
+        >
+          {error && (
+            <div className="fixed top-[20px] z-[8888888] left-[50px]">
+              <span className="bg-black min-w-[260px] h-[300px] text-[24px] text-center font-bold text-red-600 items-center">
+                {error}
+              </span>
+            </div>
+          )}
+        </OutsideClickHandler>
       </div>
     </div>
   );

@@ -1,9 +1,6 @@
-import { useAddress } from "@thirdweb-dev/react";
-import React, { useEffect, useRef, useState } from "react";
+
 import { useStateContext } from "../context";
 import { usePlayerContext } from "../context/PlayerState";
-import { useTrackContext } from "../context/TrackContext";
-import {Loader} from '../components'
 
 const Music = ({ content, index }) => {
   console.log(content);
@@ -17,59 +14,18 @@ const Music = ({ content, index }) => {
 
  
   return (
-    <div className="flex flex-col">
-      <div className="overflow-x-auto">
-        <div className="p-1.5 w-full inline-block align-middle">
-          <audio className="hidden" src={content.audio}></audio>
-            <table className="min-w-full divide-dashed divide-gray-200">
-              <thead className="border-b-2 border-gray-500">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    #
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    Released Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left  uppercase "
-                  >
-                    Time
-                  </th>
-                 
-                </tr>
-              </thead>
-              <tbody className='w-full' onClick={() => handleClick()}>
-                <tr>
-                  <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap">
-                    {index}
-                  </td>
-                  <td className="px-6 py-4 text-sm whitespace-nowrap">{content.title}</td>
-                  <td className="px-6 py-4 text-sm whitespace-nowrap">
-                    jonne62@gmail.com
-                  </td>
-                  <td className="px-6 py-4 text-sm whitespace-nowrap">
-                   3.9
-                  </td>
-                  
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div className='w-full items-center justify-evenly scrollbar-none flex flex-col space-y-6 ' onClick={() => handleClick()}>
+      <div className="flex justify-between border-b-2 border-gray-500 overflow-x-hidden  items-center min-w-[90%]">
+        <span>#</span>
+        <span>Title</span>
+        <span>Time</span>
       </div>
+      <div className="flex justify-between o items-center min-w-[90%]">
+        <span>{index}</span>
+        <span>{content.title}</span>
+        <span>Title</span>
+      </div>
+  </div>
   );
 };
 

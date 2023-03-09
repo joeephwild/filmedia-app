@@ -18,7 +18,7 @@ export const PlayerState = (props) => {
   console.log(currentSongs)
   const {allMusic} = useStateContext()
   const initialState = {
-    currentSong: 0,
+    currentSong: currentSongs.pid,
     songslist: currentSongs,
     repeat: false,
     random: false,
@@ -41,20 +41,20 @@ export const PlayerState = (props) => {
   // Prev song
   const prevSong = () => {
     if (state.random) {
-      return setCurrent(~~(Math.random() * state.songslist.length));
+      return setCurrentSongs(~~(Math.random() * state.currentSongs.length));
     }
 
-    if (state.currentSong === 0) {
-      return setCurrent(state.songslist.length - 1);
+    if (state.currentSongs === 0) {
+      return setCurrentSongs(state.currentSongs.pid - 1);
     } else {
-      return setCurrent(state.currentSong - 1);
+      return setCurrentSongs(state.currentSongs.pid - 1);
     }
   };
 
   // Next song
   const nextSong = () => {
     if (state.random) {
-      return setCurrent(~~(Math.random() * state.songslist.length));
+      return setCurrentSongs(~~(Math.random() * state.songslist.length));
     }
     if (state.currentSong === state.songslist.length - 1) {
       setCurrent(0);

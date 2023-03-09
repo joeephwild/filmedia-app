@@ -19,7 +19,7 @@ const Upload = () => {
   const [page, setPage] = useState(1);
   return (
     <LivepeerConfig client={livepeerClient}>
-      <section className="flex flex-col  h-screen">
+      <section className="flex flex-col mb-[30px]">
         <div class="grid grid-cols-2  p-5 gap-5">
           <div class="items-start flex">
             <button

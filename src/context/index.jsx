@@ -17,13 +17,6 @@ import {
   query,
   where,
 } from "firebase/firestore";
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const cyberConnect = new CyberConnect({
-  namespace: "CyberConnect",
-  env: Env.STAGING,
-  provider: provider,
-  signingMessageEntity: "CyberConnect",
-});
 
 const StateContext = createContext();
 
@@ -168,15 +161,6 @@ export const StateProvider = ({ children }) => {
     getAllData();
   }, []);
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-  const cyberConnect = new CyberConnect({
-    namespace: "Filmedia",
-    env: Env.PRODUCTION,
-    provider: provider,
-    signingMessageEntity: "Filmedia",
-  });
-
   let currentWin = window.location.href.substring(22);
   let currentTab;
   if (currentWin === "") {
@@ -223,7 +207,6 @@ export const StateProvider = ({ children }) => {
         profile,
         setProfile,
         setErrors,
-        cyberConnect,
         setFollowed,
         followed,
         podcast,
