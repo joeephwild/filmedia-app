@@ -13,6 +13,7 @@ const PodcastContext = createContext();
 export const PodcastProvider = ({ children }) => {
 const provider = new ethers.providers.Web3Provider(window.ethereum)
 const [content, setContent] = useState([])
+console.log(content)
 
 const cyberConnect = new CyberConnect({
   namespace: 'FilMedia Content',
@@ -20,6 +21,7 @@ const cyberConnect = new CyberConnect({
   provider: provider,
   signingMessageEntity: 'FilMedia Content',
 });
+
 const createAPost = async(content) => {
   try {
     const postPodcast = await cyberConnect.createPost(content);

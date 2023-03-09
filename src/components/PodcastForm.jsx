@@ -52,7 +52,7 @@ const PodcastForm = () => {
   };
 
   const handlePodcastUpload = async () => {
-    if (!thumbnail || !video || !description || !category) return null;
+    if (!thumbnail || !video || !description || !category) return alert("hey something is wrong here");
     try {
       setIsLoading(true);
       const data = await createAPost(content);

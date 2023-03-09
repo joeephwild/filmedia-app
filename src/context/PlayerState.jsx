@@ -14,7 +14,6 @@ import {
 
 export const PlayerState = (props) => {
   const [currentSongs, setCurrentSongs] = useState({});
-  console.log(currentSongs)
   const initialState = {
     currentSong: currentSongs.pid,
     songslist: currentSongs,
@@ -23,7 +22,6 @@ export const PlayerState = (props) => {
     playing: false,
     audio: null,
   };
-  console.log(initialState)
 
   const [state, dispatch] = useReducer(PlayerReducer, initialState);
 

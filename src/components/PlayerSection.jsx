@@ -8,18 +8,18 @@ import {
 import { BiSkipNext, BiSkipPrevious, BiShuffle } from "react-icons/bi";
 import { RiPlayListFill, RiMoneyDollarCircleLine } from "react-icons/ri";
 import { FiRepeat, FiHeart, FiMoreHorizontal } from "react-icons/fi";
-import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { AiOutlineCloseCircle, AiOutlineCloudDownload } from "react-icons/ai";
 
 import { useStateContext } from "../context";
 import { useLocation } from "react-router-dom";
 import { usePlayerContext } from "../context/PlayerState";
 import { useTrackContext } from "../context/TrackContext";
 import Loader from "./Loader";
-import { ethers } from "ethers";
-import { usePodcastContext } from "../context/PodcastContext";
+import { useAddress } from "@thirdweb-dev/react";
 
 const PlayerSection = () => {
   const { state } = useLocation();
+  const address = useAddress();
   console.log(state);
   const {
     currentSongs,
@@ -29,60 +29,66 @@ const PlayerSection = () => {
     toggleRandom,
     toggleRepeat,
     handleEnd,
-    setCurrentSongs
+    setCurrentSongs,
   } = usePlayerContext();
   const { setPip, openPip, setBigScreen, openBigScreen, setOpenPlayer } =
     useStateContext();
-  console.log(currentSongs);
   // self State
   const [statevolume, setStateVolume] = useState(0.3);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [volume, setVolume] = useState(30)
-  const { go } = usePodcastContext()
-  console.log(currentSongs.cost);
+  const [volume, setVolume] = useState(30);
+  const [isPurchased, setIsPurchased] = useState(false);
 
-  const { purchaseTrack, isLoading, donate } = useTrackContext();
-  const [loading, setLoading] = useState(false)
+  const { donate } = useTrackContext();
+  const [loading, setLoading] = useState(false);
 
   const handlePurchase = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const data = await donate(
-        currentSongs.pid, 
+        currentSongs.pid,
         currentSongs.artist,
         currentSongs.cost
-        );
-       await go()
+      );
       console.log(data);
-      setLoading(false)
+      setLoading(false);
+      setIsPurchased(true);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const skipBack = ()=>
-  {
-    const index = currentSongs.findIndex(x=>x.title === currentSongs.title);
-    if (index == 0)
-    {
-      setCurrentSongs(currentSongs[currentSongs.length - 1])
-    }
-    else
-    {
-      setCurrentSongs(currentSongs[index - 1])
+  const downloadUrl = (url) => {
+    fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const blobUrl = window.URL.createObjectURL(new Blob([blob]));
+        const fileName = url.split("/").pop();
+        const aTag = document.createElement("a");
+        aTag.href = blobUrl;
+        aTag.setAttribute("download", fileName);
+        document.body.appendChild(aTag);
+        aTag.click();
+        aTag.remove();
+      });
+  };
+
+  const skipBack = () => {
+    const index = currentSongs.findIndex((x) => x.title === currentSongs.title);
+    if (index === 0) {
+      setCurrentSongs(currentSongs.length - 1);
+    } else {
+      setCurrentSongs(currentSongs[index - 1]);
     }
     audioPlayer.current.currentTime = 0;
-    
-  }
-
+  };
 
   useEffect(() => {
-      if(audioPlayer){
-        audioPlayer.current.volume = volume / 100
-      }
-  }, [volume])
-  
+    if (audioPlayer) {
+      audioPlayer.current.volume = volume / 100;
+    }
+  }, [volume]);
 
   const handleClick = () => {
     if (!openPip) {
@@ -125,7 +131,7 @@ const PlayerSection = () => {
 
   return (
     <div className="grid grid-cols-12 w-screen max-w-screen fixed p-2 bottom-0 opacity-90  h-[14%] text-white items-center justify-center gap-2 bg-[#000000] ">
-      {loading && (<Loader />)}
+      {loading && <Loader />}
       <div class="col-span-2 ">
         <div class="md:flex hidden ml-5">
           <img
@@ -163,18 +169,19 @@ const PlayerSection = () => {
         </div>
         <div class="flex items-center justify-center gap-5 mt-2 ">
           <div class="w-full flex items-center justify-center ml-16 pt-2">
-          
             <div className="flex items-center w-full justify-center">
-            <span className="col-span-1 text-right text-xs mr-2">
-              {fmtMSS(currentTime)}
-            </span>
+              <span className="col-span-1 text-right text-xs mr-2">
+                {fmtMSS(currentTime)}
+              </span>
               <input
                 type="range"
                 value={duration ? (currentTime * 100) / duration : 0}
                 onChange={handleProgress}
                 className=" bg-gray-100 w-[512px]  rounded h-1 mb-1.5"
               />
-              <span className="col-span-1 text-xs  ml-2">{fmtMSS(duration)}</span>
+              <span className="col-span-1 text-xs  ml-2">
+                {fmtMSS(duration)}
+              </span>
             </div>
           </div>
         </div>
@@ -215,14 +222,33 @@ const PlayerSection = () => {
       <div class="col-span-2 md:flex hidden space-x-3 w-full items-center justify-center">
         <button className="flex items-center">
           <BsFillVolumeUpFill onClick={() => setVolume(0)} size={29} />
-          <input type="range" min={0} max={100} value={volume} onChange={(e) => setVolume(e.target.value)} />
+          <input
+            type="range"
+            min={0}
+            max={100}
+            value={volume}
+            onChange={(e) => setVolume(e.target.value)}
+          />
         </button>
         <button>
           <FiHeart size={29} />
         </button>
-        <button onClick={() => handlePurchase()}>
-          <RiMoneyDollarCircleLine size={29} />
-        </button>
+        {isPurchased && (
+          <div>
+            <button onClick={() => downloadUrl(currentSongs.audio)}>
+              <AiOutlineCloudDownload size={29} />
+            </button>
+          </div>
+        )}
+        {!isPurchased && (
+          <div>
+            {currentSongs.artist !== address && (
+              <button onClick={() => handlePurchase()}>
+                <RiMoneyDollarCircleLine size={29} />
+              </button>
+            )}
+          </div>
+        )}
         <button>
           <FiMoreHorizontal size={29} />
         </button>

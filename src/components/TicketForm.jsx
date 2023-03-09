@@ -51,11 +51,22 @@ const TicketForm = () => {
       setLoading(true);
       await createToken(
         result,
-        ethers.utils.parseEther(price),
+        ethers.utils.parseUnits(price, 18),
         new Date(startDate).getTime(),
         new Date(endDate).getTime(),
         quantity
       );
+      const docRef = await addDoc(collection(db, "ticket"), {
+        image: image,
+        begin: startDate,
+        end: endDate,
+        amount: quantity,
+        cost: price,
+        ticketTitle: title,
+        desc: description,
+        venue: location,
+      });
+      console.log((await docRef).id);
       setLoading(false);
       navigate("/dashboard/ticket");
     } catch (error) {}
