@@ -15,11 +15,9 @@ import {
   ProfileDetails,
   Profile,
   Subscribe,
-  Subscription
 } from "../pages";
 import { Videos } from '../components';
 import Concert from "../pages/Concert";
-import FullScreen from "./FullScreen";
 import Modal from "./Modal";
 import Navbar from "./Navbar.jsx";
 import Notifications from "./Notifications.jsx";
@@ -27,6 +25,7 @@ import PictureInPicture from "./PictureInPicture";
 import PlayerSection from "./PlayerSection";
 import Sidebar from "./Sidebar";
 import Stream from "./Stream";
+import DisPlayVideos from "../pages/DisPlayVideos";
 
 const MainBody = () => {
   const {
@@ -73,6 +72,7 @@ const MainBody = () => {
             <Route path="/stream/:id" element={<Stream />} />
             <Route path="/videos" element={<Videos />} />
             <Route path="/subscribe" element={<Subscribe />} />
+          <Route path="/videos/:id" element={<DisPlayVideos />} />
           </Routes>
         </div>
 
