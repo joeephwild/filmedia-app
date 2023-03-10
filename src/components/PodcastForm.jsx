@@ -69,7 +69,7 @@ const PodcastForm = () => {
       });
       console.log((await docRef).id);
       setIsLoading(false);
-      alert("done");
+      
       console.log("done",content);
       console.log("do",data);
     } catch (error) {
@@ -138,9 +138,19 @@ const PodcastForm = () => {
                 isInput
                 labelName="Description"
                 inputType="text"
-                placeholder="Enter a valid url"
+                placeholder="Enter a description"
                 value={description}
                 handleChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="flex-col items-center mx-auto">
+              <FormField
+                isInput
+                labelName="Handle"
+                inputType="text"
+                placeholder="Enter ccProfile Handle"
+                value={handle}
+                handleChange={(e) => setHandle(e.target.value)}
               />
             </div>
             <div className="flex font-OpenSans-Bold text-lg items-center mx-auto">

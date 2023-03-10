@@ -6,30 +6,7 @@ import { usePodcastContext } from "../context/PodcastContext";
 
 const DisPlayVideos = () => {
   const { state } = useLocation();
-  const { likeAPost, dislikeAPost } = usePodcastContext();
 
-  const [active, setActive] = useState(false);
-  const [like, setLike] = useState(false);
-
-  const handleLike = async () => {
-    try {
-      const data = await likeAPost(state.id);
-      console.log(data);
-      setLike(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleDisLike = async () => {
-    try {
-      const data = await dislikeAPost(state.id);
-      console.log(data);
-      setActive(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   console.log(state);
   return (
     <div className="w-full relative h-[80%]">
@@ -47,26 +24,7 @@ const DisPlayVideos = () => {
           radii: { containerBorderRadius: "10px" },
         }}
       />
-      <div className="m-auto flex asbolute top-[30%] right-9 items-center py-6 px-4 w-full ">
-        <AiOutlineLike
-          onClick={() => handleLike()}
-          className={
-            like === true
-              ? "text-blue-600 cursor-pointer"
-              : "text-white cursor-pointer"
-          }
-          size={40}
-        />
-        <AiOutlineDislike
-          onClick={() => handleDisLike()}
-          className={
-            active === true
-              ? "text-red-600 cursor-pointer"
-              : "text-white cursor-pointer"
-          }
-          size={40}
-        />
-      </div>
+    
     </div>
   );
 };

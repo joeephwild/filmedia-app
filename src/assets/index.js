@@ -33,6 +33,8 @@ import person from './person.jpg'
 import errorg from './error.gif'
 import concert1 from './concert 1.jpg'
 import concert2 from './concert2.jpg'
+import videos from './grayVideo.png'
+import activeVideo from './whiteVideo.png'
 
 export {
     logo,
@@ -68,5 +70,7 @@ export {
     errorg,
     concert1,
     concert2,
-    video
+    video,
+    videos,
+    activeVideo
 }

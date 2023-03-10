@@ -1,4 +1,4 @@
-import { activegroup, activehome, activeLayers, activePlaylist, activeSearch, home, layers, playlist, search, ticket } from "../assets";
+import { activegroup, activehome, activeLayers, activePlaylist, activeSearch, activeVideo, home, layers, playlist, search, ticket, videos } from "../assets";
 
 export const Links = [
     {
@@ -31,10 +31,12 @@ export const Links = [
         route: '/dashboard/ticket',
         active: activegroup,
       },
-      // {
-      //   name: 'Subscibe',
-      //   route: '/dashboard/subscribe',
-      // }
+      {
+        name: 'Videos',
+        imgUrl:  videos,
+        route: '/videos',
+        active: activeVideo,
+      },
       
    
 ]
