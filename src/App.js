@@ -37,7 +37,8 @@ function App() {
           <Route path="/dashboard/stream" element={<Livestream />} />
           <Route path="/dashboard/ticket/:id" element={<Concert />} />
           <Route path="/dashboard/playlist" element={<Playlist />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} 
+          <Route path="/stream/:id" element={<Stream />} />
           <Route path="/videos" element={<Videos />} />
         </Route>
       </Routes>

@@ -11,6 +11,7 @@ import { db } from "../firebase";
 const PodcastContext = createContext();
 
 export const PodcastProvider = ({ children }) => {
+
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const [content, setContent] = useState([])
 
@@ -67,7 +68,6 @@ export const PodcastProvider = ({ children }) => {
             console.log("dislike error",error)
           }
       }
-
 
       // cancel a reaction with cyberConnect
       const cancelReaction = async(id) => {

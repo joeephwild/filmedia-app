@@ -14,7 +14,7 @@ const Music = ({ content, index }) => {
 
  
   return (
-    <div className='w-full items-center justify-evenly scrollbar-none flex flex-col space-y-6 ' onClick={() => handleClick()}>
+    <div className='w-full items-center justify-evenly flex flex-col space-y-6 ' onClick={() => handleClick()}>
       <div className="flex justify-between border-b-2 border-gray-500 overflow-x-hidden  items-center min-w-[90%]">
         <span>#</span>
         <span>Title</span>

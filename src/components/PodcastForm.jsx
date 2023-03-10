@@ -52,6 +52,7 @@ const PodcastForm = () => {
   };
 
   const handlePodcastUpload = async () => {
+    if (!thumbnail || !video || !description || !category) return alert("hey something is wrong here");
     console.log("what do u think?")
     console.log("running", title)
     console.log("cute",thumbnail)
@@ -59,7 +60,6 @@ const PodcastForm = () => {
     console.log("gig", category)
     console.log("eng", description)
     console.log("sev", handle)
-   // if (!thumbnail || !video || !description || !category) return null;
     try {
      
       setIsLoading(true);
