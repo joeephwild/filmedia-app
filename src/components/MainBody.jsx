@@ -14,8 +14,10 @@ import {
   Playlist,
   ProfileDetails,
   Profile,
+  Subscribe,
   Subscription
 } from "../pages";
+import { Videos } from '../components';
 import Concert from "../pages/Concert";
 import FullScreen from "./FullScreen";
 import Modal from "./Modal";
@@ -69,6 +71,8 @@ const MainBody = () => {
             <Route path="/dashboard/playlist" element={<Playlist />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/stream/:id" element={<Stream />} />
+            <Route path="/videos" element={<Videos />} />
+            <Route path="/subscribe" element={<Subscribe />} />
           </Routes>
         </div>
 
