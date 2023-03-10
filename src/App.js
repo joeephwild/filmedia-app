@@ -1,7 +1,6 @@
 import { Stream } from "@xmtp/xmtp-js";
 import { Route, Routes } from "react-router-dom";
-import { Error, MainBody } from "./components";
-import { useStateContext } from "./context";
+import {  MainBody } from "./components";
 import {
   Home,
   Search,
@@ -19,6 +18,7 @@ import {
   Profile,
 } from "./pages";
 import { Videos } from './components';
+
 function App() {
   return (
     <div className="bg-gradient-to-br h-screen from-[#111111] to-[#000080]">
