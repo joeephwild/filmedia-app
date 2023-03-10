@@ -18,6 +18,7 @@ import {
   Profile,
 } from "./pages";
 import { Videos } from './components';
+import DisPlayVideos from "./pages/DisPlayVideos";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/profile" element={<Profile />}  />
           <Route path="/stream/:id" element={<Stream />} />
           <Route path="/videos" element={<Videos />} />
+          <Route path="/videos/:id" element={<DisPlayVideos />} />
         </Route>
       </Routes>
     </div>

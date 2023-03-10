@@ -9,21 +9,11 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 const PictureInPicture = () => {
     const { setPip, openPip } = useStateContext();
 
-    const { setBigScreen, openBigScreen } = useStateContext();
-
   const handleClick = () => {
     if (!openPip) {
       setPip(true);
     }else{
       setPip(false);
-    }
-  };
-
-  const handleBigScreen = () => {
-    if (!openBigScreen) {
-      setBigScreen(true);
-    }else{
-        setBigScreen(false);
     }
   };
 

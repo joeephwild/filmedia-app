@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import FormField from "./FormField";
-import { useCreateAsset } from "@livepeer/react";
 import { usePodcastContext } from "../context/PodcastContext";
-import { ethers } from "ethers";
-import { sendFileToIPFS, sendJSONToIPFS } from "../pinata";
+import { sendFileToIPFS } from "../pinata";
 import { Loader } from "../components";
-import { useStorageUpload } from "@thirdweb-dev/react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -23,8 +20,6 @@ const PodcastForm = () => {
   const [price, setPrice] = useState("");
   console.log(video);
   const { createAPost } = usePodcastContext();
-
-  const { mutateAsync: upload } = useStorageUpload();
 
   const uploadImage = async (e) => {
     const file = e.target.files[0];
@@ -138,7 +133,16 @@ const PodcastForm = () => {
                 handleChange={(e) => setTitle(e.target.value)}
               />
             </div>
-
+            <div className="flex-col items-center mx-auto">
+              <FormField
+                isInput
+                labelName="Description"
+                inputType="text"
+                placeholder="Enter a valid url"
+                value={description}
+                handleChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
             <div className="flex font-OpenSans-Bold text-lg items-center mx-auto">
               <div className="w-full ">
                 <label>Price</label>
