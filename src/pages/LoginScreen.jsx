@@ -42,7 +42,7 @@ const LoginScreen = () => {
         console.log(response);
         alert("done");
         setIsSubmitting(false);
-        navigate("/profile");
+        navigate("/home");
       })
       .catch((error) => {
         setIsSubmitting(false);
@@ -61,7 +61,7 @@ const LoginScreen = () => {
         console.log(response);
         alert("done");
         setIsSubmitting(false);
-        navigate("/profile");
+        navigate("/home");
       })
       .catch((error) => {
         setIsSubmitting(false);
