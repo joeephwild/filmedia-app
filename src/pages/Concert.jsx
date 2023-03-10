@@ -1,26 +1,40 @@
-import { useContractRead } from "@thirdweb-dev/react";
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { FormField } from "../components";
+import { useLocation } from "react-router-dom";
+import { FormField, Loader } from "../components";
 import { useTicketContext } from "../context/TicketContext";
 
 const Concert = () => {
-  const navigate = useNavigate();
-  const { state, i } = useLocation();
-  const { contract, buyTicket } = useTicketContext()
-  const { data: nft } = useContractRead(contract, "getAllTicket")
-  console.log(state.cost);
+  const {  ticketContent } = useTicketContext()
+  const [loading, setLoading] = useState(false)
+  const { state } = useLocation();
+  const { buyTicket } = useTicketContext()
   const [quantity, setQuantity] = useState("");
 
   const purchase = async () => {
     try {
-      await buyTicket(1, quantity, state.cost);
+      setLoading(true)
+      await buyTicket(ticketContent.id, quantity, state.cost);
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
   };
+
+  const formatDateRange = (date) => {
+    const options = {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    };
+    const startDate = new Date(date).toLocaleDateString("en-US", options);
+    return startDate;
+  };
   return (
     <div>
+      {loading && (
+        <Loader />
+      )}
       <div className="">
         <div className="w-[100%] h-screen">
           <div className="flex bg-[linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);] mt-20 h-full flex-col col-span-5 md:col-span-12 lg:col-span-9 xl:col-span-9 text-white row-span-6">
@@ -31,7 +45,7 @@ const Concert = () => {
                     <img
                       alt="by aldi sigun on Unsplash"
                       src={state.image}
-                      className="mx-auto object-cover rounded-xl h-full"
+                      className="mx-auto min-w-[800px] object-cover rounded-xl h-[457px]"
                     />
                   </span>
                 </div>
@@ -40,9 +54,9 @@ const Concert = () => {
                     <h1 className="font-bold text-[48px] text-[#ffffff] m-2">
                       {state.ticketTitle}
                     </h1>
-                    <div className="font-bold items-center  text-[24px] text-[#808080] flex m-2">
+                    <div className="font-bold items-center  text-[18px] text-[#808080] flex m-2">
                       <h1>
-                        {state.begin} - {state.end}
+                        {formatDateRange(state.begin)} - {formatDateRange(state.end)}
                       </h1>
                       <div className="font-bold flex m-2">
                         <h1> . See Scheduled Dates and Cities</h1>
