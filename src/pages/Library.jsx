@@ -161,7 +161,7 @@ const Library = () => {
 
         {tab === "podcast" && (
           <div>
-            <h1 className="m-3 text-xl font-bold">All Creators</h1>
+            <h1 className="m-3 text-xl font-bold">All Content</h1>
              <Videos />
           </div>
         )}
